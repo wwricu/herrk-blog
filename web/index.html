@@ -1,10 +1,79 @@
 <html>
-    <body>
+<style>
+    p {
+        margin-right: 60px;
+        font-family:"Times New Roman", Times, serif;
+    }
 
-        <p align = "right"> 
-            <a href="/login.html">Sign In</a>
-            <a href="/signup.html">Sign Up</a>
-        </p>
+    a {
+        color: deepskyblue;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-    </body>
+    a:hover {
+        color:inherit;
+    }
+
+    #list1 {
+        color: deepskyblue;
+        font-size:35px;
+        line-height:2em;
+        font-family: Arial, Helvetica, sans-serif;
+        float:left;
+        /* list-style-type: circle; */
+    }
+
+    #mainFrame {
+        padding: 10px;
+        border: 2px solid gray;
+        margin-left: 400px;
+        margin-right: 400px;
+        height:5000px;
+    }
+
+    #leftFrame {
+        padding: 10px;
+        width: 1000px;
+        border: 2px solid gray;
+        width:45%;
+        float:left;
+    }
+
+    #rightFrame {
+        padding: 10px;
+        border: 2px solid gray;
+        width:45%;
+        float:right;
+    }
+</style>
+
+<body>
+
+    <div id = page>
+
+        <div id = topFrame>
+            <p id = signBtn align = "right">
+                <a href="/login.html">Sign In</a>
+                <a href="/signup.html">Sign Up</a>
+            </p>
+        </div>
+
+        <div id = mainFrame>
+
+            <div id = leftFrame>
+                <ul id = list1>
+                    <li>list term 1st</li>
+                    <li>list term 2nd</li>
+                    <li>list term 3rd</li>
+                    <li>list term 4th</li>
+                    <li>list term 5th</li>
+                </ul>
+            </div>
+
+            <div id = rightFrame>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
