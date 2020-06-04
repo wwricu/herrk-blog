@@ -1,77 +1,95 @@
 <html>
 <style>
-    p {
-        margin-right: 60px;
-        font-family:"Times New Roman", Times, serif;
-    }
 
     a {
-        color: deepskyblue;
         text-decoration: none;
+    }
+    #homeBtn a {
+        color: deepskyblue;
         font-family: Arial, Helvetica, sans-serif;
+        font-size: 50px;
+        float: left;
     }
-
+    #signBtn a {
+        color: deepskyblue;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        float: right;
+    }
+    #list1 li:hover {
+        color:black;
+    }
     a:hover {
-        color:inherit;
+        color:black;
     }
-
     #list1 {
         color: deepskyblue;
-        font-size:35px;
+        font-size:25px;
         line-height:2em;
         font-family: Arial, Helvetica, sans-serif;
-        float:left;
+        margin-top: 150px;
+        width:inherit;
+        height: inherit;
+        position:fixed;
         /* list-style-type: circle; */
     }
-
-    #mainFrame {
-        padding: 10px;
-        border: 2px solid gray;
-        margin-left: 400px;
-        margin-right: 400px;
-        height:5000px;
+    #topFrame {
+        top: 0;
+        left: 0;
+        /*border-style: solid;*/
+        /*border-color: black;*/
+        width: 100%;
+        height: inherit;
+        position:fixed;
     }
-
+    #mainFrame {
+        width: 70%;
+        height: 6000px;
+        margin: 0 auto;
+    }
     #leftFrame {
-        padding: 10px;
-        width: 1000px;
-        border: 2px solid gray;
-        width:45%;
+        width: 15%;
+        height: inherit;
         float:left;
     }
-
     #rightFrame {
-        padding: 10px;
-        border: 2px solid gray;
-        width:45%;
+        width: 15%;
+        height: inherit;
         float:right;
+    }
+    #centerFrame {
+        border-left: 2px solid gray;
+        border-right: 2px solid gray;
+        width: 70%;
+        height: inherit;
+        margin: 0 auto;
     }
 </style>
 
 <body>
-
     <div id = page>
-
         <div id = topFrame>
-            <p id = signBtn align = "right">
+            <div id = homeBtn>
+                <a href="/index.html">HOME</a>
+            </div>
+            <span id = signBtn>
                 <a href="/login.html">Sign In</a>
                 <a href="/signup.html">Sign Up</a>
-            </p>
+            </span>
         </div>
-
         <div id = mainFrame>
-
             <div id = leftFrame>
                 <ul id = list1>
-                    <li>list term 1st</li>
-                    <li>list term 2nd</li>
-                    <li>list term 3rd</li>
-                    <li>list term 4th</li>
-                    <li>list term 5th</li>
+                    <li><a href="/login.html">Category 1</a></li>
+                    <li><a href="/login.html">Category 2</a></li>
+                    <li><a href="/login.html">Category 3</a></li>
+                    <li><a href="/login.html">Category 4</a></li>
+                    <li><a href="/login.html">Category 5</a></li>
                 </ul>
             </div>
-
             <div id = rightFrame>
+            </div>
+            <div id = centerFrame>
             </div>
         </div>
     </div>
