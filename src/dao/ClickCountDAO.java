@@ -44,7 +44,7 @@ public class ClickCountDAO {
         int count = 0;
 
         try (Connection conn = getConnection(); Statement stat = conn.createStatement();) {
-            String sql = "select * from CLICK_COUNT";
+            String sql = "select * from CLICK_COUNT LIMIT 1";
             ResultSet rs = stat.executeQuery(sql);
             while (rs.next()) {
                 count = rs.getInt("count");
