@@ -11,14 +11,14 @@
         color:black;
     }
     #homeBtn a {
-        padding: 15px 30px;
+        padding: 1rem 2rem;
         color: deepskyblue;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 50px;
         float: left;
     }
     #signBtn a {
-        padding: 20px 10px;
+        padding: 1.5rem 0.65rem;
         color: deepskyblue;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 20px;
@@ -29,10 +29,11 @@
     }
     #list1 {
         color: deepskyblue;
-        font-size:25px;
-        line-height:2em;
+        font-size: 1.5rem;
+        line-height: 2em;
         font-family: Arial, Helvetica, sans-serif;
-        margin-top: 150px;
+        margin-top: 10rem;
+        padding-right: 10rem;
         width:inherit;
         height: inherit;
         position:fixed;
@@ -48,17 +49,17 @@
         position:fixed;
     }
     #mainFrame {
-        width: 70%;
+        width: 80rem;
         height: 6000px;
         margin: 0 auto;
     }
     #leftFrame {
-        width: 15%;
+        width: 20%;
         height: inherit;
         float:left;
     }
     #rightFrame {
-        width: 15%;
+        width: 20%;
         height: inherit;
         float:right;
     }
@@ -69,8 +70,18 @@
         height: inherit;
         margin: 0 auto;
     }
-    #article1 {
-        padding-top: 100px;
+    #homeMargin {
+        padding-top: 10rem;
+        margin: 4rem;
+        background-image:url('/res/assitant.jpg');
+        background-repeat:no-repeat;
+        background-size: contain;
+        background-position: top;
+    }
+    .article  {
+        border-top: dotted gray;
+        padding-top: 2rem;
+        margin: 2rem;
     }
 </style>
 
@@ -98,14 +109,27 @@
             <div id = rightFrame>
             </div>
             <div id = centerFrame>
-                <div id = article1>
-                    <span align = "left">
-                        Finally I have built a quite useful framework of web page.</br>
-                        I will learn javascript to make it able to interact with my back-end next few days.</br>
-                        Then I will come back to Java and focus on the Back-end.</br>
-                        Further more, I would make a plan for next study steps this weekend.</br>
-                        2020/06/04
-                    </span>
+                <div id = homeMargin>
+                </div>
+                <div class = articleZone>
+                    <div class = article>
+                        <span align = "left">
+                            Finally I have built a quite useful framework of a web page.</br>
+                            I will learn javascript to make it able to interact with my back-end in next few days.</br>
+                            Then I will come back to Java and focus on the Back-end.</br>
+                            Further more, I would make a plan for next study steps this weekend.</br>
+                            2020/06/04</br>
+                        </span>
+                    </div>
+                    <div class = article>
+                        <span align = "left">
+                            Today I added the adaptive layout to the page.</br>
+                            I have substantively grasped the basic method of using js.</br>
+                            And I found it indispensible to master MySQL to propel the work further.</br>
+                            I would do that as well as the study plan mentioned yesterday</br>
+                            2020/06/05</br>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
