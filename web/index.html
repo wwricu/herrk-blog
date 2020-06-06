@@ -4,32 +4,33 @@
     a {
         text-decoration: none;
     }
-    #homeBtn a:hover {
-        color:black;
+    body {
+        background-image: url('/res/yrel.jpg');
+        background-size: 100%; 
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
-    #telegram a:hover {
+    #homeBtn a {
+        margin: auto 1rem;
+    }
+    #signBtn {
+        margin: auto 0.65rem;
+    }
+    #homeBtn a:hover {
         color:black;
     }
     #signBtn a:hover {
         color:black;
     }
     #homeBtn a {
-        padding: 1rem 2rem;
-        color: deepskyblue;
+        color: whitesmoke;
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 3rem;
+        font-size: 3.5rem;
         float: left;
-    }
-    #telegram a {
-        margin: 1.5rem 0.65rem;
-        color: deepskyblue;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 1.2rem;
-        float: right;
     }
     #signBtn a {
         margin: 1.5rem 0.65rem;
-        color: deepskyblue;
+        color: whitesmoke;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 1.2rem;
         float: right;
@@ -38,33 +39,37 @@
         color:black;
     }
     #list1 {
+        background-color: rgba(237, 216, 238, 0.85);
         color: darkgrey;
         font-size: 1.5rem;
         line-height: 2em;
         font-family: Arial, Helvetica, sans-serif;
-        margin-top: 10rem;
-        padding-right: 10rem;
-        width:inherit;
-        height: inherit;
         position:fixed;
+        margin: 10rem 0px;
+        padding-left: 2rem;
+        padding-right: 1.5rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        overflow:hidden;
         /* list-style-type: circle; */
     }
     #list1 a {
-        color: darkgrey;
+        color: black;
     }
     #topFrame {
         top: 0;
         left: 0;
-        /*border-style: solid;*/
-        /*border-color: black;*/
+        background-color: rgb(81, 58, 82);
+        border-bottom: 2px ridge grey;
         width: 100%;
-        height: inherit;
+        height: 4rem;
         position:fixed;
+        float: left;
     }
     #mainFrame {
         width: 80rem;
         height: 6000px;
-        margin: 0 auto;
+        margin: 4rem auto;
     }
     #leftFrame {
         width: 20%;
@@ -82,17 +87,18 @@
         width: 70%;
         height: inherit;
         margin: 0 auto;
+        background-color: rgba(237, 216, 238, 0.85);
     }
     #homeMargin {
-        padding-top: 10rem;
-        margin: 4rem;
+        /* padding-top: 10rem; */
+        /* margin: 4rem; */
         background-image:url('/res/assitant.jpg');
         background-repeat:no-repeat;
         background-size: contain;
         background-position: top;
     }
     .article  {
-        border-top: dotted gray;
+        border-bottom: dotted gray;
         padding-top: 2rem;
         margin: 2rem;
     }
@@ -107,13 +113,12 @@
             <span id = signBtn>
                 <a href="/login.html">Sign In</a>
                 <a href="/signup.html">Sign Up</a>
-            </span>
-            <span id = "telegram">
                 <a href="https://t.me/dayazhuanjia">Telegram: @dayazhuanjia</a>
             </span>
         </div>
         <div id = mainFrame>
             <div id = leftFrame>
+                <div id = "list-container">
                 <ul id = list1>
                     <li><a href="/login.html">Category 1</a></li>
                     <li><a href="/login.html">Category 2</a></li>
@@ -121,6 +126,7 @@
                     <li><a href="/login.html">Category 4</a></li>
                     <li><a href="/login.html">Category 5</a></li>
                 </ul>
+                </div>
             </div>
             <div id = rightFrame>
             </div>
