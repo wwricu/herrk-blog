@@ -1,16 +1,31 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>登录页面</title>
+        <title>sign up</title>
     </head>
 
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+    <body>
+  
+        <form action="usermanage" method="post">
 
-    <h2 align = "center">Sorry, Signing up is not accessible for now!</h2>
+            <div align = "center">
+                <span>UserName</span><input type="text" name="username">
+            </div>
+        </br>
+            <div align = "center">
+                <span>Password</span><input type="password" name="password">
+            </div>
+        </br>
+            <div align = "center">
+                <span>Invitation Code</span><input type="rext" name="invitation">
+            </div>
+            <input type="hidden" name="action" value="signup"/>
+        </br>
+            <div align = "center">
+                <input type="submit" value="Sign Up">
+            </div>
+        </form>
+  
+    </body>
 
 </html>

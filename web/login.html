@@ -1,24 +1,26 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>登录页面</title>
+        <title>sign in</title>
     </head>
 
     <body>
   
-        <form action="login" method="post">
+        <form action="usermanage" method="post">
 
             <div align = "center">
-                <span>UserName</span><input type="text" name="UserName">
+                <span>UserName</span><input type="text" name="username">
             </div>
         </br>
             <div align = "center">
-                <span>Password</span><input type="password" name="Password">
+                <span>Password</span><input type="password" name="password">
             </div>
+            <input type="hidden" name="action" value="login"/>
         </br>
             <div align = "center">
                 <input type="submit" value="Sign In">
             </div>
+        
         </form>
   
     </body>

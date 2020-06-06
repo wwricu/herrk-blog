@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
 
-	<servlet>
-		<servlet-name>HomeServlet</servlet-name>
-		<servlet-class>HomeServlet</servlet-class>
-	</servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>HomeServlet</servlet-class>
+    </servlet>
 
-	<servlet-mapping>
-		<servlet-name>HomeServlet</servlet-name>
-		<url-pattern>/home</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserManagerServlet</servlet-name>
+        <servlet-class>UserManagerServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UserManagerServlet</servlet-name>
+        <url-pattern>/usermanage</url-pattern>
+    </servlet-mapping>
 </web-app>
