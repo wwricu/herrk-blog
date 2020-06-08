@@ -204,4 +204,30 @@ public class UserManagerDAO {
         return status;
     }
 
+    public String getPasswd(String userName) {
+        if (null == userName) {
+            return null;
+        }
+
+        String sql = "select user_passwd from USER_TABLE where user_name = ? limit 1;";
+        try (Connection conn = getConnection();
+                PreparedStatement stat = conn.prepareStatement(sql)) {
+            stat.setString(1, userName);
+
+            ResultSet rs = stat.executeQuery();
+
+            rs.next();
+            String passWdStor = rs.getString("user_passwd");
+            if (null != passWdStor) {
+                return passWdStor;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return null;
+    }
+
 };

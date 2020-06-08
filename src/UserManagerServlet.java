@@ -30,7 +30,7 @@ public class UserManagerServlet extends HttpServlet {
             pw.println(html);
 
             return;
-        } else if (invitation != null && !invitation.equals("dayazhuanjia")) {
+        } else if (action.equals("signup") && !invitation.equals("dayazhuanjia")) {
             html = "<div style='color:red'>wrong invitation code</div>";
             PrintWriter pw = response.getWriter();
             pw.println(html);
@@ -56,7 +56,13 @@ public class UserManagerServlet extends HttpServlet {
         } else if (true == action.equals("login")) {
             failCode = dao.authUser(username, password);
             if (0 == failCode) {
-                html = "<div style='color:green'>successfully loged in</div>";
+                String passwd = dao.getPasswd(username);
+
+                request.getSession(true).setAttribute("login_username", username);
+                request.getSession(true).setAttribute("login_password", passwd);
+                String a = (String)request.getSession(true).getAttribute("login_password");
+
+                html = "<div style='color:green'>successfully loged in " + a + " </div>";
             } else if (-1 == failCode) {
                 html = "<div style='color:red'>failed to signed in,invalid user name!</div>";
             } else if (-2 == failCode) {
