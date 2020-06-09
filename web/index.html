@@ -45,46 +45,69 @@
         line-height: 2em;
         font-family: Arial, Helvetica, sans-serif;
         position:fixed;
-        margin: 10rem 0px;
+        margin-top: 10rem;
+        margin-bottom: 10rem;
+        margin-left: 5rem;
         padding-left: 2rem;
-        padding-right: 1.5rem;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-right: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
         overflow:hidden;
         /* list-style-type: circle; */
     }
     #list1 a {
         color: black;
     }
+    #rightPanel {
+        background-color: rgba(237, 216, 238, 0.85);
+        height: 40rem;
+    }
+    #time {
+        color:rgb(81, 58, 82);
+        padding: 1rem 0;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 3rem;
+    }
+    #click_text {
+        color:rgb(81, 58, 82);
+        float: left;
+        font-size: 1.5rem;
+        padding-left: 0.8rem;
+    }
+    #click_count {
+        float: right;
+        font-size: 3rem;
+        padding-right: 1.2rem;
+    }
     #topFrame {
         top: 0;
         left: 0;
         background-color: rgb(81, 58, 82);
-        border-bottom: 2px ridge grey;
         width: 100%;
         height: 4rem;
-        position:fixed;
+        position: fixed;
         float: left;
     }
     #mainFrame {
-        width: 80rem;
+        width: 85rem;
         height: 6000px;
         margin: 4rem auto;
     }
     #leftFrame {
-        width: 20%;
+        width: 19.5%;
         height: inherit;
-        float:left;
+        float: left;
     }
     #rightFrame {
-        width: 20%;
+        width: 19.5%;
         height: inherit;
-        float:right;
+        float: right;
     }
     #centerFrame {
         border-left: 2px solid gray;
         border-right: 2px solid gray;
-        width: 70%;
+        width: 60%;
         height: inherit;
         margin: 0 auto;
         background-color: rgba(237, 216, 238, 0.85);
@@ -93,7 +116,7 @@
         /* padding-top: 10rem; */
         /* margin: 4rem; */
         background-image:url('/res/assitant.jpg');
-        background-repeat:no-repeat;
+        background-repeat: no-repeat;
         background-size: contain;
         background-position: top;
     }
@@ -103,6 +126,43 @@
         margin: 2rem;
     }
 </style>
+
+<script>
+
+    function printTime() {
+        var d = new Date();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var s = d.getSeconds();
+        if (10 > h) {
+            h = "0" + h;
+        }
+        if (10 > m) {
+            m = "0" + m;
+        }
+        if (10 > s) {
+            s = "0" + s;
+        }
+
+        document.getElementById("time").innerHTML= h + ":" + m + ":" + s;
+    }
+
+    function getClickCount() {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
+                document.getElementById("click_count").innerHTML = xmlHttp.responseText;
+            }
+        }
+        xmlHttp.open("GET", "home", true);
+        xmlHttp.send();
+    }
+
+    /* Here is the script loaded when the page is opened */
+    setInterval(printTime,1000);
+    getClickCount();
+
+</script>
 
 <body>
     <div id = page>
@@ -129,6 +189,14 @@
                 </div>
             </div>
             <div id = rightFrame>
+                <div id = rightPanel style="border: 2px ridge grey">
+                    <div id = time>
+                    </div>
+                    <div id = click_panel style="margin-top: 2rem;">
+                        <div id = click_text>Page  Total</br>Click Count: </div>
+                        <div id = click_count></div>
+                    </div>
+                </div>
             </div>
             <div id = centerFrame>
                 <div id = homeMargin>
@@ -166,6 +234,14 @@
                             No progress today and I will focus on learning english in the next weeks</br>
                             to cope with possibly avilible IELTS exam on July 2th</br>
                             2020/06/07</br>
+                        </span>
+                    </div>
+                    <div class = article>
+                        <span align = "left">
+                            Added time and click count panel on the main page</br>
+                            I must reduce the effort poured in this page and focus more on IELTS and PTE</br>
+                            It is said that IELTS cannot be held until October</br>
+                            2020/06/09</br>
                         </span>
                     </div>
                 </div>
