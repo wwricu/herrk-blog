@@ -2,13 +2,13 @@
 <web-app>
 
     <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>HomeServlet</servlet-class>
+        <servlet-name>ClickCountServlet</servlet-name>
+        <servlet-class>ClickCountServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <servlet-name>ClickCountServlet</servlet-name>
+        <url-pattern>/clickcount</url-pattern>
     </servlet-mapping>
 
     <servlet>

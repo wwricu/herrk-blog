@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class HomeServlet extends HttpServlet {
+public class ClickCountServlet extends HttpServlet {
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) {
         int count = 0;
         ClickCountDAO dao = new ClickCountDAO();
         HttpSession session = request.getSession(false);
