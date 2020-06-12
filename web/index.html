@@ -158,9 +158,28 @@
         xmlHttp.send();
     }
 
+    function autoLogin() {
+        var token = sessionStorage.getItem("token");
+        if (null == token) {
+            return;
+        }
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
+                alert(xmlHttp.responseText);
+            }
+        }
+
+        xmlHttp.open("POST", "usermanage", true);
+        xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+        var parameter = 'action=token&username=admin&token='+token;
+        xmlHttp.send(parameter);
+    }
+
     /* Here is the script loaded when the page is opened */
     setInterval(printTime,1000);
     getClickCount();
+    autoLogin();
 
 </script>
 
@@ -242,6 +261,13 @@
                             I must reduce the effort poured in this page and focus more on IELTS and PTE</br>
                             It is said that IELTS cannot be held until October</br>
                             2020/06/09</br>
+                        </span>
+                    </div>
+                    <div class = article>
+                        <span align = "left">
+                            The BIGGEST commit so far!</br>
+                            Almost complete the auto-login system</br>
+                            2020/06/13</br>
                         </span>
                     </div>
                 </div>

@@ -106,7 +106,7 @@ public class UserManagerDAO {
             return 0;
         }
 
-        String sql = "search user_id from USER_TABLE where user_name=?";
+        String sql = "select user_id from USER_TABLE where user_name=?";
         try (Connection conn = getConnection();
             PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setString(1, userName);

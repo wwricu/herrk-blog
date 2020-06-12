@@ -1,3 +1,5 @@
+package util;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,47 +49,51 @@ public class JwtUtils {
         return token;
     }
 
-    public static AuthInfo authJWT(Claims claims) {
+    /**
+     * Auth JWT
+     * @param String token
+     * @return
+     */
+    public static String authJWT(String token) {
 
+        Claims claims = parseJWT(token);
         if (null == claims) {
-            return new AuthInfo("did not get claims");
+            return null;
         }
 
         final String subject  = claims.getSubject();
         final String issuer   = claims.getIssuer();
 
-        if (null == subject || SUBJECT != subject
-                || null == issuer || ISSUER != issuer) {
-            return new AuthInfo("subject or issuer is null");
+        if (null == subject || false == subject.equals(SUBJECT)
+                || null == issuer || false == issuer.equals(ISSUER)) {
+            return null;
         }
 
         Date now = new Date();
         final Date issueTime  = claims.getIssuedAt();
         final Date expireTime = claims.getExpiration();
 
-        if (null == issueTime || null == expireTime) {
-            return new AuthInfo("time is null");
+        if (null == issueTime || null == expireTime || null == now) {
+            return null;
         }
 
         if (expireTime.getTime() < now.getTime()
                 || issueTime.getTime() > now.getTime()) {
-            return new AuthInfo("Expire!");
+            return null;
         }
 
-        final String userId   = (String)claims.get("id");
+        final int userId   = (int)claims.get("id");
         final String userName = (String)claims.get("name");
 
-        if (null == userId || null == userName) {
-            return new AuthInfo("user is null");
+        if (null == userName || userId <= 0) {
+            return null;
         }
 
-        int id = Integer.parseInt(userId);
-        if (UserManagerDAO.getUserId(userName) != id
-                && id <= 0) {
-            return new AuthInfo("name mismatch id");
+        if (UserManagerDAO.getUserId(userName) != userId) {
+            return null;
         }
 
-        return new AuthInfo(userName, null);
+        return userName;
     }
 
     /**
@@ -109,19 +115,4 @@ public class JwtUtils {
         return claims;
     }
 
-};
-
-class AuthInfo {
-    String mUserName;
-    String mErrorInfo;
-
-    AuthInfo(String errorInfo) {
-        mUserName = null;
-        mErrorInfo = errorInfo;
-    }
-
-    AuthInfo(String userName, String errorInfo) {
-        mUserName = userName;
-        mErrorInfo = errorInfo;
-    }
 };

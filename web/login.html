@@ -4,6 +4,25 @@
         <title>sign in</title>
     </head>
 
+    <script>
+        function login() {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
+                    sessionStorage.setItem("token", xmlHttp.responseText);
+                    window.location = "/";
+                }
+            }
+
+            xmlHttp.open("POST", "usermanage", true);
+            xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+            var username = document.getElementsByName("username")[0].value;
+            var password = document.getElementsByName("password")[0].value;
+            var parameter = 'action=login&username='+username+'&password='+password;
+            xmlHttp.send(parameter);
+        }
+    </script>
+
     <body>
   
         <form action="usermanage" method="post">
@@ -18,7 +37,7 @@
             <input type="hidden" name="action" value="login"/>
         </br>
             <div align = "center">
-                <input type="submit" value="Sign In">
+                <input type="button" value="Sign In" onclick="login()">
             </div>
         
         </form>
