@@ -25,7 +25,7 @@ public class UserManagerDAO {
         checkUserTable();
     }
 
-    protected Connection getConnection() {
+    protected static Connection getConnection() {
         try {
             return DriverManager.getConnection("jdbc:mysql://localhost:3306/BLOGDB", "sql_admin", "153226");
         } catch (SQLException e) {
@@ -98,6 +98,28 @@ public class UserManagerDAO {
         }
  
         return result;
+    }
+
+    public static int getUserId(String userName)
+    {
+        if (null == userName) {
+            return 0;
+        }
+
+        String sql = "search user_id from USER_TABLE where user_name=?";
+        try (Connection conn = getConnection();
+            PreparedStatement stat = conn.prepareStatement(sql);) {
+            stat.setString(1, userName);
+            ResultSet rs = stat.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("user_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 
     protected void checkUserTable() {
