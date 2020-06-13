@@ -25,7 +25,13 @@
             xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
             var username = document.getElementsByName("username")[0].value;
             var password = document.getElementsByName("password")[0].value;
+            var dup_password = document.getElementsByName("dup_password")[0].value;
             var invitation = document.getElementsByName("invitation")[0].value;
+
+            if (dup_password != password) {
+                alert("please your correct password again!");
+                return false;
+            }
 
             var parameter = 'action=signup&username='+username+'&password='+password+"&invitation="+invitation;
             xmlHttp.send(parameter);
@@ -42,6 +48,9 @@
         </br>
             <div align = "center">
                 <span>Password</span><input type="password" name="password">
+            </div>
+            <div align = "center">
+                <span>Duplicate Password</span><input type="password" name="dup_password">
             </div>
         </br>
             <div align = "center">

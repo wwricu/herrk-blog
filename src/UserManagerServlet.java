@@ -73,6 +73,7 @@ public class UserManagerServlet extends HttpServlet {
             case "signup":
                 if (null == invitation || false == invitation.equals("dayazhuanjia")) {
                     response.getWriter().write("invitation needed");
+                    return;
                 }
                 if (0 == dao.addUser(username, password)) {
                     session = request.getSession(true);
