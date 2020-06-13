@@ -96,7 +96,7 @@ public class UserManagerDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
- 
+
         return result;
     }
 
@@ -144,7 +144,7 @@ public class UserManagerDAO {
         } else {
             // log
         }
-            
+
         Date currentDate = new java.sql.Date(System.currentTimeMillis());
 
         String salt = generateSalt();
@@ -171,7 +171,7 @@ public class UserManagerDAO {
                 // have dup
                 return -5;
             }
-    
+
             stat.setString(1, userName);
             stat.setString(2, PassWdStor);
             stat.setString(3, currentDate.toString());

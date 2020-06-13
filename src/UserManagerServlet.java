@@ -28,7 +28,7 @@ public class UserManagerServlet extends HttpServlet {
 
         if (null == action) {
             response.getWriter().write("no action!");
-            
+
             return;
         }
 
@@ -54,7 +54,6 @@ public class UserManagerServlet extends HttpServlet {
                 String token_username;
                 if (true != getLogStatus(username, session)) {
                     token_username = JwtUtils.authJWT(token);
-                    response.getWriter().write(token_username);
                     if (null != token_username) {
                         session = request.getSession(true);
 
@@ -72,7 +71,21 @@ public class UserManagerServlet extends HttpServlet {
                 break;
 
             case "signup":
-                dao.addUser(username, password);
+                if (null == invitation || false == invitation.equals("dayazhuanjia")) {
+                    response.getWriter().write("invitation needed");
+                }
+                if (0 == dao.addUser(username, password)) {
+                    session = request.getSession(true);
+
+                    session.setAttribute("username", username);
+                    session.setAttribute("status", "login");
+
+                    String geneSignToken = JwtUtils.geneJsonWebToken(username);
+
+                    response.getWriter().write(geneSignToken);
+                } else {
+                    response.getWriter().write("fail");
+                }
                 break;
 
             case "getstatus":
@@ -80,7 +93,6 @@ public class UserManagerServlet extends HttpServlet {
                 break;
 
             default:
-                response.getWriter().write("default");
                 break;
         }
     }

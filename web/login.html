@@ -9,8 +9,12 @@
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function() {
                 if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
-                    sessionStorage.setItem("token", xmlHttp.responseText);
-                    window.location = "/";
+                    if ("fail" == xmlHttp.responseText) {
+                        alert("Mismatch between Username and Password!");
+                    } else {
+                        sessionStorage.setItem("token", xmlHttp.responseText);
+                        window.location = "/";
+                    }
                 }
             }
 
@@ -24,7 +28,7 @@
     </script>
 
     <body>
-  
+
         <form action="usermanage" method="post">
 
             <div align = "center">
@@ -34,14 +38,13 @@
             <div align = "center">
                 <span>Password</span><input type="password" name="password">
             </div>
-            <input type="hidden" name="action" value="login"/>
         </br>
             <div align = "center">
                 <input type="button" value="Sign In" onclick="login()">
             </div>
-        
+
         </form>
-  
+
     </body>
 
 </html>

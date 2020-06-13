@@ -4,8 +4,36 @@
         <title>sign up</title>
     </head>
 
+    <script>
+        function signUp() {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
+                    if (null == xmlHttp.responseText || "fail" == xmlHttp.responseText) {
+                        alert(xmlHttp.responseText);
+                    } else if ("invitation needed" == xmlHttp.responseText) {
+                        alert("invitation needed!");
+                    } else {
+                        sessionStorage.setItem("token", xmlHttp.responseText);
+                        alert("Sign up Successfully\nWelcome "+document.getElementsByName("username")[0].value);
+                        window.location = "/";
+                    }
+                }
+            }
+
+            xmlHttp.open("POST", "usermanage", true);
+            xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+            var username = document.getElementsByName("username")[0].value;
+            var password = document.getElementsByName("password")[0].value;
+            var invitation = document.getElementsByName("invitation")[0].value;
+
+            var parameter = 'action=signup&username='+username+'&password='+password+"&invitation="+invitation;
+            xmlHttp.send(parameter);
+        }
+    </script>
+
     <body>
-  
+
         <form action="usermanage" method="post">
 
             <div align = "center">
@@ -17,15 +45,14 @@
             </div>
         </br>
             <div align = "center">
-                <span>Invitation Code</span><input type="rext" name="invitation">
+                <span>Invitation Code</span><input type="text" name="invitation">
             </div>
-            <input type="hidden" name="action" value="signup"/>
         </br>
             <div align = "center">
-                <input type="submit" value="Sign Up">
+                <input type="button" value="Sign Up" onclick="signUp()">
             </div>
         </form>
-  
+
     </body>
 
 </html>

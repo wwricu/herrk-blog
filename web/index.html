@@ -6,7 +6,7 @@
     }
     body {
         background-image: url('/res/yrel.jpg');
-        background-size: 100%; 
+        background-size: 100%;
         background-repeat: repeat-y;
         background-attachment: fixed;
     }
@@ -34,6 +34,15 @@
         font-family: Arial, Helvetica, sans-serif;
         font-size: 1.2rem;
         float: right;
+        display: block;
+    }
+    #loginName {
+        margin: 1.5rem 2.5rem;
+        color: whitesmoke;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.2rem;
+        float: right;
+        display: none;
     }
     #list1 li:hover {
         color:black;
@@ -161,12 +170,23 @@
     function autoLogin() {
         var token = sessionStorage.getItem("token");
         if (null == token) {
+            document.getElementById("signBtn").style.display = "block";
+            document.getElementById("loginName").style.display = "none";
             return;
         }
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = function() {
             if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
-                alert(xmlHttp.responseText);
+                if (null != xmlHttp.responseText && "fail" != xmlHttp.responseText) {
+                    document.getElementById("signBtn").style.display = "none";
+                    document.getElementById("loginName").style.display = "block";
+                    document.getElementById("loginName").innerHTML = xmlHttp.responseText;
+
+                } else {
+                    document.getElementById("signBtn").style.display = "block";
+                    document.getElementById("loginName").style.display = "none";
+                }
+
             }
         }
 
@@ -187,12 +207,15 @@
     <div id = page>
         <div id = topFrame>
             <div id = homeBtn>
-                <a href="/index.html">HOME</a>
+                <a href="/">HOME</a>
             </div>
             <span id = signBtn>
-                <a href="/login.html">Sign In</a>
                 <a href="/signup.html">Sign Up</a>
-                <a href="https://t.me/dayazhuanjia">Telegram: @dayazhuanjia</a>
+                <a href="/login.html">Sign In</a>
+                <!--a href="https://t.me/dayazhuanjia">Telegram: @dayazhuanjia</a-->
+            </span>
+            <span id = loginName>
+                <a href="/"></a>
             </span>
         </div>
         <div id = mainFrame>
@@ -268,6 +291,14 @@
                             The BIGGEST commit so far!</br>
                             Almost complete the auto-login system</br>
                             2020/06/13</br>
+                        </span>
+                    </div>
+                    <div class = article>
+                        <span align = "left">
+                            Auto login system is availible!</br>
+                            Next step is to beautify the log in and sign up page</br>
+                            and optimize signup procedure</br>
+                            2020/06/14</br>
                         </span>
                     </div>
                 </div>
