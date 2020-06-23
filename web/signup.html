@@ -2,6 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <title>sign up</title>
+        <link rel="stylesheet" type="text/css" href="/css/signup.css"/>
     </head>
 
     <script>
@@ -40,27 +41,28 @@
 
     <body>
 
-        <form action="usermanage" method="post">
-
-            <div align = "center">
-                <span>UserName</span><input type="text" name="username">
-            </div>
-        </br>
-            <div align = "center">
-                <span>Password</span><input type="password" name="password">
-            </div>
-            <div align = "center">
-                <span>Duplicate Password</span><input type="password" name="dup_password">
-            </div>
-        </br>
-            <div align = "center">
-                <span>Invitation Code</span><input type="text" name="invitation">
-            </div>
-        </br>
-            <div align = "center">
-                <input type="button" value="Sign Up" onclick="signUp()">
-            </div>
-        </form>
+        <div class="box">
+            <h2>Sign Up</h2>
+            <form>
+                <div class="inputbox">
+                    <input type="text" name="username" required="">
+                    <label>Username</label>
+                </div>
+                <div class="inputbox">
+                    <input type="password" name="password" required="">
+                    <label>Password</label>
+                </div>
+                <div class="inputbox">
+                    <input type="password" name="dup_password" required="">
+                    <label>Input Password Again</label>
+                </div>
+                <div class="inputbox">
+                    <input type="text" name="invitation" required="">
+                    <label>invitation Code</label>
+                </div>
+                <input type="button" name="" value="Sign Up" onclick="signUp()">
+            </form>
+        </div>
 
     </body>
 

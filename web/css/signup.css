@@ -2,7 +2,7 @@ body {
     margin: 0px;
     padding: 0px;
     font-family: sans-serif;
-    background: url(/res/image/assistant.jpg);
+    background: url(/res/image/ladymaria.jpg);
     background-attachment: fixed;
     background-size: 100%;
     background-repeat: repeat;
@@ -13,7 +13,8 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     /*实现块元素百分比下居中*/
-    width: 450px;
+    width: 30rem;
+    height: 35rem;
     padding: 50px;
     #background: rgba(0, 0, 0, .8);
     background-color: rgba(81, 58, 82, .85);
@@ -71,12 +72,7 @@ body {
     padding: 13px 20px;
     cursor: pointer;
     border-radius: 10px;
-}
-.prompt {
     position: absolute;
-    top: 73%;
-    left: 46%;
-    color: #03a9f4;
-    font-size: .85rem;
-    text-decoration: none;
+    top: 80%;
+    left: 38%;
 }

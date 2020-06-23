@@ -2,7 +2,7 @@ a {
     text-decoration: none;
 }
 body {
-    background-image: url('/res/yrel.jpg');
+    background: url(/res/image/yrel.jpg);
     background-size: 100%;
     background-repeat: repeat-y;
     background-attachment: fixed;

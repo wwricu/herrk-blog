@@ -1,3 +1,5 @@
+package servlet;
+
 import dao.ClickCountDAO;
 
 import java.io.IOException;
