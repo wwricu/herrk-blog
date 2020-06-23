@@ -110,7 +110,7 @@ public class ArticleManagerDAO {
         return;
     }
 
-    public void deleteArticles(int[] articleId) {
+    public void deleteArticle(int articleId) {
         if (0 > articleId) {
             return;
         }
