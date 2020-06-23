@@ -2,6 +2,7 @@
     <head>
         <meta charset="UTF-8">
         <title>sign in</title>
+        <link rel="stylesheet" type="text/css" href="/css/login.css"/>
     </head>
 
     <script>
@@ -28,23 +29,19 @@
     </script>
 
     <body>
-
-        <form action="usermanage" method="post">
-
-            <div align = "center">
-                <span>UserName</span><input type="text" name="username">
-            </div>
-        </br>
-            <div align = "center">
-                <span>Password</span><input type="password" name="password">
-            </div>
-        </br>
-            <div align = "center">
-                <input type="button" value="Sign In" onclick="login()">
-            </div>
-
-        </form>
-
+        <div class="box">
+            <h2>Login</h2>
+            <form>
+                <div class="inputbox">
+                    <input type="text" name="username" required="">
+                    <label>Username</label>
+                </div>
+                <div class="inputbox">
+                    <input type="password" name="password" required="">
+                    <label>Password</label>
+                </div>
+                <input type="button" name="" value="Sign In" onclick="login()">
+            </form>
+        </div>
     </body>
-
 </html>

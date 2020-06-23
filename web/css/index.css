@@ -1,0 +1,133 @@
+a {
+    text-decoration: none;
+}
+body {
+    background-image: url('/res/yrel.jpg');
+    background-size: 100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+}
+#homeBtn a {
+    margin: auto 1rem;
+}
+#signBtn {
+    margin: auto 0.65rem;
+}
+#homeBtn a:hover {
+    color:black;
+}
+#signBtn a:hover {
+    color:black;
+}
+#homeBtn a {
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3.5rem;
+    float: left;
+}
+#signBtn a {
+    margin: 1.5rem 0.65rem;
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    float: right;
+    display: block;
+}
+#loginName {
+    margin: 1.5rem 2.5rem;
+    color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    float: right;
+    display: none;
+}
+#list1 li:hover {
+    color:black;
+}
+#list1 {
+    background-color: rgba(237, 216, 238, 0.85);
+    color: darkgrey;
+    font-size: 1.5rem;
+    line-height: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    position:fixed;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    margin-left: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    overflow:hidden;
+    /* list-style-type: circle; */
+}
+#list1 a {
+    color: black;
+}
+#rightPanel {
+    background-color: rgba(237, 216, 238, 0.85);
+    height: 40rem;
+}
+#time {
+    color:rgb(81, 58, 82);
+    padding: 1rem 0;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+}
+#click_text {
+    color:rgb(81, 58, 82);
+    float: left;
+    font-size: 1.5rem;
+    padding-left: 0.8rem;
+}
+#click_count {
+    float: right;
+    font-size: 3rem;
+    padding-right: 1.2rem;
+}
+#topFrame {
+    top: 0;
+    left: 0;
+    background-color: rgb(81, 58, 82);
+    width: 100%;
+    height: 4rem;
+    position: fixed;
+    float: left;
+}
+#mainFrame {
+    width: 85rem;
+    height: 6000px;
+    margin: 4rem auto;
+}
+#leftFrame {
+    width: 19.5%;
+    height: inherit;
+    float: left;
+}
+#rightFrame {
+    width: 19.5%;
+    height: inherit;
+    float: right;
+}
+#centerFrame {
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
+    width: 60%;
+    height: inherit;
+    margin: 0 auto;
+    background-color: rgba(237, 216, 238, 0.85);
+}
+#homeMargin {
+    /* padding-top: 10rem; */
+    /* margin: 4rem; */
+    background-image:url('/res/assitant.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top;
+}
+.article  {
+    border-bottom: dotted gray;
+    padding: 2rem 0;
+    margin: 2rem;
+}
