@@ -95,6 +95,7 @@ body {
     height: 4rem;
     position: fixed;
     float: left;
+    z-index: 100;
 }
 #mainFrame {
     width: 85rem;
