@@ -65,6 +65,7 @@ body {
     color: black;
 }
 #rightPanel {
+    position: relative;
     background-color: rgba(237, 216, 238, 0.85);
     height: 40rem;
 }
@@ -106,6 +107,7 @@ body {
     float: left;
 }
 #rightFrame {
+    position: relative;
     width: 19.5%;
     height: inherit;
     float: right;
@@ -130,4 +132,50 @@ body {
     border-bottom: dotted gray;
     padding: 2rem 0;
     margin: 2rem;
+}
+#search-box {
+    position: relative;
+    top: 20%;
+}
+#search-box input[type="text"] {
+    position: absolute;
+    top: 0rem;
+    left: 0.25rem;
+    width: 11.5rem;
+    height: 2rem;
+    font-size: 16px;
+    color: rgb(81, 58, 82);
+    letter-spacing: 1px;
+    outline: rgb(81, 58, 82);
+    background: transparent;
+}
+#search-box label {
+    position: absolute;
+    top: 0.25rem;
+    left: 0.5rem;
+    font-size: 0.85rem;
+    color: rgb(81, 58, 82);
+}
+#search-box input[type="button"] {
+    background: transparent;
+    color: #fff;
+    background: rgb(81, 58, 82);
+    border-radius: 0.7rem;
+    padding: 0.5rem 0.8rem;
+    position: absolute;
+    top: 0rem;
+    left: 12rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+#search-box input:focus ~ label,
+#search-box input:valid ~ label
+{
+    display: none;
+}
+#search-box input:focus,
+#search-box input:valid
+{
+    border: rgb(237, 216, 238) inset;
 }
