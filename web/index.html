@@ -6,72 +6,9 @@
     <link rel="stylesheet" type="text/css" href="/css/index.css"/>
 </head>
 
-<script>
-
-    function printTime() {
-        var d = new Date();
-        var h = d.getHours();
-        var m = d.getMinutes();
-        var s = d.getSeconds();
-        if (10 > h) {
-            h = "0" + h;
-        }
-        if (10 > m) {
-            m = "0" + m;
-        }
-        if (10 > s) {
-            s = "0" + s;
-        }
-
-        document.getElementById("time").innerHTML= h + ":" + m + ":" + s;
-    }
-
-    function getClickCount() {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() {
-            if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
-                document.getElementById("click_count").innerHTML = xmlHttp.responseText;
-            }
-        }
-        xmlHttp.open("POST", "clickcount", true);
-        xmlHttp.send();
-    }
-
-    function autoLogin() {
-        var token = sessionStorage.getItem("token");
-        if (null == token) {
-            document.getElementById("signBtn").style.display = "block";
-            document.getElementById("loginName").style.display = "none";
-            return;
-        }
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function() {
-            if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
-                if (null != xmlHttp.responseText && "fail" != xmlHttp.responseText) {
-                    document.getElementById("signBtn").style.display = "none";
-                    document.getElementById("loginName").style.display = "block";
-                    document.getElementById("loginName").innerHTML = xmlHttp.responseText;
-
-                } else {
-                    document.getElementById("signBtn").style.display = "block";
-                    document.getElementById("loginName").style.display = "none";
-                }
-
-            }
-        }
-
-        xmlHttp.open("POST", "usermanage", true);
-        xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-        var parameter = 'action=token&username=admin&token='+token;
-        xmlHttp.send(parameter);
-    }
-
-    /* Here is the script loaded when the page is opened */
-    setInterval(printTime,1000);
-    getClickCount();
-    autoLogin();
-
-</script>
+<script type="text/javascript" src="js/print-time.js"></script>
+<script type="text/javascript" src="js/auto-login.js"></script>
+<script type="text/javascript" src="js/get-click.js"></script>
 
 <body>
     <div id = page>
