@@ -1,6 +1,6 @@
 package servlet;
 
-import dao.ClickCountDAO;
+import dao.NumberCountDAO;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
@@ -12,12 +12,12 @@ public class ClickCountServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         int count = 0;
-        ClickCountDAO dao = new ClickCountDAO();
+        NumberCountDAO dao = new NumberCountDAO();
         HttpSession session = request.getSession(false);
 
         if (null == session) {
-            dao.clickPlus();
-            count = dao.getCount();
+            dao.clickCountIncrement();
+            count = dao.getClickCount();
 
             session = request.getSession(true);
             session.setAttribute("count", String.valueOf(count));

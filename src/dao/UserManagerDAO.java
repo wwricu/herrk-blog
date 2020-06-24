@@ -22,7 +22,6 @@ public class UserManagerDAO {
             e.printStackTrace();
         }
 
-        checkUserTable();
     }
 
     protected static Connection getConnection() {
@@ -33,6 +32,27 @@ public class UserManagerDAO {
         }
 
         return null;
+    }
+
+    public static void init() {
+        UserManagerDAO thiz = new UserManagerDAO();
+        String sql = "CREATE TABLE IF NOT EXISTS user_table (user_id INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(100) NOT NULL, user_passwd VARCHAR(100) NOT NULL, create_time DATE, permission INT, passwd_salt VARCHAR(100) NOT NULL, PRIMARY KEY (user_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        // String queryAdmin = "SELECT * FROM user_table WHERE user_name='administrator';";
+
+        try (Connection conn = thiz.getConnection();
+             Statement stat = conn.createStatement();) {
+
+            stat.executeUpdate(sql);
+
+            /* ResultSet rs = stat.executeQuery(queryAdmin);
+            if (!rs.next()) {
+                thiz.addUser("administrator", "2Mg+O2=2MgO");
+            } */
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return;
     }
 
     public static boolean validPassWd(String passWd) {
@@ -106,7 +126,7 @@ public class UserManagerDAO {
             return 0;
         }
 
-        String sql = "select user_id from USER_TABLE where user_name=?";
+        String sql = "select user_id from user_table where user_name=?";
         try (Connection conn = getConnection();
             PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setString(1, userName);
@@ -120,17 +140,6 @@ public class UserManagerDAO {
         }
 
         return 0;
-    }
-
-    protected void checkUserTable() {
-
-        String sql = "CREATE TABLE IF NOT EXISTS USER_TABLE (user_id INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(100) NOT NULL, user_passwd VARCHAR(100) NOT NULL, create_time DATE, banned tinyint(1), passwd_salt VARCHAR(100) NOT NULL, PRIMARY KEY (user_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-        try (Connection conn = getConnection();
-            PreparedStatement stat = conn.prepareStatement(sql);) {
-            stat.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public int addUser(String userName, String UserPassWd) {
@@ -154,8 +163,8 @@ public class UserManagerDAO {
 
         String PassWdStor = toMD5(toMD5(UserPassWd) + salt);
 
-        String sql = "insert into USER_TABLE values(null, ?, ?, ?, ?, ?);";
-        String dupsql = "select user_name from USER_TABLE where user_name = ?;";
+        String sql = "insert into user_table values(null, ?, ?, ?, ?, ?);";
+        String dupsql = "select user_name from user_table where user_name = ?;";
 
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql);
@@ -190,9 +199,7 @@ public class UserManagerDAO {
     public int authUser(String userName, String userPassWd) {
         int status = -3;
 
-        if (userName.equals("admin")) {
-            status = -3;
-        } else if (true != validUserName(userName)) {
+        if (true != validUserName(userName)) {
             return -1;
         } else if (true != validPassWd(userPassWd)) {
             return -2;
@@ -200,7 +207,7 @@ public class UserManagerDAO {
             status = -3;
         }
 
-        String sql = "select user_passwd, banned, passwd_salt from USER_TABLE where user_name = ? limit 1;";
+        String sql = "select user_passwd, permission, passwd_salt from user_table where user_name = ? limit 1;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, userName);
@@ -209,13 +216,17 @@ public class UserManagerDAO {
 
             rs.next();
             String passWdStor = rs.getString("user_passwd");
-            int banned = rs.getInt("banned");
+            int permission = rs.getInt("permission");
             String salt = rs.getString("passwd_salt");
 
 
             String authPassWd = toMD5(toMD5(userPassWd) + salt);
             if (true == authPassWd.equals(passWdStor)) {
                 status = 0;
+            }
+
+            if (0 > permission) {
+                status = -5;
             }
 
         } catch (SQLException e) {
@@ -231,7 +242,7 @@ public class UserManagerDAO {
             return null;
         }
 
-        String sql = "select user_passwd from USER_TABLE where user_name = ? limit 1;";
+        String sql = "select user_passwd from user_table where user_name = ? limit 1;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, userName);

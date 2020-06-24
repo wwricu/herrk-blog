@@ -3,7 +3,7 @@
 
     <servlet>
         <servlet-name>ClickCountServlet</servlet-name>
-        <servlet-class>ClickCountServlet</servlet-class>
+        <servlet-class>servlet.ClickCountServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -13,11 +13,17 @@
 
     <servlet>
         <servlet-name>UserManagerServlet</servlet-name>
-        <servlet-class>UserManagerServlet</servlet-class>
+        <servlet-class>servlet.UserManagerServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>UserManagerServlet</servlet-name>
         <url-pattern>/usermanage</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InitServlet</servlet-name>
+        <servlet-class>servlet.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 </web-app>

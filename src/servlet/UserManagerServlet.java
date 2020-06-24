@@ -36,7 +36,8 @@ public class UserManagerServlet extends HttpServlet {
 
         switch (action) {
             case "login":
-                if (0 == dao.authUser(username, password)) {
+                int retureCode = dao.authUser(username, password);
+                if (0 == retureCode) {
                     session = request.getSession(true);
 
                     session.setAttribute("username", username);
@@ -47,6 +48,7 @@ public class UserManagerServlet extends HttpServlet {
                     response.getWriter().write(geneToken);
                 } else {
                     // fail to log in
+                    System.out.println("wangweiran login fail code is " + retureCode);
                     response.getWriter().write("fail");
 
                     // request.getRequestDispatcher("fail.html").forward(request, response);
