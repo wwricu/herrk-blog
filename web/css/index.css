@@ -2,7 +2,7 @@ a {
     text-decoration: none;
 }
 body {
-    background: url(/res/image/yrel.jpg);
+    background: url(/res/image/ladymaria.jpg);
     background-size: 100%;
     background-repeat: repeat-y;
     background-attachment: fixed;
@@ -124,10 +124,10 @@ body {
 #homeMargin {
     /* padding-top: 10rem; */
     /* margin: 4rem; */
-    background-image:url('/res/assitant.jpg');
+    /* background-image:url('/res/assitant.jpg');
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: top;
+    background-position: top; */
 }
 .article  {
     border-bottom: dotted gray;

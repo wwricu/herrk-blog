@@ -207,7 +207,7 @@ public class UserManagerDAO {
             status = -3;
         }
 
-        String sql = "select user_passwd, permission, passwd_salt from user_table where user_name = ? limit 1;";
+        String sql = "select user_id, user_passwd, permission, passwd_salt from user_table where user_name = ? limit 1;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, userName);
@@ -215,6 +215,7 @@ public class UserManagerDAO {
             ResultSet rs = stat.executeQuery();
 
             rs.next();
+            String userId = rs.getString("user_id");
             String passWdStor = rs.getString("user_passwd");
             int permission = rs.getInt("permission");
             String salt = rs.getString("passwd_salt");
@@ -222,7 +223,7 @@ public class UserManagerDAO {
 
             String authPassWd = toMD5(toMD5(userPassWd) + salt);
             if (true == authPassWd.equals(passWdStor)) {
-                status = 0;
+                status = Integer.valueOf(userId);
             }
 
             if (0 > permission) {

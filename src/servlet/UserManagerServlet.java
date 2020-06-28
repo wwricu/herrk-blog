@@ -37,9 +37,10 @@ public class UserManagerServlet extends HttpServlet {
         switch (action) {
             case "login":
                 int retureCode = dao.authUser(username, password);
-                if (0 == retureCode) {
+                if (0 < retureCode) {
                     session = request.getSession(true);
 
+                    session.setAttribute("userid", retureCode);
                     session.setAttribute("username", username);
                     session.setAttribute("status", "login");
 

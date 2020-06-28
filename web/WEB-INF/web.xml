@@ -5,7 +5,6 @@
         <servlet-name>ClickCountServlet</servlet-name>
         <servlet-class>servlet.ClickCountServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>ClickCountServlet</servlet-name>
         <url-pattern>/clickcount</url-pattern>
@@ -15,10 +14,19 @@
         <servlet-name>UserManagerServlet</servlet-name>
         <servlet-class>servlet.UserManagerServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>UserManagerServlet</servlet-name>
         <url-pattern>/usermanage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ArticleManagerServlet</servlet-name>
+        <servlet-class>servlet.ArticleManagerServlet</servlet-class>
+        <load-on-startup>10</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ArticleManagerServlet</servlet-name>
+        <url-pattern>/articles</url-pattern>
     </servlet-mapping>
 
     <servlet>

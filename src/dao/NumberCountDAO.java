@@ -86,10 +86,16 @@ public class NumberCountDAO {
         return count;
     }
 
-    public void articleCountIncrement() {
+    public void articleCountIncrement(int num) {
 
-        try (Connection conn = getConnection(); Statement stat = conn.createStatement();) {
-            String sql = "UPDATE number_count_table SET count=count+'1' WHERE count_name='article_count';";
+        if (num <= 0) {
+            return;
+        }
+
+        String sql = "UPDATE number_count_table SET count=count+'?' WHERE count_name='article_count';";
+
+        try (Connection conn = getConnection(); PreparedStatement stat = conn.prepareStatement(sql);) {
+            stat.setInt(1, num);
             stat.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -2,7 +2,7 @@
 
 javac dao/UserManagerDAO.java dao/ArticleManagerDAO.java dao/NumberCountDAO.java dao/InitDAO.java \
 util/JwtUtils.java util/ArticleInfo.java \
-servlet/ClickCountServlet.java servlet/UserManagerServlet.java servlet/InitServlet.java \
+servlet/ClickCountServlet.java servlet/UserManagerServlet.java servlet/InitServlet.java servlet/ArticleManagerServlet.java \
 -cp .:../web/WEB-INF/lib/jackson-core-2.11.0.jar:../web/WEB-INF/lib/jackson-databind-2.11.0.jar:../web/WEB-INF/lib/jackson-annotations-2.11.0.jar:../web/WEB-INF/lib/jjwt-0.7.0.jar:../../../lib/servlet-api.jar
 
 mv dao/*.class ../web/WEB-INF/classes/dao > /dev/null
