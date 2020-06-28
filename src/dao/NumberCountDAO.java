@@ -46,7 +46,7 @@ public class NumberCountDAO {
             }
 
             ResultSet rsArticle = stat.executeQuery(queryArticle);
-            if (0 == rsArticle.getRow()) {
+            if (!rsArticle.next()) {
                 stat.executeUpdate(initArticle);
             }
 
