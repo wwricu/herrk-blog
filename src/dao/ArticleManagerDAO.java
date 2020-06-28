@@ -1,7 +1,6 @@
 package dao;
 
 import util.ArticleInfo;
-import java.sql.Date;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -34,7 +33,7 @@ public class ArticleManagerDAO {
      table:
      ArticleId, auther_id, title, summary, tags, CreateTime, LastModifyTime,
      */
-    public void init() {
+    public static void init() {
 
         String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id VARCHAR(100) NOT NULL, title VARCHAR(100), summary VARCHAR(100), tags VARCHAR(100), create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         try (Connection conn = getConnection();
@@ -86,15 +85,18 @@ public class ArticleManagerDAO {
         return result;
     }
 
-    public void createArticle(ArticleInfo info) {
+    public int createArticle(ArticleInfo info) {
 
         if (!validArticle(info)) {
-            return;
+            return -1;
         }
 
-        String sql = "INSERT INTO article_table values(null, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO article_table values(null, ?, ?, ?, ?, ?, ?, ?);";
+        String sqlId = "SELECT LAST_INSERT_ID();";
+
         try (Connection conn = getConnection();
-             PreparedStatement stat = conn.prepareStatement(sql);) {
+             PreparedStatement stat = conn.prepareStatement(sql);
+             Statement statId = conn.createStatement();) {
             stat.setInt(1, info.mAutherId);
             stat.setString(2, info.mTitle);
             stat.setString(3, info.mSummary);
@@ -103,12 +105,18 @@ public class ArticleManagerDAO {
             stat.setString(6, info.mLastModifyTime);
             stat.setInt(7, info.mPermission);
 
-            stat.execute();
+            stat.executeUpdate();
+
+            ResultSet rs = statId.executeQuery(sqlId);
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return;
+        return -2;
     }
 
     public void deleteArticle(int articleId) {
@@ -133,12 +141,12 @@ public class ArticleManagerDAO {
             return false;
         }
 
-        if (null == info.mTitle || 30 > info.mTitle.length()) {
+        if (null == info.mTitle || 30 < info.mTitle.length()) {
             return false;
         }
 
         if (null != info.mSummary) {
-            if (140 > info.mSummary.length()) {
+            if (140 < info.mSummary.length()) {
                 return false;
             }
         }

@@ -92,11 +92,11 @@ public class NumberCountDAO {
             return;
         }
 
-        String sql = "UPDATE number_count_table SET count=count+'?' WHERE count_name='article_count';";
+        String sql = "UPDATE number_count_table SET count=count+? WHERE count_name='article_count';";
 
         try (Connection conn = getConnection(); PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setInt(1, num);
-            stat.execute(sql);
+            stat.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
