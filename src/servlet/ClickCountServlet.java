@@ -26,6 +26,9 @@ public class ClickCountServlet extends HttpServlet {
         }
 
         try {
+            if (0 == count) {
+                count++;
+            }
             response.getWriter().write(String.valueOf(count));
         } catch (IOException e) {
             e.printStackTrace();
