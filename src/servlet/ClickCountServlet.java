@@ -22,13 +22,17 @@ public class ClickCountServlet extends HttpServlet {
             session = request.getSession(true);
             session.setAttribute("count", String.valueOf(count));
         } else {
-            count = Integer.parseInt((String)session.getAttribute("count"));
+            String countString = (String)session.getAttribute("count");
+            if (null != countString) {
+                count = Integer.parseInt(countString);
+            } else {
+                count = dao.getClickCount();
+                session = request.getSession(true);
+                session.setAttribute("count", String.valueOf(count));
+            }
         }
 
         try {
-            if (0 == count) {
-                count++;
-            }
             response.getWriter().write(String.valueOf(count));
         } catch (IOException e) {
             e.printStackTrace();
