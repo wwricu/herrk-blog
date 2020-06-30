@@ -38,6 +38,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>TestApiServlet</servlet-name>
+        <servlet-class>servlet.TestApiServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TestApiServlet</servlet-name>
+        <url-pattern>/testapi</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>InitServlet</servlet-name>
         <servlet-class>servlet.InitServlet</servlet-class>
         <load-on-startup>1</load-on-startup>

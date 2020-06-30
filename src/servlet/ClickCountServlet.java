@@ -13,23 +13,15 @@ public class ClickCountServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         int count = 0;
         NumberCountDAO dao = new NumberCountDAO();
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
+        String countString = (String)session.getAttribute("count");
 
-        if (null == session) {
+        if (null == countString) {
             dao.clickCountIncrement();
             count = dao.getClickCount();
-
-            session = request.getSession(true);
             session.setAttribute("count", String.valueOf(count));
         } else {
-            String countString = (String)session.getAttribute("count");
-            if (null != countString) {
-                count = Integer.parseInt(countString);
-            } else {
-                count = dao.getClickCount();
-                session = request.getSession(true);
-                session.setAttribute("count", String.valueOf(count));
-            }
+            count = Integer.parseInt(countString);
         }
 
         try {
