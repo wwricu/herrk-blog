@@ -34,12 +34,23 @@ public class UserManagerDAO {
         return null;
     }
 
+    /*
+    user_table:
+
+    user_id INT UNSIGNED AUTO_INCREMENT
+    user_name VARCHAR NOT NULL
+    user_passwd VARCHAR NOT NULL
+    create_time DATE
+    permission INT
+    passwd_salt VARCHAR NOT NULL
+    */
+
     public static void init() {
-        UserManagerDAO thiz = new UserManagerDAO();
+        // UserManagerDAO thiz = new UserManagerDAO();
         String sql = "CREATE TABLE IF NOT EXISTS user_table (user_id INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(100) NOT NULL, user_passwd VARCHAR(100) NOT NULL, create_time DATE, permission INT, passwd_salt VARCHAR(100) NOT NULL, PRIMARY KEY (user_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         // String queryAdmin = "SELECT * FROM user_table WHERE user_name='administrator';";
 
-        try (Connection conn = thiz.getConnection();
+        try (Connection conn = getConnection();
              Statement stat = conn.createStatement();) {
 
             stat.executeUpdate(sql);
@@ -126,7 +137,7 @@ public class UserManagerDAO {
             return 0;
         }
 
-        String sql = "select user_id from user_table where user_name=?";
+        String sql = "SELECT user_id FROM user_table WHERE user_name=?";
         try (Connection conn = getConnection();
             PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setString(1, userName);
@@ -163,13 +174,13 @@ public class UserManagerDAO {
 
         String PassWdStor = toMD5(toMD5(UserPassWd) + salt);
 
-        String sql = "insert into user_table values(null, ?, ?, ?, ?, ?);";
-        String dupsql = "select user_name from user_table where user_name = ?;";
+        String sql = "INSERT INTO user_table VALUES(null, ?, ?, ?, ?, ?);";
+        String dupsql = "SELECT user_name FROM user_table WHERE user_name = ?;";
 
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql);
                 // add these two parameter to move pointer freely
-                PreparedStatement dupstat = conn.prepareStatement(dupsql, ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);) {
+                PreparedStatement dupstat = conn.prepareStatement(dupsql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);) {
 
             dupstat.setString(1, userName);
             ResultSet rs = dupstat.executeQuery();
@@ -207,7 +218,7 @@ public class UserManagerDAO {
             status = -3;
         }
 
-        String sql = "select user_id, user_passwd, permission, passwd_salt from user_table where user_name = ? limit 1;";
+        String sql = "SELECT user_id, user_passwd, permission, passwd_salt FROM user_table WHERE user_name = ? limit 1;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, userName);
@@ -243,7 +254,7 @@ public class UserManagerDAO {
             return null;
         }
 
-        String sql = "select user_passwd from user_table where user_name = ? limit 1;";
+        String sql = "SELECT user_passwd FROM user_table WHERE user_name = ? limit 1;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, userName);

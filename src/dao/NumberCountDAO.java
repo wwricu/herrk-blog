@@ -24,6 +24,14 @@ public class NumberCountDAO {
         return null;
     }
 
+    /*
+    number_count_table:
+
+    count_id INT UNSIGNED AUTO_INCREMENT
+    count_name VARCHAR NOT NULL
+    count INT
+    */
+
     public static void init() {
         String createTable = "CREATE TABLE IF NOT EXISTS number_count_table (count_id INT UNSIGNED AUTO_INCREMENT, count_name VARCHAR(100) NOT NULL, count INT, PRIMARY KEY (count_id))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
@@ -74,7 +82,7 @@ public class NumberCountDAO {
         int count = 0;
 
         try (Connection conn = getConnection(); Statement stat = conn.createStatement();) {
-            String sql = "select * from number_count_table WHERE count_name='click_count';";
+            String sql = "SELECT * FROM number_count_table WHERE count_name='click_count';";
             ResultSet rs = stat.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt("count");
@@ -109,7 +117,7 @@ public class NumberCountDAO {
         int count = 0;
 
         try (Connection conn = getConnection(); Statement stat = conn.createStatement();) {
-            String sql = "select * from number_count_table WHERE count_name='article_count';";
+            String sql = "SELECT * FROM number_count_table WHERE count_name='article_count';";
             ResultSet rs = stat.executeQuery(sql);
             if (rs.next()) {
                 count = rs.getInt("count");

@@ -30,9 +30,18 @@ public class ArticleManagerDAO {
     }
 
     /*
-     table:
-     ArticleId, auther_id, title, summary, tags, CreateTime, LastModifyTime,
-     */
+     article_table:
+
+    article_id INT UNSIGNED AUTO_INCREMENT
+    auther_id VARCHAR NOT NULL
+    title VARCHAR
+    summary VARCHAR
+    tags VARCHAR
+    create_time DATE
+    last_modify_time DATE
+    permission INT
+    */
+
     public static void init() {
 
         String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id VARCHAR(100) NOT NULL, title VARCHAR(100), summary VARCHAR(100), tags VARCHAR(100), create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
@@ -91,7 +100,7 @@ public class ArticleManagerDAO {
             return -1;
         }
 
-        String sql = "INSERT INTO article_table values(null, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO article_table VALUES(null, ?, ?, ?, ?, ?, ?, ?);";
         String sqlId = "SELECT LAST_INSERT_ID();";
 
         try (Connection conn = getConnection();
