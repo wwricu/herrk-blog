@@ -66,39 +66,7 @@ public class ArticleManagerServlet extends HttpServlet {
         switch (action) {
             case "post":
                 info.setValue(0, userId, title, summary, tags, currentTime.toString(), null, 0);
-                numberCountDAO.articleCountIncrement(1);
-                articleId = String.valueOf(articleManagerDAO.createArticle(info));
-
-                if (0 < Integer.valueOf(articleId)) {
-                    // Add SQL affair HERE! To avoid the situation where failed to create a file but have written data to sql.
-                    File file = new File("../web/articles/a" + articleId + ".html");
-                    file.createNewFile();
-                }
-                /*String destDirName = "test";
-                File dir = new File(destDirName);
-                if (dir.exists()) {
-                    System.out.println("创建目录" + destDirName + "失败，目标目录已经存在");
-                    File[] files = dir.listFiles();
-                    if (files.length >= 1){
-                        for (File fileToDel:files){
-                            fileToDel.delete();
-                        }
-
-                    }
-                    return;
-                }
-                if (!destDirName.endsWith(File.separator)) {
-                    destDirName = destDirName + File.separator;
-                }
-                //创建目录
-                if (dir.mkdirs()) {
-                    System.out.println("创建目录" + destDirName + "成功！");
-                    return;
-                } else {
-                    System.out.println("创建目录" + destDirName + "失败！");
-                    return;
-                }*/
-
+                articleManagerDAO.createArticle(info);
             case "delete":
             case "update":
             default:

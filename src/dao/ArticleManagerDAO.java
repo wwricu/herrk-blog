@@ -1,6 +1,9 @@
 package dao;
 
 import util.ArticleInfo;
+
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -102,10 +105,11 @@ public class ArticleManagerDAO {
 
         String sql = "INSERT INTO article_table VALUES(null, ?, ?, ?, ?, ?, ?, ?);";
         String sqlId = "SELECT LAST_INSERT_ID();";
+        NumberCountDAO numberDAO = new NumberCountDAO();
 
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);
-             Statement statId = conn.createStatement();) {
+             Statement statement = conn.createStatement();) {
             stat.setInt(1, info.mAutherId);
             stat.setString(2, info.mTitle);
             stat.setString(3, info.mSummary);
@@ -114,11 +118,31 @@ public class ArticleManagerDAO {
             stat.setString(6, info.mLastModifyTime);
             stat.setInt(7, info.mPermission);
 
+            statement.executeUpdate("START TRANSACTION;");
             stat.executeUpdate();
 
-            ResultSet rs = statId.executeQuery(sqlId);
+            ResultSet rs = statement.executeQuery(sqlId);
             if (rs.next()) {
-                return rs.getInt(1);
+
+                int articleId = rs.getInt(1);
+                if (articleId <= 0) {
+                    statement.executeUpdate("ROLLBACK;");
+                    return -2;
+                }
+
+                try {
+                    String fileIndex = String.format("%0" + 8 + "d", String.valueOf(articleId));
+                    File file = new File("../web/articles/a" + fileIndex + ".html");
+                    file.createNewFile();
+                } catch (IOException e) {
+                    statement.executeUpdate("ROLLBACK;");
+                    e.printStackTrace();
+                    return -3;
+                }
+
+                numberDAO.articleCountIncrement(1);
+                statement.executeUpdate("COMMIT;");
+                return articleId;
             }
 
         } catch (SQLException e) {
