@@ -16,7 +16,7 @@ $(document).ready(function() {
             var keyWord = $("#search-box").children("input[type='text']").val();
 
             if (null != keyWord && "" != keyWord) {
-                window.open(baiduHeader+keyWord);
+                window.open(baiduHeader+keyWord, "_self");
                 $("#search-box").children("input[type='text']").val("");
             }
         }
