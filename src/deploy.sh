@@ -1,7 +1,7 @@
 #! /bin/bash
 
 javac dao/UserManagerDAO.java dao/ArticleManagerDAO.java dao/NumberCountDAO.java dao/InitDAO.java \
-util/JwtUtils.java util/ArticleInfo.java \
+util/JwtUtils.java util/ArticleInfo.java util/Log.java \
 servlet/ClickCountServlet.java servlet/UserManagerServlet.java servlet/InitServlet.java servlet/ArticleManagerServlet.java servlet/TestApiServlet.java \
 filter/LoginFilter.java \
 -cp .:../web/WEB-INF/lib/jackson-core-2.11.0.jar:../web/WEB-INF/lib/jackson-databind-2.11.0.jar:../web/WEB-INF/lib/jackson-annotations-2.11.0.jar:../web/WEB-INF/lib/jjwt-0.7.0.jar:../../../lib/servlet-api.jar

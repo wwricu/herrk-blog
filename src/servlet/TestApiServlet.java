@@ -1,5 +1,7 @@
 package servlet;
 
+import util.Log;
+
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,9 @@ public class TestApiServlet extends HttpServlet {
             case "destroysession":
                 session.invalidate();
                 // response.sendRedirect("/");
+                break;
+            case "logtest":
+                Log.Fatal("1111");
                 break;
             default:
                 break;

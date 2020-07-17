@@ -3,6 +3,7 @@ package servlet;
 import dao.NumberCountDAO;
 import dao.ArticleManagerDAO;
 import util.ArticleInfo;
+import util.Log;
 
 import java.io.File;
 import java.io.IOException;
