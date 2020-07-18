@@ -2,6 +2,7 @@ package servlet;
 
 import dao.UserManagerDAO;
 import util.JwtUtils;
+import util.Log;
 
 import java.io.PrintWriter;
 
@@ -49,7 +50,7 @@ public class UserManagerServlet extends HttpServlet {
                     response.getWriter().write(geneToken);
                 } else {
                     // fail to log in
-                    System.out.println("wangweiran login fail code is " + retureCode);
+                    Log.Error("login fail code is " + retureCode);
                     response.getWriter().write("fail");
 
                     // request.getRequestDispatcher("fail.html").forward(request, response);

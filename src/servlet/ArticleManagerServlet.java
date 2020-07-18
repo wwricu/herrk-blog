@@ -21,14 +21,14 @@ public class ArticleManagerServlet extends HttpServlet {
 
     public void init() throws ServletException {
         super.init();
-        System.out.println("wangweiran start Article Servlet");
+        Log.Info("start Article Servlet");
 
         NumberCountDAO numberCountDAO = new NumberCountDAO();
         mArticleNumber = numberCountDAO.getArticleCount();
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         mArticleInfos = articleManagerDAO.getLatestArticles(0, mArticleNumber);
-        System.out.println("ArticleManagerServlet.init() article number = " + mArticleNumber);
+        Log.Info("ArticleManagerServlet.init() article number = " + mArticleNumber);
 
         return;
     }

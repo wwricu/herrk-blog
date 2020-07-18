@@ -2,6 +2,7 @@ package servlet;
 
 import dao.InitDAO;
 import util.JwtUtils;
+import util.Log;
 
 import java.io.PrintWriter;
 
@@ -16,8 +17,7 @@ public class InitServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        System.out.println("wangweiran start init");
-
+        Log.Info("start init servlet");
         InitDAO.init();
 
         return;

@@ -1,5 +1,7 @@
 package filter;
 
+import util.Log;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +35,7 @@ public class LoginFilter implements Filter {
         Date d = new Date();
         String date = sdf.format(d);
 
-        System.out.println("visitor info:" + date + " " + ip);
+        Log.Debug("visitor info:" + date + " " + ip);
 
         String url = request.getRequestURI();
         String action = request.getParameter("action");
@@ -55,6 +57,6 @@ public class LoginFilter implements Filter {
 
     @Override
     public void init(FilterConfig arg0) throws ServletException {
-        System.out.println("Login Filter init()");
+        Log.Debug("Login Filter init()");
     }
 };
