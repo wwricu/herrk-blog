@@ -19,6 +19,12 @@ public class UserManagerServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // declare variable together
+        int retureCode; //login
+        String tokenUsername; // token
+        String logStatus; // notoken
+        String geneSignToken; // signup
+
         UserManagerDAO dao = new UserManagerDAO();
 
         String action = request.getParameter("action");
@@ -29,15 +35,16 @@ public class UserManagerServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
+        Log.Debug("call user manager servlet, action = " + action);
+
         if (null == action) {
             response.getWriter().write("no action!");
-
             return;
         }
 
         switch (action) {
             case "login":
-                int retureCode = dao.authUser(username, password);
+                retureCode = dao.authUser(username, password);
                 if (0 < retureCode) {
                     session = request.getSession(true);
 
@@ -50,31 +57,45 @@ public class UserManagerServlet extends HttpServlet {
                     response.getWriter().write(geneToken);
                 } else {
                     // fail to log in
-                    Log.Error("login fail code is " + retureCode);
+                    Log.Info("login fail code is " + retureCode);
                     response.getWriter().write("fail");
 
                     // request.getRequestDispatcher("fail.html").forward(request, response);
                 }
             break;
             case "token":
-                String token_username;
                 if (true != getLogStatus(username, session)) {
-                    token_username = JwtUtils.authJWT(token);
-                    if (null != token_username) {
+                    tokenUsername = JwtUtils.authJWT(token);
+                    if (null != tokenUsername) {
                         session = request.getSession(true);
 
-                        session.setAttribute("username", token_username);
+                        session.setAttribute("username", tokenUsername);
                         session.setAttribute("status", "login");
-                        response.getWriter().write(token_username);
+                        response.getWriter().write(tokenUsername);
                     } else {
                         // fail to log in
                         response.getWriter().write("fail");
                     }
                 } else {
-                    token_username = (String)session.getAttribute("username");
-                    response.getWriter().write(token_username);
+                    tokenUsername = (String)session.getAttribute("username");
+                    response.getWriter().write(tokenUsername);
                 }
-                break;
+            break;
+
+            case "notoken":
+                if (null == session) {
+                    response.getWriter().write("fail");
+                }
+
+                username = (String)session.getAttribute("username");
+                logStatus = (String)session.getAttribute("status");
+
+                if (logStatus.equals("login") && null != username) {
+                    geneSignToken = JwtUtils.geneJsonWebToken(username);
+                    String result = "{username: \'" + username + "\', token: \'" + geneSignToken + "\'}";
+                    response.getWriter().write(result);
+                }
+            break;
 
             case "signup":
                 if (null == invitation || false == invitation.equals("dayazhuanjia")) {
@@ -87,20 +108,20 @@ public class UserManagerServlet extends HttpServlet {
                     session.setAttribute("username", username);
                     session.setAttribute("status", "login");
 
-                    String geneSignToken = JwtUtils.geneJsonWebToken(username);
+                    geneSignToken = JwtUtils.geneJsonWebToken(username);
 
                     response.getWriter().write(geneSignToken);
                 } else {
                     response.getWriter().write("fail");
                 }
-                break;
+            break;
 
             case "getstatus":
                 getLogStatus(username, session);
-                break;
+            break;
 
             default:
-                break;
+            break;
         }
     }
 

@@ -1,7 +1,7 @@
 package util;
 
 public class Log {
-    private static LogLevel logLevel = LogLevel.INFO;
+    private static LogLevel logLevel = LogLevel.DEBUG;
 
     private static String WWR   = "WWR_LOG";
     private static String FATAL = "_FATAL";
