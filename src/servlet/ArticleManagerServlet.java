@@ -43,7 +43,11 @@ public class ArticleManagerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(true);
-        int userId = (int)session.getAttribute("userid");
+        String logStatus = (String)session.getAttribute("status");
+        if (logStatus == null || true != logStatus.equals("login")) {
+            return;
+        }
+        int userId = (int) session.getAttribute("userid");
 
         String action = request.getParameter("action");
 
@@ -67,7 +71,12 @@ public class ArticleManagerServlet extends HttpServlet {
         switch (action) {
             case "post":
                 info.setValue(0, userId, title, summary, tags, currentTime.toString(), null, 0);
-                articleManagerDAO.createArticle(info);
+                int createId = articleManagerDAO.createArticle(info);
+                if (createId > 0) {
+                    response.sendRedirect("editor.html");
+                } else {
+                    response.getWriter().write(createId);
+                }
             case "delete":
             case "update":
             default:

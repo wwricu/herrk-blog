@@ -1,6 +1,7 @@
 package dao;
 
 import util.ArticleInfo;
+import util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -126,20 +127,24 @@ public class ArticleManagerDAO {
 
                 int articleId = rs.getInt(1);
                 if (articleId <= 0) {
+                    Log.Warn("ROLLBACK");
                     statement.executeUpdate("ROLLBACK;");
                     return -2;
                 }
 
                 try {
-                    String fileIndex = String.format("%0" + 8 + "d", String.valueOf(articleId));
+                    String fileIndex = String.format("%06d", articleId);
+                    Log.Info(fileIndex);
                     File file = new File("../web/articles/a" + fileIndex + ".html");
                     file.createNewFile();
                 } catch (IOException e) {
+                    Log.Warn("ROLLBACK");
                     statement.executeUpdate("ROLLBACK;");
                     e.printStackTrace();
                     return -3;
                 }
 
+                Log.Warn("COMMIT");
                 numberDAO.articleCountIncrement(1);
                 statement.executeUpdate("COMMIT;");
                 return articleId;
