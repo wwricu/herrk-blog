@@ -129,10 +129,24 @@ body {
     background-size: contain;
     background-position: top; */
 }
-.article  {
+#message  {
+    border: dotted gray;
+    width: inherit;
+    height: 10rem;
+    padding: 2rem 0;
+    margin: 2rem;
+    text-align: center;
+}
+.article {
     border-bottom: dotted gray;
     padding: 2rem 0;
     margin: 2rem;
+}
+.weatherLabel {
+    font-size: 1.2rem;
+}
+.weatherValue {
+    font-size: 1.8rem;
 }
 #search-box {
     position: relative;
