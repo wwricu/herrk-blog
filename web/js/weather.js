@@ -36,7 +36,7 @@ $.ajax({
                 weather = 'snowy';
                 break;
             case 'yin':
-                weather = 'most cloudy';
+                weather = 'mostly cloudy';
                 break;
             case 'yu':
                 weather = 'rainy';
