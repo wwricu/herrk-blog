@@ -8,7 +8,7 @@ set showmatch
 set list
 set wildmenu
 set clipboard=unnamed
-set listchars=tab:»■,trail:■
+set listchars=trail:■
 set wildmode=longest:list,full
 set mouse=a
 set tabstop=4
