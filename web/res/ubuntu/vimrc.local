@@ -1,0 +1,22 @@
+set nu
+set ruler
+set cursorline
+set hlsearch
+set showcmd
+set autoindent
+set showmatch
+set list
+set wildmenu
+set clipboard=unnamed
+set listchars=tab:»■,trail:■
+set wildmode=longest:list,full
+set mouse=a
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set softtabstop=4
+set encoding=utf-8
+set scrolloff=5
+set sidescrolloff=15
+syntax on
+filetype indent on

@@ -14,14 +14,14 @@ function environment()
     sudo apt-get install -y gnupg -y flex -y bison -y gperf -y libxml-libxml-perl
     sudo apt-get install -y zlib1g-dev -y gcc-multilib -y g++-multilib -y dpkg-dev
     sudo apt-get install -y lib32ncurses5-dev -y x11proto-core-dev -y zip -y libc6
-    sudo apt-get install -y libxml2-utils -y xsltproc -y libx11-dev -y minizip
+    sudo apt-get install -y libxml2-utils -y xsltproc -y minizip -y libswitch-perl
     sudo apt-get install -y lib32z-dev -y ccache -y tofrodos -y zlib1g-dev:i386
-    sudo apt-get install -y libssl-dev -y libidn11-dev -y libxml-simple-perl
+    sudo apt-get install -y libssl-dev -y libidn11-dev -y vim-gtk -y python3-pip 
     sudo apt-get install -y libxml-parser-perl -y libidn11 -y libncurses5-dev:i386
     sudo apt-get install -y flashplugin-installer -y aptitude -y unrar -y git-core
     sudo apt-get install -y openssl -y zlibc -y unzip -y lib32stdc++6 -y libc6:i386
     sudo apt-get install -y default-jdk -y default-jre -y python-pip -y git -y m4
-    sudo aptitude install  -y libgl1-mesa-dev -y libswitch-perl -y python3-pip
+    sudo apt-get install -y libgl1-mesa-dev -y libxml-simple-perl -y libx11-dev
 
     sudo apt-get clean
     sudo apt-get autoclean
