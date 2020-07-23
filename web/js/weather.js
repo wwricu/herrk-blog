@@ -49,7 +49,7 @@ $.ajax({
                 break;
         }
 
-        $("#location").text(result.cityEn + ', ' + result.countryEn);
+        $("#location").text(result.cityEn);
         $("#weather").text(weather);
         $("#temperature").text(result.tem);
 
