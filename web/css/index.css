@@ -132,8 +132,8 @@ body {
 #message  {
     position: relative;
     top: 2rem;
-    width: inherit;
-    height: 10rem;
+    width: 100%;
+    overflow: hidden;
     padding: 0 0.85rem;
     text-align: left;
 }
