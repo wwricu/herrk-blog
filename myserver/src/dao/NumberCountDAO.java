@@ -1,7 +1,7 @@
 package dao;
 
 import java.sql.*;
-
+import util.Log;
 
 public class NumberCountDAO {
 
@@ -16,7 +16,7 @@ public class NumberCountDAO {
 
     protected static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/BLOGDB", "sql_admin", "153226");
+            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/BLOGDB?serverTimezone=UTC", "sql_admin", "153226");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,6 +43,7 @@ public class NumberCountDAO {
         try (Connection conn = getConnection();
              Statement stat = conn.createStatement();) {
 
+            Log.Info("wwr here!");
             stat.executeUpdate(createTable);
 
             /* Notice:

@@ -240,9 +240,9 @@ grant codeBase "file:${catalina.home}/webapps/host-manager/-" {
 // };
 //
 // The permission granted to your JDBC driver
-// grant codeBase "jar:file:${catalina.base}/webapps/examples/WEB-INF/lib/driver.jar!/-" {
-//      permission java.net.SocketPermission "dbhost.mycompany.com:5432", "connect";
-// };
+grant codeBase "jar:file:${catalina.base}/webapps/myserver/web/WEB-INF/lib/mysql-connector-java-8.0.11.jar!/-" {
+      permission java.net.SocketPermission "127.0.0.1:3306", "connect";
+};
 // The permission granted to the scrape taglib
 // grant codeBase "jar:file:${catalina.base}/webapps/examples/WEB-INF/lib/scrape.jar!/-" {
 //      permission java.net.SocketPermission "*.noaa.gov:80", "connect";

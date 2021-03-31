@@ -26,7 +26,7 @@ public class UserManagerDAO {
 
     protected static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/BLOGDB", "sql_admin", "153226");
+            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/BLOGDB", "sql_admin", "153226");
         } catch (SQLException e) {
             e.printStackTrace();
         }
