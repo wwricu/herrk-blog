@@ -5,6 +5,8 @@ import util.Log;
 
 import java.io.File;
 import java.io.IOException;
+
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -16,20 +18,18 @@ public class ArticleManagerDAO {
 
     public ArticleManagerDAO() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     protected static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/BLOGDB", "sql_admin", "153226");
+            return DriverManager.getConnection(InitDAO.DBURL, InitDAO.DBUSER, InitDAO.DBCODE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -47,7 +47,6 @@ public class ArticleManagerDAO {
     */
 
     public static void init() {
-
         String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id VARCHAR(100) NOT NULL, title VARCHAR(100), summary VARCHAR(100), tags VARCHAR(100), create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
@@ -55,8 +54,6 @@ public class ArticleManagerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return;
     }
 
     public ArticleInfo[] getLatestArticles(int start, int num) {

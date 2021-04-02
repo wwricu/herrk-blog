@@ -7,7 +7,7 @@ public class NumberCountDAO {
 
     public NumberCountDAO() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -16,7 +16,7 @@ public class NumberCountDAO {
 
     protected static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/BLOGDB?serverTimezone=UTC", "sql_admin", "153226");
+            return DriverManager.getConnection(InitDAO.DBURL, InitDAO.DBUSER, InitDAO.DBCODE);
         } catch (SQLException e) {
             e.printStackTrace();
         }

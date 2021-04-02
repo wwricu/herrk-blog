@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import java.sql.*;
 import java.sql.Date;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ public class UserManagerDAO {
 
     public UserManagerDAO() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jc.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -26,7 +27,7 @@ public class UserManagerDAO {
 
     protected static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/BLOGDB", "sql_admin", "153226");
+            return DriverManager.getConnection(InitDAO.DBURL, InitDAO.DBUSER, InitDAO.DBCODE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
