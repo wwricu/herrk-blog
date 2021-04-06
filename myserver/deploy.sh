@@ -8,6 +8,7 @@ javac \
     src/util/JwtUtils.java \
     src/util/ArticleInfo.java \
     src/util/Log.java \
+    src/util/NetSpeed.java \
     src/servlet/ClickCountServlet.java \
     src/servlet/UserManagerServlet.java \
     src/servlet/InitServlet.java \
