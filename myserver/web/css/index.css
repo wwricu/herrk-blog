@@ -151,7 +151,7 @@ body {
 }
 #net-speed {
     position: relative;
-    top: 15%;
+    top: 10%;
     left: 0.8rem;
 }
 .net-label {
@@ -163,7 +163,7 @@ body {
 }
 #search-box {
     position: relative;
-    top: 30%;
+    top: 15%;
 }
 #search-box input[type="text"] {
     position: absolute;
