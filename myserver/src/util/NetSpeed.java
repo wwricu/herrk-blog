@@ -7,15 +7,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 
-import javax.sound.midi.Transmitter;
-
 public class NetSpeed implements Runnable {
-    private static final String PATH = "/proc/net/dev";
+    private static final String PATH = "/home/proc/net/dev";
     private static final String ETH  = "eth0:";
     private static final String ENP = "enp2s0:";
+    private static long inSpeed;
+    private static long outSpeed;
+
     private NetDevInfo mInfo;
-    private long inSpeed;
-    private long outSpeed;
     public int mThrottle;
 
     NetSpeed() {
@@ -41,12 +40,11 @@ public class NetSpeed implements Runnable {
 
             while ((line = bufferedReader.readLine()) != null) {
                 NetDevInfo n = getNetInfo(line);
-                System.out.println("net name is " + n.name);
                 if (n.name.equals(ETH) || n.name.equals(ENP)) {
-                    System.out.println("found eth0!");
                     info = n;
                     break;
                 }
+                Log.Error("Did not found net");
             }
             fileInputStream.close();
         } catch (IOException e) {
@@ -54,14 +52,15 @@ public class NetSpeed implements Runnable {
         }
 
         if (info == null) {
-            System.out.println("info is null");
+            Log.Error("info is null");
             return;
         }
 
-        if (mInfo != null) {
-            inSpeed = minusStr(info.receive.bytes, mInfo.receive.bytes) / throttle;
-            outSpeed = minusStr(info.transmit.bytes, mInfo.transmit.bytes) / throttle; // (byte per millionsecond)
-            System.out.println("rcv:" + info.receive.bytes + " " + mInfo.receive.bytes);
+        synchronized (NetSpeed.class) {
+            if (mInfo != null) {
+                inSpeed = minusStr(info.receive.bytes, mInfo.receive.bytes) / throttle;
+                outSpeed = minusStr(info.transmit.bytes, mInfo.transmit.bytes) / throttle; // (byte per millionsecond)
+            }
         }
 
         mInfo = info;
@@ -147,6 +146,7 @@ public class NetSpeed implements Runnable {
         s = 0;
         info.name = data[s++];
         if (info.name.charAt(info.name.length() - 1) != ':') {
+            Log.Info("Not a valid net name");
             return info;
         }
 
@@ -171,7 +171,8 @@ public class NetSpeed implements Runnable {
         return info;
     }
 
-    public void run(){
+    public void run() {
+        Log.Info("start running net speed");
         while(true) {
             try {
                 Thread.sleep(mThrottle);
@@ -179,22 +180,18 @@ public class NetSpeed implements Runnable {
                 e.printStackTrace();
             }
             updateNetStat(mThrottle);
-            System.out.println(inSpeed + " " + outSpeed);
+            Log.Debug("Inbound Speed: " + inSpeed + " Outbound Speed: " + outSpeed);
         }
     }
 
-    public long getInSpeed() {
+    public static synchronized long getInSpeed() {
         return inSpeed;
     }
 
-    public long getOutSpeed() {
+    public static synchronized long getOutSpeed() {
         return outSpeed;
     }
 
-    /* public static void main(String[] args) throws Exception {
-        NetSpeed speed = new NetSpeed();
-        new Thread(speed).start();
-    } */
 }
 
 class NetDevInfo {

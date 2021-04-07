@@ -1,8 +1,7 @@
 package servlet;
 
 import dao.InitDAO;
-import util.JwtUtils;
-import util.Log;
+import util.*;
 
 import java.io.PrintWriter;
 
@@ -19,7 +18,6 @@ public class InitServlet extends HttpServlet {
         super.init();
         Log.Info("start init servlet");
         InitDAO.init();
-
-        return;
+        Daemon.startDaemon();
     }
 }

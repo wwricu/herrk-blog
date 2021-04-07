@@ -9,11 +9,13 @@ javac \
     src/util/ArticleInfo.java \
     src/util/Log.java \
     src/util/NetSpeed.java \
+    src/util/Daemon.java \
     src/servlet/ClickCountServlet.java \
     src/servlet/UserManagerServlet.java \
     src/servlet/InitServlet.java \
     src/servlet/ArticleManagerServlet.java \
     src/servlet/TestApiServlet.java \
+    src/servlet/DaemonServlet.java \
     src/filter/LoginFilter.java \
 -cp .:\
 web/WEB-INF/lib/jackson-core-2.11.0.jar:\

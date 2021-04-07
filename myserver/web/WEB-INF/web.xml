@@ -47,6 +47,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>DaemonServlet</servlet-name>
+        <servlet-class>servlet.DaemonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DaemonServlet</servlet-name>
+        <url-pattern>/daemon</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>InitServlet</servlet-name>
         <servlet-class>servlet.InitServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
