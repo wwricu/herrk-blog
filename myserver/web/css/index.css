@@ -149,9 +149,21 @@ body {
 .weatherValue {
     font-size: 1.4rem;
 }
-#search-box {
+#net-speed {
     position: relative;
     top: 15%;
+    left: 0.8rem;
+}
+.net-label {
+    color:rgb(81, 58, 82);
+    font-size: 1.25rem;
+}
+.net-speed {
+    font-size: 1.5rem;
+}
+#search-box {
+    position: relative;
+    top: 30%;
 }
 #search-box input[type="text"] {
     position: absolute;

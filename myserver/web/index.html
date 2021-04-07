@@ -12,6 +12,7 @@
 <script type="text/javascript" src="js/auto-login.js"></script>
 <script type="text/javascript" src="js/search-baidu.js"></script>
 <script type="text/javascript" src="js/weather.js"></script>
+<script type="text/javascript" src="js/net-speed.js"></script>
 
 <body>
     <div id = page>
@@ -50,11 +51,17 @@
                     </div>
                     <div id = message>
                         <span class = weatherLabel>Location: </span>
-                        <span id = location class=weatherValue></span></br>
+                        <span id = location class = weatherValue></span></br>
                         <span class = weatherLabel>Weather: </span>
-                        <span id = weather class=weatherValue></span></br>
+                        <span id = weather class = weatherValue></span></br>
                         <span class = weatherLabel>Temperature: </span>
-                        <span id = temperature class=weatherValue></span></br>
+                        <span id = temperature class = weatherValue></span></br>
+                    </div>
+                    <div id = net-speed>
+                        <span class = net-label>inbound:  </span>
+                        <span id = inbound class = net-speed></span></br></br>
+                        <span class = net-label>outbound: </span>
+                        <span id = outbound class = net-speed></span></br>
                     </div>
                     <div id="search-box">
                         <input type="text" required="">
