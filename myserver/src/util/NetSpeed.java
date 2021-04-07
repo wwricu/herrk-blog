@@ -11,6 +11,8 @@ public class NetSpeed implements Runnable {
     private static final String PATH = "/home/proc/net/dev";
     private static final String ETH  = "eth0:";
     private static final String ENP = "enp2s0:";
+    private static final String DOCKER = "docker0:";
+
     private static long inSpeed;
     private static long outSpeed;
 
@@ -38,7 +40,8 @@ public class NetSpeed implements Runnable {
 
             while ((line = bufferedReader.readLine()) != null) {
                 NetDevInfo n = getNetInfo(line);
-                if (n.name.equals(ETH) || n.name.equals(ENP)) {
+                // if (n.name.equals(ETH) || n.name.equals(ENP)) {
+                if (n.name.equals(DOCKER)) {
                     info = n;
                     break;
                 }
