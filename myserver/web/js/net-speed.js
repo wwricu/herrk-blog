@@ -10,8 +10,8 @@ function getNetSpeed() {
         timeout: 1000,
         success: function(netspeed) {
             // alert("inbount: " + netspeed.inbound + "outbound" + netspeed.outbound);
-            $("#inbound").text(netspeed.inbound + " kb/s");
-            $("#outbound").text(netspeed.outbound + " kb/s");
+            $("#inbound").text(netspeed.inbound + " KB/s");
+            $("#outbound").text(netspeed.outbound + " KB/s");
         }
     });
 }

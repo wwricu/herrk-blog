@@ -15,6 +15,7 @@ public class NetSpeed implements Runnable {
     private static long outSpeed;
 
     private NetDevInfo mInfo;
+    private long mUpdateTime;
     public int mThrottle;
 
     NetSpeed() {
@@ -24,10 +25,7 @@ public class NetSpeed implements Runnable {
         mThrottle = 2000;
     }
 
-    private void updateNetStat(int throttle /* millionsecond */) {
-        if (throttle <= 0) {
-            return;
-        }
+    private void updateNetStat() {
 
         FileInputStream fileInputStream = null;
         BufferedReader bufferedReader = null;
@@ -56,13 +54,16 @@ public class NetSpeed implements Runnable {
             return;
         }
 
+        long curTime = new Date().getTime();
+
         synchronized (NetSpeed.class) {
             if (mInfo != null) {
-                inSpeed = minusStr(info.receive.bytes, mInfo.receive.bytes) / throttle;
-                outSpeed = minusStr(info.transmit.bytes, mInfo.transmit.bytes) / throttle; // (byte per millionsecond)
+                inSpeed = minusStr(info.receive.bytes, mInfo.receive.bytes) / (curTime - mUpdateTime);
+                outSpeed = minusStr(info.transmit.bytes, mInfo.transmit.bytes) / (curTime - mUpdateTime); // (byte per millionsecond)
             }
         }
 
+        mUpdateTime = curTime;
         mInfo = info;
     }
 
@@ -179,7 +180,7 @@ public class NetSpeed implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            updateNetStat(mThrottle);
+            updateNetStat();
             Log.Debug("Inbound Speed: " + inSpeed + " Outbound Speed: " + outSpeed);
         }
     }
