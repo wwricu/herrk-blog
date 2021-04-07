@@ -1,6 +1,6 @@
 #! /bin/bash
 TOMCAT=/usr/local/tomcat
-sudo docker run \
+docker run \
     -v `pwd`/myserver:$TOMCAT/webapps/myserver \
     -v `pwd`/conf:$TOMCAT/conf \
     -v `pwd`/logs:$TOMCAT/logs \
