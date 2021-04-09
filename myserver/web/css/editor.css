@@ -1,31 +1,21 @@
-#topFrame {
-    position: relative;
-    z-index: 100;
-    width: 100%;
+#title {
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 40rem;
     height: 2rem;
+    font-size: 1rem;
+    color: rgb(81, 58, 82);
+    letter-spacing: 1px;
+    outline: rgb(81, 58, 82);
+    background: transparent;
 }
-#topFrame input {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: black 1px solid;
-    width: 60%;
-    height: 80%;
-}
-#toolbar {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 5rem;
-}
+
 #editor {
     position: absolute;
-    top: 40%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    border: black 1px solid;
-    width: 60%;
-    min-height: 30rem;
+    top: 10%;
+    transform: translate(-50%);
 }

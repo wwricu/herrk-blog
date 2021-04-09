@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Editor</title>
-    <link rel="stylesheet" type="text/css" href="/css/editor.css"/>
-    <script src="res/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/editor.css"/>
+    <link rel="stylesheet" type="text/css" href="res/editormd/css/editormd.css"/>
 </head>
 
-<script src="js/editor-tools.js"></script>
+<script src="res/jquery-3.5.1.js"></script> <!-- jquery -->
+<script src="res/editormd/editormd.min.js"></script> <!-- md editor -->
+
+<!--script src="js/auto-login.js"></script-->
+<script src="js/editor.js"></script> <!-- md editor -->
+
 <body>
-    <div id="topFrame">
-        <input type="text" required="">
-    </div>
-    <div id="toolbar">
-        <input type="button" class="tool-button" value="B">
-        <input type="button" class="tool-button" value="I">
-        <input type="text" class="tool-input" required="">
-        <input type="button" class="tool-button" value="Font-Size">
-        <input type="button" class="tool-button" value="Submit">
-    </div>
-    <div contenteditable="true" id="editor">
-    </div>
+
+<input id="title" type="text"></input>
+<div id="editor">
+    <textarea style="display:none;">
+    </textarea>
+</div>
+<button id="submit" type="submit">Submit</button>
 
 </body>
 </html>

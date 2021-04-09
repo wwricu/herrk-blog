@@ -47,7 +47,7 @@ public class ArticleManagerDAO {
     */
 
     public static void init() {
-        String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id VARCHAR(100) NOT NULL, title VARCHAR(100), summary VARCHAR(100), tags VARCHAR(100), create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id VARCHAR(100) NOT NULL, title VARCHAR(100), tags VARCHAR(100), create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
              stat.execute();
@@ -79,7 +79,6 @@ public class ArticleManagerDAO {
                 info.mArticleId = rs.getInt("article_id");
                 info.mAutherId = rs.getInt("auther_id");
                 info.mTitle = rs.getString("title");
-                info.mSummary = rs.getString("summary");
                 info.mTags = rs.getString("tags");
                 info.mCreateTime = rs.getString("create_time");
                 info.mLastModifyTime = rs.getString("last_modify_time");
