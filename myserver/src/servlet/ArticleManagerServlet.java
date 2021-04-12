@@ -46,28 +46,26 @@ public class ArticleManagerServlet extends HttpServlet {
             return;
         }
         int userId = (int) session.getAttribute("userid");
+        Log.Info("article manager invoked, user is " + userId);
 
         String action = request.getParameter("action");
 
         String articleIdS = request.getParameter("articleId");
-        String autherIdS = request.getParameter("autherid");
         String title = request.getParameter("title");
         String summary = request.getParameter("summary");
         String tags = request.getParameter("tags");
-        String body = request.getParameter("body");
-        // String createTime = request.getParameter("mCreateTime");
-        // String lastModifyTime = request.getParameter("mLastModifyTime");
+        String bodyMD = request.getParameter("bodyMD");
         String permission = request.getParameter("permission");
 
-        int articleId = Integer.parseInt(articleIdS);
-        int autherId = Integer.parseInt(autherIdS);
+        // String autherIdS = request.getParameter("autherid");
+        // String createTime = request.getParameter("mCreateTime");
+        // String lastModifyTime = request.getParameter("mLastModifyTime");
 
-        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        if (userId != autherId || articleManagerDAO.legalAuthor(articleId, userId) != true) {
-            Log.Warn("auther id failure");
-            return;
+        int articleId = 0;
+        if (articleIdS != null && articleIdS.length() == 0) {
+            articleId = Integer.parseInt(articleIdS);
         }
-
+        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         NumberCountDAO numberCountDAO = new NumberCountDAO();
         ArticleInfo info = new ArticleInfo();
         java.sql.Date currentTime = new java.sql.Date(System.currentTimeMillis());
@@ -75,23 +73,33 @@ public class ArticleManagerServlet extends HttpServlet {
         switch (action) {
             case "post":
                 Log.Info("post an article");
-                info.setValue(0, userId, title, summary, tags, body, currentTime.toString(), null, 0);
+                info.setValue(0, userId, title, summary, tags, bodyMD, currentTime.toString(), null, 0);
                 // articleId, userId, title, summary, tags, body, createtime, lstmodftime, permission
                 int createId = articleManagerDAO.createArticle(info);
                 if (createId > 0) {
+                    Log.Info("article id is " + createId);
                     response.sendRedirect("index.html");
                 } else {
-                    response.getWriter().write(createId);
+                    Log.Info("article id is " + createId);
+                    response.getWriter().write("fail");
                 }
                 break;
             case "delete":
                 Log.Info("delete article No. " + articleId);
+                if (articleManagerDAO.legalAuthor(articleId, userId) != true) {
+                    Log.Warn("auther id failure");
+                    break;
+                }
                 articleManagerDAO.deleteArticle(articleId);
                 response.sendRedirect("index.html");
                 break;
             case "update":
                 Log.Info("update article No. " + articleId);
-                info.setValue(0, userId, title, summary, tags, body, null, currentTime.toString(), 0);
+                if (articleManagerDAO.legalAuthor(articleId, userId) != true) {
+                    Log.Warn("auther id failure");
+                    break;
+                }
+                info.setValue(0, userId, title, summary, tags, bodyMD, null, currentTime.toString(), 0);
                 articleManagerDAO.updateArticle(articleId, info);
             default:
                 Log.Info("unrecognized action " + action);

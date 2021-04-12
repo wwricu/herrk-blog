@@ -3,6 +3,7 @@ package servlet;
 import dao.UserManagerDAO;
 import util.JwtUtils;
 import util.Log;
+import util.UserInfo;
 
 import java.io.PrintWriter;
 
@@ -21,7 +22,10 @@ public class UserManagerServlet extends HttpServlet {
 
         // declare variable together
         int retureCode; //login
+
+        int tokenUserId;
         String tokenUsername; // token
+        UserInfo info = new UserInfo();
         String logStatus; // notoken
         String geneSignToken; // signup
 
@@ -65,13 +69,14 @@ public class UserManagerServlet extends HttpServlet {
             break;
             case "token":
                 if (true != getLogStatus(username, session)) {
-                    tokenUsername = JwtUtils.authJWT(token);
-                    if (null != tokenUsername) {
+                    info = JwtUtils.authJWT(token);
+                    if (null != info) {
                         session = request.getSession(true);
 
-                        session.setAttribute("username", tokenUsername);
+                        session.setAttribute("username", info.mUserName);
+                        session.setAttribute("userid", info.mUserId);
                         session.setAttribute("status", "login");
-                        response.getWriter().write(tokenUsername);
+                        response.getWriter().write(info.mUserName);
                     } else {
                         // fail to log in
                         response.getWriter().write("fail");

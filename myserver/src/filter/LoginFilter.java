@@ -35,7 +35,7 @@ public class LoginFilter implements Filter {
         Date d = new Date();
         String date = sdf.format(d);
 
-        Log.Debug("visitor info:" + date + " " + ip);
+        Log.Verbose("visitor info:" + date + " " + ip);
 
         String url = request.getRequestURI();
         String action = request.getParameter("action");
@@ -44,6 +44,7 @@ public class LoginFilter implements Filter {
         switch (url) {
             case "/articlemanager":
                 if ("login" != session.getAttribute("status")) {
+                    Log.Info("unloged in, redirect to login.html");
                     response.sendRedirect("/login.html");
                 }
                 break;

@@ -20,7 +20,7 @@ public class UserManagerDAO {
 
     public UserManagerDAO() {
         try {
-            Class.forName("com.mysql.jc.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -7,6 +7,7 @@ javac \
     src/dao/InitDAO.java \
     src/util/JwtUtils.java \
     src/util/ArticleInfo.java \
+    src/util/UserInfo.java \
     src/util/Log.java \
     src/util/NetSpeed.java \
     src/util/Daemon.java \

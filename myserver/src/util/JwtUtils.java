@@ -54,7 +54,7 @@ public class JwtUtils {
      * @param String token
      * @return
      */
-    public static String authJWT(String token) {
+    public static UserInfo authJWT(String token) {
 
         Claims claims = parseJWT(token);
         if (null == claims) {
@@ -93,7 +93,7 @@ public class JwtUtils {
             return null;
         }
 
-        return userName;
+        return new UserInfo(userId, userName);
     }
 
     /**
