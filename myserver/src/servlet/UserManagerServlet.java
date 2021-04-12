@@ -102,7 +102,9 @@ public class UserManagerServlet extends HttpServlet {
                     response.getWriter().write("invitation needed");
                     return;
                 }
-                if (0 == dao.addUser(username, password)) {
+                int ret = dao.addUser(username, password);
+                String failMsg = null;
+                if (0 == ret) {
                     session = request.getSession(true);
 
                     session.setAttribute("username", username);
@@ -112,7 +114,20 @@ public class UserManagerServlet extends HttpServlet {
 
                     response.getWriter().write(geneSignToken);
                 } else {
-                    response.getWriter().write("fail");
+                    switch (ret) {
+                    case -1:
+                        failMsg = "connect error";
+                        break;
+                    case -2:
+                        failMsg = "invalid username";
+                        break;
+                    case -3:
+                        failMsg = "invalid password";
+                        break;
+                    default:
+                        failMsg = "internal error";
+                    }
+                    response.getWriter().write(failMsg);
                 }
             break;
 
@@ -121,6 +136,7 @@ public class UserManagerServlet extends HttpServlet {
             break;
 
             default:
+                Log.Info("unrecognized action");
             break;
         }
     }

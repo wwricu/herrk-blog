@@ -52,13 +52,12 @@ public class ArticleManagerServlet extends HttpServlet {
         String articleId = request.getParameter("articleId");
         String autherId = request.getParameter("autherid");
         String title = request.getParameter("title");
-        String summary = request.getParameter("mSummary");
-        String tags = request.getParameter("mTags");
+        String summary = request.getParameter("summary");
+        String tags = request.getParameter("tags");
+        String body = request.getParameter("body");
         // String createTime = request.getParameter("mCreateTime");
         // String lastModifyTime = request.getParameter("mLastModifyTime");
-        String permission = request.getParameter("mPermission");
-
-        String article = request.getParameter("article");
+        String permission = request.getParameter("permission");
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         NumberCountDAO numberCountDAO = new NumberCountDAO();
@@ -68,7 +67,8 @@ public class ArticleManagerServlet extends HttpServlet {
 
         switch (action) {
             case "post":
-                info.setValue(0, userId, title, summary, tags, currentTime.toString(), null, 0);
+                // articleId, userId, title, summary, tags, body, createtime, lstmodftime, permission
+                info.setValue(0, userId, title, summary, tags, body, currentTime.toString(), null, 0);
                 int createId = articleManagerDAO.createArticle(info);
                 if (createId > 0) {
                     response.sendRedirect("editor.html");

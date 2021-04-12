@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 
+import util.Log;
+
 public class UserManagerDAO {
 
     public UserManagerDAO() {
@@ -157,10 +159,13 @@ public class UserManagerDAO {
     public int addUser(String userName, String UserPassWd) {
 
         if (null == userName) {
+            Log.Info("userName is null");
             return -1;
         } else if (true != validUserName(userName)) {
+            Log.Info("invalid username " + userName);
             return -2;
         } else if (true != validPassWd(UserPassWd)) {
+            Log.Info("invalid password " + UserPassWd);
             return -3;
         } else {
             // log
@@ -170,6 +175,7 @@ public class UserManagerDAO {
 
         String salt = generateSalt();
         if (null == salt) {
+            Log.Error("failed to generate salt");
             return -4;
         }
 

@@ -41,10 +41,13 @@ public class NetSpeed implements Runnable {
             while ((line = bufferedReader.readLine()) != null) {
                 NetDevInfo n = getNetInfo(line);
                 // if (n.name.equals(ETH) || n.name.equals(ENP)) {
+                Log.Verbose("net name is " + n.name);
                 if (n.name.equals(DOCKER)) {
                     info = n;
                     break;
                 }
+            }
+            if (info == null) {
                 Log.Error("Did not found net");
             }
             fileInputStream.close();
@@ -150,7 +153,7 @@ public class NetSpeed implements Runnable {
         s = 0;
         info.name = data[s++];
         if (info.name.charAt(info.name.length() - 1) != ':') {
-            Log.Info("Not a valid net name");
+            Log.Verbose("Not a valid net name");
             return info;
         }
 
@@ -184,18 +187,16 @@ public class NetSpeed implements Runnable {
                 e.printStackTrace();
             }
             updateNetStat();
-            Log.Debug("Inbound Speed: " + inSpeed + " Outbound Speed: " + outSpeed);
+            Log.Verbose("Inbound Speed: " + inSpeed + " Outbound Speed: " + outSpeed);
         }
     }
 
     public static synchronized long getInSpeed() {
         return inSpeed;
     }
-
     public static synchronized long getOutSpeed() {
         return outSpeed;
     }
-
 }
 
 class NetDevInfo {

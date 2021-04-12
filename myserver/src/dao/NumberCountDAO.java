@@ -43,7 +43,6 @@ public class NumberCountDAO {
         try (Connection conn = getConnection();
              Statement stat = conn.createStatement();) {
 
-            Log.Info("wwr here!");
             stat.executeUpdate(createTable);
 
             /* Notice:
@@ -113,6 +112,21 @@ public class NumberCountDAO {
         return;
     }
 
+    public void articleCountDecrement(int num) {
+        if (num <= 0) {
+            return;
+        }
+
+        String sql = "UPDATE number_count_table SET count=count-? WHERE count_name='article_count';";
+        try (Connection conn = getConnection();
+                    PreparedStatement stat = conn.prepareStatement(sql);) {
+            stat.setInt(1, num);
+            stat.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getArticleCount() {
 
         int count = 0;
@@ -129,5 +143,4 @@ public class NumberCountDAO {
 
         return count;
     }
-
 };

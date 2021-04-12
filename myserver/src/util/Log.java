@@ -9,6 +9,7 @@ public class Log {
     private static String WARN = "_WARN";
     private static String INFO = "_INFO";
     private static String DEBUG = "_DEBUG";
+    private static String VERBOSE= "_VERBOSE";
 
     private static StringBuffer getAncestorName() {
 
@@ -51,7 +52,8 @@ public class Log {
     public static <T> void Warn(T parameter) {
         if (logLevel == LogLevel.WARN ||
             logLevel == LogLevel.INFO ||
-            logLevel == LogLevel.DEBUG) {
+            logLevel == LogLevel.DEBUG ||
+            logLevel == LogLevel.VERBOSE) {
 
                 StringBuffer prefix = getAncestorName();
                 System.out.println(WWR + WARN + "\t" + prefix.toString() + parameter);
@@ -59,21 +61,31 @@ public class Log {
     }
 
     public static <T> void Info(T parameter) {
-        if (logLevel == LogLevel.INFO || logLevel == LogLevel.DEBUG) {
+        if (logLevel == LogLevel.INFO ||
+            logLevel == LogLevel.DEBUG ||
+            logLevel == LogLevel.VERBOSE) {
             StringBuffer prefix = getAncestorName();
             System.out.println(WWR + INFO + "\t" + prefix.toString() + parameter);
         }
     }
 
     public static <T> void Debug(T parameter) {
-        if (logLevel == LogLevel.DEBUG) {
+        if (logLevel == LogLevel.DEBUG || logLevel == LogLevel.VERBOSE) {
             StringBuffer prefix = getAncestorName();
             System.out.println(WWR + DEBUG + "\t" + prefix.toString() + parameter);
+        }
+    }
+
+    public static <T> void Verbose(T parameter) {
+        if (logLevel == LogLevel.VERBOSE) {
+            StringBuffer prefix = getAncestorName();
+            System.out.println(WWR + VERBOSE + "\t" + prefix.toString() + parameter);
         }
     }
 };
 
 enum LogLevel {
+    VERBOSE,
     DEBUG,
     INFO,
     WARN,
