@@ -6,20 +6,20 @@ public class ArticleInfo {
     public String mTitle;
     public String mSummary;
     public String mTags;
-    public String mBody;
+    public String mBodyMD;
     public String mCreateTime;
     public String mLastModifyTime;
     public int mPermission;
 
     public void setValue(int articleId, int autherId, String title,
-                String summary, String tags, String body,
+                String summary, String tags, String bodyMD,
                 String createTime, String lastModifyTime, int permission) {
         mArticleId = articleId;
         mAutherId = autherId;
         mTitle = title;
         mSummary = summary;
         mTags = tags;
-        mBody = body;
+        mBodyMD = bodyMD;
         mCreateTime = createTime;
         mLastModifyTime = lastModifyTime;
         mPermission = permission;

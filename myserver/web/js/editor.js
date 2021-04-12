@@ -2,7 +2,16 @@ javascript:
 
 $(document).ready(function() {
     $("button").click(function() {
-        alert("submit!");
+        var data = {
+            action: 'post',
+            articleId: '0',
+            autherId: 'unknown',
+            title: 'title',
+            summary: 'summary',
+            tags: 'tags',
+            body: 'body',
+            permission: '0',
+        },
     });
 });
 

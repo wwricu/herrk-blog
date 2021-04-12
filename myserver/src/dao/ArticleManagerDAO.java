@@ -41,14 +41,14 @@ public class ArticleManagerDAO {
     title VARCHAR
     summary VARCHAR
     tags VARCHAR
-    body VARCHAR
+    body_md VARCHAR
     create_time DATE
     last_modify_time DATE
     permission INT
     */
 
     public static void init() {
-        String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id VARCHAR(100) NOT NULL, title VARCHAR(100), summary VARCHAR(100), tags VARCHAR(100), body VARCHAR， create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id VARCHAR(100) NOT NULL, title VARCHAR(100), summary VARCHAR(100), tags VARCHAR(100), body_md VARCHAR， create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
              stat.execute();
@@ -75,7 +75,7 @@ public class ArticleManagerDAO {
                 info.mTitle = rs.getString("title");
                 info.mSummary = rs.getString("summary");
                 info.mTags = rs.getString("tags");
-                info.mBody = rs.getString("body");
+                info.mBodyMD = rs.getString("body_md");
                 info.mCreateTime = rs.getString("create_time");
                 info.mLastModifyTime = rs.getString("last_modify_time");
                 info.mPermission = rs.getInt("permission");
@@ -89,33 +89,19 @@ public class ArticleManagerDAO {
         return info;
     }
 
-        /*
-    article_table:
-
-    article_id INT UNSIGNED AUTO_INCREMENT
-    auther_id VARCHAR NOT NULL
-    title VARCHAR
-    summary VARCHAR
-    tags VARCHAR
-    body VARCHAR
-    create_time DATE
-    last_modify_time DATE
-    permission INT
-    */
-
     public int updateArticle(int articleId, ArticleInfo info) {
         if (info == null || articleId <= 0) {
             return -1;
         }
 
         int ret = 0;
-        String sql = "UPDATE article_table SET title=?, summary=?, tags=?, body=?, last_modify_time=?, permission=? WHERE article_id=?;";
+        String sql = "UPDATE article_table SET title=?, summary=?, tags=?, body_md=?, last_modify_time=?, permission=? WHERE article_id=?;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setString(1, info.mTitle);
             stat.setString(2, info.mSummary);
             stat.setString(3, info.mTags);
-            stat.setString(4, info.mBody);
+            stat.setString(4, info.mBodyMD);
             stat.setString(5, info.mLastModifyTime);
             stat.setInt(6, info.mPermission);
             stat.setInt(7, articleId);
@@ -157,7 +143,7 @@ public class ArticleManagerDAO {
                 info.mTitle = rs.getString("title");
                 info.mSummary = rs.getString("summary");
                 info.mTags = rs.getString("tags");
-                info.mBody = null;
+                info.mBodyMD = null;
                 info.mCreateTime = rs.getString("create_time");
                 info.mLastModifyTime = rs.getString("last_modify_time");
                 info.mPermission = rs.getInt("permission");
@@ -190,7 +176,7 @@ public class ArticleManagerDAO {
             stat.setString(2, info.mTitle);
             stat.setString(3, info.mSummary);
             stat.setString(4, info.mTags);
-            stat.setString(5, info.mBody);
+            stat.setString(5, info.mBodyMD);
             stat.setString(6, info.mCreateTime);
             stat.setString(7, info.mLastModifyTime);
             stat.setInt(8, info.mPermission);
