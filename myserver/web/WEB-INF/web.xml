@@ -28,6 +28,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>FileManagerServlet</servlet-name>
+        <servlet-class>servlet.FileManagerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileManagerServlet</servlet-name>
+        <url-pattern>/filemanager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ArticleManagerServlet</servlet-name>
         <servlet-class>servlet.ArticleManagerServlet</servlet-class>
         <load-on-startup>10</load-on-startup>

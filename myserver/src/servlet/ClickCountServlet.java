@@ -32,5 +32,4 @@ public class ClickCountServlet extends HttpServlet {
 
         return;
     }
-
 };
