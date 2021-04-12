@@ -23,7 +23,5 @@ public class ArticleInfo {
         mCreateTime = createTime;
         mLastModifyTime = lastModifyTime;
         mPermission = permission;
-
-        return;
     }
 }

@@ -49,8 +49,8 @@ public class ArticleManagerServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        String articleId = request.getParameter("articleId");
-        String autherId = request.getParameter("autherid");
+        String articleIdS = request.getParameter("articleId");
+        String autherIdS = request.getParameter("autherid");
         String title = request.getParameter("title");
         String summary = request.getParameter("summary");
         String tags = request.getParameter("tags");
@@ -59,28 +59,43 @@ public class ArticleManagerServlet extends HttpServlet {
         // String lastModifyTime = request.getParameter("mLastModifyTime");
         String permission = request.getParameter("permission");
 
-        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        NumberCountDAO numberCountDAO = new NumberCountDAO();
+        int articleId = Integer.parseInt(articleIdS);
+        int autherId = Integer.parseInt(autherIdS);
 
+        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
+        if (userId != autherId || articleManagerDAO.legalAuthor(articleId, userId) != true) {
+            Log.Warn("auther id failure");
+            return;
+        }
+
+        NumberCountDAO numberCountDAO = new NumberCountDAO();
         ArticleInfo info = new ArticleInfo();
         java.sql.Date currentTime = new java.sql.Date(System.currentTimeMillis());
 
         switch (action) {
             case "post":
-                // articleId, userId, title, summary, tags, body, createtime, lstmodftime, permission
+                Log.Info("post an article");
                 info.setValue(0, userId, title, summary, tags, body, currentTime.toString(), null, 0);
+                // articleId, userId, title, summary, tags, body, createtime, lstmodftime, permission
                 int createId = articleManagerDAO.createArticle(info);
                 if (createId > 0) {
-                    response.sendRedirect("editor.html");
+                    response.sendRedirect("index.html");
                 } else {
                     response.getWriter().write(createId);
                 }
+                break;
             case "delete":
+                Log.Info("delete article No. " + articleId);
+                articleManagerDAO.deleteArticle(articleId);
+                response.sendRedirect("index.html");
+                break;
             case "update":
+                Log.Info("update article No. " + articleId);
+                info.setValue(0, userId, title, summary, tags, body, null, currentTime.toString(), 0);
+                articleManagerDAO.updateArticle(articleId, info);
             default:
+                Log.Info("unrecognized action " + action);
                 break;
         }
-
-        return;
     }
 }

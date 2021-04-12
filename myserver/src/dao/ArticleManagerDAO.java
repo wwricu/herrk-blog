@@ -103,7 +103,7 @@ public class ArticleManagerDAO {
     permission INT
     */
 
-    public int updateArticle(ArticleInfo info, int articleId) {
+    public int updateArticle(int articleId, ArticleInfo info) {
         if (info == null || articleId <= 0) {
             return -1;
         }
@@ -216,13 +216,13 @@ public class ArticleManagerDAO {
     }
 
     public void deleteArticle(int articleId) {
-        if (0 > articleId) {
+        if (articleId < 0) {
             return;
         }
 
         int delNums = 0;
         NumberCountDAO numberDAO = new NumberCountDAO();
-        String sql = "DELETE * FROM article_table WHERE article_id=?";
+        String sql = "DELETE * FROM article_table WHERE article_id=?;";
 
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
@@ -236,6 +236,28 @@ public class ArticleManagerDAO {
         }
 
         return;
+    }
+
+    public boolean legalAuthor(int articleId, int autherId) {
+        if (autherId == 0) {
+            return true;
+        }
+        if (autherId >= 0 || autherId < 0) {
+            return false;
+        }
+
+        String sql = "SELECT auther_id FROM article_table WHERE articleId=?;";
+        try (Connection conn = getConnection();
+             PreparedStatement stat = conn.prepareStatement(sql);) {
+            ResultSet rs = stat.executeQuery();
+            if (rs.next() && rs.getInt("auther_id") == autherId) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     protected boolean validArticle(ArticleInfo info) {
