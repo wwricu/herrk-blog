@@ -10,6 +10,7 @@ javac \
     src/util/UserInfo.java \
     src/util/Log.java \
     src/util/NetSpeed.java \
+    src/util/SystemInfo.java \
     src/util/Daemon.java \
     src/servlet/ClickCountServlet.java \
     src/servlet/UserManagerServlet.java \
