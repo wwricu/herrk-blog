@@ -7,38 +7,14 @@ import util.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
-public class ArticleManagerServlet extends HttpServlet {
+public class ArticleViewerServlet extends HttpServlet {
 
-    private int mArticleNumber;
-    private ArticleInfo[] mArticleInfos;
-
-    public void init() throws ServletException {
-        super.init();
-        Log.Info("start Article Servlet");
-
-        NumberCountDAO numberCountDAO = new NumberCountDAO();
-        mArticleNumber = numberCountDAO.getArticleCount();
-
-        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        mArticleInfos = articleManagerDAO.getLatestArticles(0, mArticleNumber);
-        Log.Info("ArticleManagerServlet.init() article number = " + mArticleNumber);
-
-        return;
-    }
-
-    /*
-    Functions:
-    1. Post an article
-    2. Delete an article
-    3. Update an article
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -50,39 +26,40 @@ public class ArticleManagerServlet extends HttpServlet {
         int userId = (int) session.getAttribute("userid");
 
         String action = request.getParameter("action");
-
+        if (action == null) {
+            Log.Error("action is null");
+            return;
+        }
+        String start = request.getParameter("start");
+        String num = request.getParameter("num");
+        String order = request.getParameter("order");
         String articleId = request.getParameter("articleId");
-        String autherId = request.getParameter("autherid");
-        String title = request.getParameter("title");
-        String summary = request.getParameter("mSummary");
-        String tags = request.getParameter("mTags");
-        // String createTime = request.getParameter("mCreateTime");
-        // String lastModifyTime = request.getParameter("mLastModifyTime");
-        String permission = request.getParameter("mPermission");
-
-        String article = request.getParameter("article");
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         NumberCountDAO numberCountDAO = new NumberCountDAO();
-
-        ArticleInfo info = new ArticleInfo();
-        java.sql.Date currentTime = new java.sql.Date(System.currentTimeMillis());
+        StringBuilder json = new StringBuilder("{")
 
         switch (action) {
-            case "post":
-                info.setValue(0, userId, title, summary, tags, currentTime.toString(), null, 0);
-                int createId = articleManagerDAO.createArticle(info);
-                if (createId > 0) {
-                    response.sendRedirect("editor.html");
-                } else {
-                    response.getWriter().write(createId);
+            case "getnum":
+                response.getWriter().write(numberCountDAO.getArticleCount());
+            break;
+            case "preview":
+                ArticleInfo[] list = articleManagerDAO.getLatestArticles(
+                        Integer.parseInt(start), Integer.parseInt(num), order);
+                json.append("\"num\":").append(String.valueOf(list.length()).append("\"list\":[");
+                for (ArticleInfo info : list) {
+                    json.append(info.toJson()).append(",");
                 }
-            case "delete":
-            case "update":
+                json.append("]}");
+                response.getWriter().write(json.toString());
+            break;
+            case "view":
+                ArticleInfo info = articleManagerDAO.searchArticle(Integer.parseInt(articleId));
+                response.getWriter().write(info.toJson());
+            break;
             default:
+                Log.Warn("unrecognized action " + action);
                 break;
         }
-
-        return;
     }
 }

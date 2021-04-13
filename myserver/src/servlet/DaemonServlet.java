@@ -29,8 +29,7 @@ public class DaemonServlet extends HttpServlet {
         switch (action) {
             case "netspeed":
                 json.append("\"inbound\":").append(NetSpeed.getInSpeed());
-                json.append(",");
-                json.append("\"outbound\":").append(NetSpeed.getOutSpeed());
+                json.append(",\"outbound\":").append(NetSpeed.getOutSpeed());
                 json.append("}");
                 response.getWriter().write(json.toString());
                 break;

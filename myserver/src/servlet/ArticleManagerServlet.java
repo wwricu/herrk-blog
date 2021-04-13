@@ -27,7 +27,7 @@ public class ArticleManagerServlet extends HttpServlet {
         mArticleNumber = numberCountDAO.getArticleCount();
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        mArticleInfos = articleManagerDAO.getLatestArticles(0, mArticleNumber);
+        mArticleInfos = articleManagerDAO.getLatestArticles(0, mArticleNumber, "article_id");
         Log.Info("ArticleManagerServlet.init() article number = " + mArticleNumber);
     }
 
