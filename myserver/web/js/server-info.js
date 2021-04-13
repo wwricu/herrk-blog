@@ -37,19 +37,19 @@ function getUptime() {
 }
 
 function updateUptime() {
-    var min = $("#minute").text();
-    if (min == 59) {
+    var min = parseInt($("#minute").text()) + 1;
+    if (min == 60) {
         $("#minute").text(0);
-        var hour = $("#hour").text();
-        if (hour == 23) {
+        var hour = parseInt($("#hour").text()) + 1;
+        if (hour == 24) {
             $("#hour").text(0);
-            var day = $("#day").text();
-            $("#day").text(day + 1);
+            var day = parseInt($("#day").text()) + 1;
+            $("#day").text(day);
         } else {
-            $("#hour").text(hour + 1);
+            $("#hour").text(hour);
         }
     } else {
-        $("#minute").text(min + 1);
+        $("#minute").text(min);
     }
 }
 
