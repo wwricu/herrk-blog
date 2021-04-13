@@ -131,19 +131,18 @@ body {
 }
 #sys-info {
     position: relative;
-    top: 5%;
+    top: 4%;
     float: left;
     font-size: 1.5rem;
-    padding-left: 0rem;
+    padding-left: 0.8rem;
 }
 #uptime {
     position: absolute;
     top: 2.5rem;
-    padding-left: 0.8rem;
 }
 #message  {
     position: relative;
-    top: 20%;
+    top: 15%;
     width: 100%;
     overflow: hidden;
     padding: 0 0.85rem;
@@ -151,12 +150,12 @@ body {
 }
 #net-speed {
     position: relative;
-    top: 25%;
+    top: 18%;
     left: 0.8rem;
 }
 #search-box {
     position: relative;
-    top: 32%;
+    top: 25%;
 }
 .time-font {
     font-size: 2rem;
