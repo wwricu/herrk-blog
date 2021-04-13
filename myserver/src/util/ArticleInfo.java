@@ -24,4 +24,19 @@ public class ArticleInfo {
         mLastModifyTime = lastModifyTime;
         mPermission = permission;
     }
+
+    public String toJson() {
+        StringBuilder json = new StringBuilder("{");
+        json.append("\"article_id\":").append(String.valueOf(mArticleId)).append(",");
+        json.append("\"auther_id\":").append(String.valueOf(mAutherId)).append(",");
+        json.append("\"title\":\"").append(mTitle).append("\",");
+        json.append("\"summary\":\"").append(mSummary).append("\",");
+        json.append("\"tags\":\"").append(mTags).append("\",");
+        json.append("\"bodyMD\":\"").append(mBodyMD).append("\",");
+        json.append("\"create_time\":\"").append(mCreateTime).append("\",");
+        json.append("\"last_modify_time\":\"").append(mLastModifyTime).append("\",");
+        json.append("\"permission\":").append(String.valueOf(mPermission)).append("}");
+
+        return json.toString();
+    }
 }

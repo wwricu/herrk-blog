@@ -37,6 +37,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ArticleViewerServlet</servlet-name>
+        <servlet-class>servlet.ArticleViewerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ArticleViewerServlet</servlet-name>
+        <url-pattern>/articleviewer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ArticleManagerServlet</servlet-name>
         <servlet-class>servlet.ArticleManagerServlet</servlet-class>
         <load-on-startup>10</load-on-startup>

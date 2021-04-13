@@ -2,6 +2,7 @@ package servlet;
 
 import util.Log;
 import util.NetSpeed;
+import util.SystemInfo;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,6 @@ public class DaemonServlet extends HttpServlet {
 
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Log.Info("Daemon servlet");
 
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
@@ -28,13 +28,16 @@ public class DaemonServlet extends HttpServlet {
 
         switch (action) {
             case "netspeed":
-                json.append("\"inbound\"").append(":").append(NetSpeed.getInSpeed());
-                json.append(",");
-                json.append("\"outbound\"").append(":").append(NetSpeed.getOutSpeed());
+                json.append("\"inbound\":").append(NetSpeed.getInSpeed());
+                json.append(",\"outbound\":").append(NetSpeed.getOutSpeed());
                 json.append("}");
                 response.getWriter().write(json.toString());
                 break;
+            case "uptime":
+                response.getWriter().write(String.valueOf(SystemInfo.getUptime()));
+                break;
             default:
+                Log.Info("unrecognized action " + action);
                 break;
         }
     }

@@ -118,7 +118,7 @@ public class ArticleManagerDAO {
         return 0;
     }
 
-    public ArticleInfo[] getLatestArticles(int start, int num) {
+    public ArticleInfo[] getLatestArticles(int start, int num, String order) {
 
         if (start < 0) {
             start = 0;
@@ -126,13 +126,22 @@ public class ArticleManagerDAO {
         if (num <= 0) {
             num = 1;
         }
+        if (order == null ||
+            !order.equals("article_id") &&
+            !order.equals("create_time") &&
+            !order.equals("last_modify_time")) {
+            order = "last_modify_time";
+        }
 
         ArticleInfo[] result = new ArticleInfo[num];
-        String sql = "SELECT * FROM article_table ORDER BY article_id DESC LIMIT ?, ?;";
+        String sql = "SELECT article_id, auther_id, title, summary, tags, create_time, last_modify_time "
+                   + "FROM article_table ORDER BY ? DESC LIMIT ?, ?;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
-            stat.setInt(1, start);
-            stat.setInt(2, num);
+
+            stat.setString(1, order);
+            stat.setInt(2, start);
+            stat.setInt(3, num);
 
             int count = 0;
             ResultSet rs = stat.executeQuery();
@@ -143,7 +152,7 @@ public class ArticleManagerDAO {
                 info.mTitle = rs.getString("title");
                 info.mSummary = rs.getString("summary");
                 info.mTags = rs.getString("tags");
-                info.mBodyMD = null;
+                info.mBodyMD = "";
                 info.mCreateTime = rs.getString("create_time");
                 info.mLastModifyTime = rs.getString("last_modify_time");
                 info.mPermission = rs.getInt("permission");
