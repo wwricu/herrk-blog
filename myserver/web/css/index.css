@@ -99,7 +99,7 @@ body {
 }
 #mainFrame {
     width: 85rem;
-    height: 6000px;
+    height: 100%;
     margin: 4rem auto;
 }
 #leftFrame {

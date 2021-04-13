@@ -20,6 +20,7 @@ public class DaemonServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         String action = request.getParameter("action");
         StringBuilder json = new StringBuilder("{");
+        response.setContentType("text/plain");
 
         if (null == action) {
             Log.Error("action is null");
