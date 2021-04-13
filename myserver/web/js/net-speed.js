@@ -1,6 +1,7 @@
 javascript:
 
 function getNetSpeed() {
+    var sendTime = new Date().getTime();
     $.ajax({
         type: "get",
         async: true,
@@ -9,9 +10,9 @@ function getNetSpeed() {
         dataType: "json",
         timeout: 1000,
         success: function(netspeed) {
-            // alert("inbount: " + netspeed.inbound + "outbound" + netspeed.outbound);
             $("#inbound").text(netspeed.inbound + " KB/s");
             $("#outbound").text(netspeed.outbound + " KB/s");
+            $("#latency").text(new Date().getTime() - sendTime - 5 + " ms");
         }
     });
 }
