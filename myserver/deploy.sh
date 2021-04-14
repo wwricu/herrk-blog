@@ -16,6 +16,7 @@ javac \
     src/servlet/UserManagerServlet.java \
     src/servlet/InitServlet.java \
     src/servlet/ArticleManagerServlet.java \
+    src/servlet/ArticleViewerServlet.java \
     src/servlet/FileManagerServlet.java \
     src/servlet/TestApiServlet.java \
     src/servlet/DaemonServlet.java \

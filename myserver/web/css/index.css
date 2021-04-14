@@ -103,7 +103,9 @@ body {
     margin: 4rem auto;
 }
 #leftFrame {
-    width: 19.5%;
+    position: absolute;
+    width: 20%;
+    left: 5%;
     height: inherit;
     float: left;
 }

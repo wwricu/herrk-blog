@@ -18,40 +18,35 @@ public class ArticleViewerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(true);
-        String logStatus = (String)session.getAttribute("status");
-        if (logStatus == null || true != logStatus.equals("login")) {
-            return;
-        }
-        int userId = (int) session.getAttribute("userid");
+        Log.Verbose("article viewer servlet");
 
         String action = request.getParameter("action");
         if (action == null) {
             Log.Error("action is null");
             return;
         }
-        String start = request.getParameter("start");
-        String num = request.getParameter("num");
+        String index = request.getParameter("index");
         String order = request.getParameter("order");
         String articleId = request.getParameter("articleId");
+        Log.Info("action is " + action);
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         NumberCountDAO numberCountDAO = new NumberCountDAO();
-        StringBuilder json = new StringBuilder("{")
 
         switch (action) {
             case "getnum":
-                response.getWriter().write(numberCountDAO.getArticleCount());
+                int articleNum = numberCountDAO.getArticleCount();
+                Log.Verbose("article num is " + articleNum);
+                response.getWriter().write(String.valueOf(articleNum));
             break;
             case "preview":
                 ArticleInfo[] list = articleManagerDAO.getLatestArticles(
-                        Integer.parseInt(start), Integer.parseInt(num), order);
-                json.append("\"num\":").append(String.valueOf(list.length()).append("\"list\":[");
-                for (ArticleInfo info : list) {
-                    json.append(info.toJson()).append(",");
+                        Integer.parseInt(index), 1, order);
+                if (list == null || list.length == 0) {
+                    Log.Error("get article failure");
+                    break;
                 }
-                json.append("]}");
-                response.getWriter().write(json.toString());
+                response.getWriter().write(list[0].toJson().replace("\r", "\\r").replace("\n", "\\n"));
             break;
             case "view":
                 ArticleInfo info = articleManagerDAO.searchArticle(Integer.parseInt(articleId));

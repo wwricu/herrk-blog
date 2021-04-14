@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 public class ArticleManagerServlet extends HttpServlet {
 
     private int mArticleNumber;
-    private ArticleInfo[] mArticleInfos;
 
     public void init() throws ServletException {
         super.init();
@@ -27,7 +26,6 @@ public class ArticleManagerServlet extends HttpServlet {
         mArticleNumber = numberCountDAO.getArticleCount();
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        mArticleInfos = articleManagerDAO.getLatestArticles(0, mArticleNumber, "article_id");
         Log.Info("ArticleManagerServlet.init() article number = " + mArticleNumber);
     }
 

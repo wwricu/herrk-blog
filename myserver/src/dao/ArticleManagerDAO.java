@@ -155,7 +155,7 @@ public class ArticleManagerDAO {
                 info.mBodyMD = "";
                 info.mCreateTime = rs.getString("create_time");
                 info.mLastModifyTime = rs.getString("last_modify_time");
-                info.mPermission = rs.getInt("permission");
+                info.mPermission = 0;
                 result[count++] = info;
             }
         } catch (SQLException e) {

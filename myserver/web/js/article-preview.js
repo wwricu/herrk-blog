@@ -1,13 +1,10 @@
-let pageMax = 5;
 let articleIndex = 0;
-let articleNum;
-let pageNum;
-let pageIndex;
+let articleNum = 0;
 
 function getArticleNum() {
     $.ajax({
-        type: "get",
-        async: true,
+        type: "POST",
+        async: false,
         url: "articleviewer",
         data: {"action": "getnum"},
         dataType: "text",
@@ -18,31 +15,61 @@ function getArticleNum() {
     });
 }
 
-function getPageNum() {
-    "use strict";
-    pageNum = Math.floor(articleNum / pageMax);
-    if (articleNum != pageNum * pageMax) {
-        pageNum++;
-    }
-}
-
 function addArticle() {
     "use strict";
-    var article = $("<div class = article></div>")
-        .append($("<div class = article-title align = \"left\"></div>").text("title"))
-        .append($("<div class = article-preview align = \"left\"></div>").text("summary"));
-    $(".articleZone").append(article);
+    if (articleIndex == articleNum) {
+        return;
+    }
+    let article = {
+        "article_id": 0,
+        "auther_id": 0,
+        "title": "",
+        "summary": "",
+        "tags": "",
+        "bodyMD": "",
+        "create_time": "",
+        "last_modify_time": "",
+        "permission": 0
+    };
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "articleviewer",
+        data: {
+            "action": "preview",
+            "index": articleIndex,
+            "order": "last_modify_time"
+        },
+        dataType: "json",
+        timeout: 1000,
+        success: function (receive) {
+            if (receive === null) {
+                return -1;
+            }
+            article.article_id = receive.article_id;
+            article.auther_id = receive.auther_id;
+            article.title = receive.title;
+            article.summary = receive.summary;
+            article.create_time = receive.create_time;
+            article.last_modify_time = receive.last_modify_time;
+        }
+    });
+    let articleBody = $("<div class = article></div>")
+        .append($("<div class = article-title align = \"left\"></div>").text(article.title))
+        .append($("<div class = article-preview align = \"left\"></div>").text(article.summary));
+    $(".articleZone").append(articleBody);
+    articleIndex++;
 }
 
 function renderPage() {
     "use strict";
-    while ($(window).height() == $(document).height()) {
-        addArticle();
-    }
     $(window).scroll(function() {
         if ($(document).scrollTop() + $(window).height() >= $(document).height() - 1) {
-            console.log($(document).scrollTop() + $(window).height() + $(document).height());
-            addArticle();
+            // console.log($(document).scrollTop() + $(window).height() + $(document).height());
+            if (articleIndex < articleNum) {
+                addArticle();
+            }
         }
     });
 }
@@ -50,5 +77,9 @@ function renderPage() {
 $(document).ready(function () {
     "use strict";
     getArticleNum();
+    while (articleIndex < articleNum &&
+        ($(window).height() == $(document).height() || articleIndex < 10)) {
+        addArticle();
+    }
     renderPage();
 });
