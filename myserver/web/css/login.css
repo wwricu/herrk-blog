@@ -4,7 +4,7 @@ body {
     font-family: sans-serif;
     background: url(/res/image/yrel.jpg);
     background-attachment: fixed;
-    background-size: 100%;
+    background-size: 100% 100%;
     background-repeat: repeat;
 }
 .box {

@@ -47,14 +47,11 @@ public class ArticleViewerServlet extends HttpServlet {
                     Log.Error("get article failure");
                     break;
                 }
-                list[0].transmitQuota();
                 response.getWriter().write(list[0].toJson().replace("\r", "\\r").replace("\n", "\\n"));
             break;
             case "view":
                 ArticleInfo info = articleManagerDAO.searchArticle(Integer.parseInt(articleId));
-                info.transmitQuota();
-                Log.Info(info.toJson().replace("\r", "\\r").replace("\n", "\\n"));
-                response.getWriter().write(info.toJson().replace("\r", "\\r").replace("\n", "\\n"));
+                response.getWriter().write(info.toJson());
             break;
             default:
                 Log.Warn("unrecognized action " + action);

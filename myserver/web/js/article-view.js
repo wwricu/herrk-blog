@@ -38,10 +38,10 @@ function renderArticle(articleId) {
         success: function (receive) {
             article.article_id = receive.article_id;
             article.auther_id = receive.auther_id;
-            article.title = receive.title;
-            article.summary = receive.summary;
+            article.title = unescape(receive.title);
+            article.summary = unescape(receive.summary);
             article.tags = receive.tags;
-            article.bodyMD = receive.bodyMD;
+            article.bodyMD = unescape(receive.bodyMD);
             article.create_time = receive.create_time;
             article.last_modify_time = receive.last_modify_time;
             article.permission = receive.permission;

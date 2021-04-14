@@ -3,7 +3,7 @@ a {
 }
 body {
     background: url(/res/image/ladymaria.jpg);
-    background-size: 100%;
+    background-size: 100% 100%;
     background-repeat: repeat-y;
     background-attachment: fixed;
 }

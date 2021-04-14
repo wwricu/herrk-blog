@@ -24,10 +24,10 @@ $(document).ready(function() {
         var msg = {
             action: 'post',
             articleId: '0',
-            title: title,
-            summary: sum,
+            title: escape(title),
+            summary: escape(sum),
             tags: 'default',
-            bodyMD: md,
+            bodyMD: escape(md),
             permission: '0'
         };
 

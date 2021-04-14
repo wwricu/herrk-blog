@@ -1,3 +1,10 @@
+body {
+    background: url(/res/image/haluhi.jpg);
+    background-size: 100% 100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    background-position: bottom;
+}
 a {
     text-decoration: none;
 }
@@ -37,4 +44,5 @@ a {
     left: 50%;
     top: 4rem;
     transform: translate(-50%);
+    opacity: 90%;
 }
