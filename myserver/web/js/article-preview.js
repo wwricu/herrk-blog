@@ -55,8 +55,10 @@ function addArticle() {
             article.last_modify_time = receive.last_modify_time;
         }
     });
-    let articleBody = $("<div class = article></div>")
-        .append($("<div class = article-title align = \"left\"></div>").text(article.title))
+    let link = '../viewer.html?id=' + article.article_id;
+    let title = "<a class = article-title href = \"" + link + "\"align = \"left\"></a>";
+    let articleBody = $("<div class = article ></div>")
+        .append($(title).text(article.title))
         .append($("<div class = article-preview align = \"left\"></div>").text(article.summary));
     $(".articleZone").append(articleBody);
     articleIndex++;

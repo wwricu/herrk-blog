@@ -50,7 +50,7 @@ public class ArticleViewerServlet extends HttpServlet {
             break;
             case "view":
                 ArticleInfo info = articleManagerDAO.searchArticle(Integer.parseInt(articleId));
-                response.getWriter().write(info.toJson());
+                response.getWriter().write(info.toJson().replace("\r", "\\r").replace("\n", "\\n"));
             break;
             default:
                 Log.Warn("unrecognized action " + action);
