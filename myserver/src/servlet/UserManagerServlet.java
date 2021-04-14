@@ -38,6 +38,7 @@ public class UserManagerServlet extends HttpServlet {
         String token = request.getParameter("token");
 
         HttpSession session = request.getSession(false);
+        response.setContentType("text/plain");
 
         Log.Debug("call user manager servlet, action = " + action);
 

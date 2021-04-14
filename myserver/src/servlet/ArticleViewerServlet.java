@@ -32,6 +32,7 @@ public class ArticleViewerServlet extends HttpServlet {
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         NumberCountDAO numberCountDAO = new NumberCountDAO();
+        response.setContentType("text/plain");
 
         switch (action) {
             case "getnum":

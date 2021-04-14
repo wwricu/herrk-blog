@@ -67,6 +67,7 @@ public class ArticleManagerServlet extends HttpServlet {
         NumberCountDAO numberCountDAO = new NumberCountDAO();
         ArticleInfo info = new ArticleInfo();
         java.sql.Date currentTime = new java.sql.Date(System.currentTimeMillis());
+        response.setContentType("text/plain");
 
         switch (action) {
             case "post":

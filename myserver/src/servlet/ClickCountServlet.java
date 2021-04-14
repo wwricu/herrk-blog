@@ -15,6 +15,7 @@ public class ClickCountServlet extends HttpServlet {
         NumberCountDAO dao = new NumberCountDAO();
         HttpSession session = request.getSession(true);
         String countString = (String)session.getAttribute("count");
+        response.setContentType("text/plain");
 
         if (null == countString) {
             dao.clickCountIncrement();
