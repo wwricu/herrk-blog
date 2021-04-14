@@ -25,6 +25,13 @@ public class ArticleInfo {
         mPermission = permission;
     }
 
+    public void transmitQuota() {
+        mTitle = mTitle.replace("\"", "\\\"");
+        mSummary = mSummary.replace("\"", "\\\"");
+        mTags = mTags.replace("\"", "\\\"");
+        mBodyMD = mBodyMD.replace("\"", "\\\"");
+    }
+
     public String toJson() {
         StringBuilder json = new StringBuilder("{");
         json.append("\"article_id\":").append(String.valueOf(mArticleId)).append(",");
