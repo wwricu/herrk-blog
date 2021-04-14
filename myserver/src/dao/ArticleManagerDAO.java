@@ -260,7 +260,9 @@ public class ArticleManagerDAO {
             return false;
         }
 
-        if (null == info.mTitle || 30 < info.mTitle.length()) {
+        if (null == info.mTitle ||
+                info.mTitle.length() == 0 ||
+                info.mTitle.length() > 316) {
             return false;
         }
 

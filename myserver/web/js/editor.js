@@ -44,8 +44,7 @@ $(document).ready(function() {
                 if (result == "fail") {
                     console.log('server failed to submit');
                 } else {
-                    console.log(result);
-                    window.open("../index.html");
+                    window.open("../index.html", "_self");
                 }
             }
         });

@@ -77,7 +77,6 @@ public class ArticleManagerServlet extends HttpServlet {
                 int createId = articleManagerDAO.createArticle(info);
                 if (createId > 0) {
                     Log.Info("article id is " + createId);
-                    response.sendRedirect("index.html");
                 } else {
                     Log.Info("article id is " + createId);
                     response.getWriter().write("fail");
