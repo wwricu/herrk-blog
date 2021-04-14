@@ -7,40 +7,6 @@ body {
     background-repeat: repeat-y;
     background-attachment: fixed;
 }
-#homeBtn a {
-    margin: auto 1rem;
-}
-#signBtn {
-    margin: auto 0.65rem;
-}
-#homeBtn a:hover {
-    color:black;
-}
-#signBtn a:hover {
-    color:black;
-}
-#homeBtn a {
-    color: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 3.5rem;
-    float: left;
-}
-#signBtn a {
-    margin: 1.5rem 0.65rem;
-    color: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
-    float: right;
-    display: block;
-}
-#loginName {
-    margin: 1.5rem 2.5rem;
-    color: whitesmoke;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
-    float: right;
-    display: none;
-}
 #list1 li:hover {
     color:black;
 }
@@ -86,16 +52,6 @@ body {
     float: right;
     font-size: 3rem;
     padding-right: 1.2rem;
-}
-#topFrame {
-    top: 0;
-    left: 0;
-    background-color: rgb(81, 58, 82);
-    width: 100%;
-    height: 4rem;
-    position: fixed;
-    float: left;
-    z-index: 100;
 }
 #mainFrame {
     width: 85rem;
@@ -229,4 +185,8 @@ body {
 #search-box input:valid
 {
     border: rgb(237, 216, 238) inset;
+}
+.articleZone a {
+    font-size: 2.5rem;
+    color: rgb(81, 58, 82);
 }

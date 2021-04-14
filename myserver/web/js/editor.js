@@ -4,13 +4,14 @@ var editor;
 $(function() {
     editor = editormd("editor", {
         width  : "60%",
-        height : "80%",
+        height : "90%",
         syncScrolling : "single",
         path   : "res/editormd/lib/"
     });
 });
 
 $(document).ready(function() {
+    $("#title").val("no title article");
     $("button").click(function() {
         var md = editor.getMarkdown();
         var sum = md.substr(0, 50);
@@ -44,7 +45,7 @@ $(document).ready(function() {
                     console.log('server failed to submit');
                 } else {
                     console.log(result);
-                    alert("success");
+                    window.open("../index.html");
                 }
             }
         });

@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <title>Editor</title>
     <link rel="stylesheet" type="text/css" href="css/editor.css"/>
+    <link rel="stylesheet" type="text/css" href="css/top-frame.css"/>
     <link rel="stylesheet" type="text/css" href="res/editormd/css/editormd.css"/>
 </head>
 
-<script src="res/jquery-3.5.1.js"></script> <!-- jquery -->
-<script src="res/editormd/editormd.min.js"></script> <!-- md editor -->
-<!--script src="js/auto-login.js"></script-->
-<script src="js/editor.js"></script> <!-- md editor -->
+<script src="res/jquery-3.5.1.js"></script>
+<script src="res/editormd/editormd.min.js"></script>
+<script src="js/auto-login.js"></script>
+<script src="js/editor.js"></script>
 
 <body>
-
-<input id="title" type="text"></input>
+<div id = topFrame>
+    <div id = homeBtn>
+        <a href="/">HOME</a>
+    </div>
+    <span id = signBtn>
+        <a href="/signup.html">Sign Up</a>
+        <a href="/login.html">Sign In</a>
+        <a href="https://t.me/dayazhuanjia">Telegram: @dayazhuanjia</a>
+    </span>
+    <span id=upload>
+        <input id="title" type="text">
+        <button id="submit" type="submit">Submit</button>
+    </span>
+    <span id = loginName>
+        <a href="/"></a>
+    </span>
+</div>
 <div id="editor">
     <textarea style="display:none;"></textarea>
 </div>
-<button id="submit" type="submit">Submit</button>
 
 </body>
 </html>
