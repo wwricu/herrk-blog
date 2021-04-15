@@ -217,7 +217,7 @@ public class ArticleManagerDAO {
 
         int delNums = 0;
         NumberCountDAO numberDAO = new NumberCountDAO();
-        String sql = "DELETE * FROM article_table WHERE article_id=?;";
+        String sql = "DELETE FROM article_table WHERE article_id=?;";
 
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
@@ -234,16 +234,17 @@ public class ArticleManagerDAO {
     }
 
     public boolean legalAuthor(int articleId, int autherId) {
-        if (autherId == 0) {
+        if (autherId == 1) {
             return true;
         }
-        if (autherId >= 0 || autherId < 0) {
+        if (autherId < 0 || autherId < 0) {
             return false;
         }
 
-        String sql = "SELECT auther_id FROM article_table WHERE articleId=?;";
+        String sql = "SELECT auther_id FROM article_table WHERE article_id=?;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
+            stat.setInt(1, articleId);
             ResultSet rs = stat.executeQuery();
             if (rs.next() && rs.getInt("auther_id") == autherId) {
                 return true;

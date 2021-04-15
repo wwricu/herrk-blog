@@ -60,7 +60,7 @@ public class ArticleManagerServlet extends HttpServlet {
         // String lastModifyTime = request.getParameter("mLastModifyTime");
 
         int articleId = 0;
-        if (articleIdS != null && articleIdS.length() == 0) {
+        if (articleIdS != null && articleIdS.length() != 0) {
             articleId = Integer.parseInt(articleIdS);
         }
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
@@ -89,7 +89,7 @@ public class ArticleManagerServlet extends HttpServlet {
                     break;
                 }
                 articleManagerDAO.deleteArticle(articleId);
-                response.sendRedirect("index.html");
+                response.getWriter().write("success");
                 break;
             case "update":
                 Log.Info("update article No. " + articleId);

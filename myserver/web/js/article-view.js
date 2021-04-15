@@ -48,11 +48,58 @@ function renderArticle(articleId) {
         }
     });
 
-    $(content).text(article.title + "\n");
+    getAutherName(article);
+    $("#title").text(article.title);
+    $("#time").text("Created at " + article.create_time
+        + " Last modified at " + article.last_modify_time);
 
     let testEditor;
     testEditor = editormd.markdownToHTML("content", {
         markdown: article.bodyMD
+    });
+}
+
+function bindClick(articleId) {
+    $("#update").click(function() {
+        alert("update function is being developed!");
+    });
+    $("#delete").click(function() {
+        $.post("articlemanager", {
+            "action": "delete",
+            "articleId": articleId
+        }, function () {
+            alert("successfully deleted");
+            window.location.href = "../index.html";
+        });
+    });
+}
+
+function getAutherName(article) {
+    if (article == null ||
+            article.article_id <= 0 ||
+            article.auther_id < 0) {
+        return -1;
+    }
+    $.ajax({
+        type: "POST",
+        async: true,
+        url: "articleviewer",
+        data: {
+            "action": "modify",
+            "articleId": article.article_id,
+            "autherId": article.auther_id,
+        },
+        dataType: "json",
+        timeout: 1000,
+        success: function (result) {
+            $("#auther").text("Auther: " + result.autherName);
+            if (result.isOwner == true) {
+                bindClick(article.article_id);
+                $("#modify").show();
+            } else {
+                $("#modify").hide();
+            }
+        }
     });
 }
 

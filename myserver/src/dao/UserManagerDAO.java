@@ -134,6 +134,27 @@ public class UserManagerDAO {
         return result;
     }
 
+    public static String getUserName(int userId) {
+        if (userId < 0) {
+            return "";
+        }
+
+        String sql = "SELECT user_name FROM user_table WHERE user_id=?";
+        try (Connection conn = getConnection();
+            PreparedStatement stat = conn.prepareStatement(sql);) {
+            stat.setInt(1, userId);
+            ResultSet rs = stat.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("user_name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
     public static int getUserId(String userName)
     {
         if (null == userName) {
