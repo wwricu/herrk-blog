@@ -32,15 +32,19 @@ public class ArticleViewerServlet extends HttpServlet {
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         NumberCountDAO numberCountDAO = new NumberCountDAO();
+        int articleNum = numberCountDAO.getArticleCount();
         response.setContentType("text/plain");
 
         switch (action) {
             case "getnum":
-                int articleNum = numberCountDAO.getArticleCount();
                 Log.Verbose("article num is " + articleNum);
                 response.getWriter().write(String.valueOf(articleNum));
             break;
             case "preview":
+                if (Integer.parseInt(index) >= articleNum) {
+                    response.getWriter().write("index exceed");
+                    break;
+                }
                 ArticleInfo[] list = articleManagerDAO.getLatestArticles(
                         Integer.parseInt(index), 1, order);
                 if (list == null || list.length == 0) {

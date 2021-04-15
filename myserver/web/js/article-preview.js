@@ -4,7 +4,7 @@ let articleNum = 0;
 function getArticleNum() {
     $.ajax({
         type: "POST",
-        async: false,
+        async: true,
         url: "articleviewer",
         data: {"action": "getnum"},
         dataType: "text",
@@ -17,9 +17,6 @@ function getArticleNum() {
 
 function addArticle() {
     "use strict";
-    if (articleIndex == articleNum) {
-        return;
-    }
     let article = {
         "article_id": 0,
         "auther_id": 0,
@@ -44,8 +41,9 @@ function addArticle() {
         dataType: "json",
         timeout: 1000,
         success: function (receive) {
-            if (receive === null) {
-                return -1;
+            if (!(receive.article_id > 0)) {
+                article.article_id = -1;
+                return;
             }
             article.article_id = receive.article_id;
             article.auther_id = receive.auther_id;
@@ -56,6 +54,9 @@ function addArticle() {
             article.last_modify_time = receive.last_modify_time;
         }
     });
+    if (article.article_id <= 0) {
+        return -1;
+    }
     let link = '../viewer.html?id=' + article.article_id;
     let title = "<a class = article-title href = \"" + link + "\"align = \"left\"></a>";
     let articleBody = $("<div class = article ></div>")
@@ -65,7 +66,7 @@ function addArticle() {
     articleIndex++;
 }
 
-function renderPage() {
+function scrollLoad() {
     "use strict";
     $(window).scroll(function() {
         if ($(document).scrollTop() + $(window).height() >= $(document).height() - 1) {
@@ -77,12 +78,20 @@ function renderPage() {
     });
 }
 
-$(document).ready(function () {
-    "use strict";
-    getArticleNum();
+function renderPage() {
     while (articleIndex < articleNum &&
-        ($(window).height() == $(document).height() || articleIndex < 10)) {
+            $(window).height() == $(document).height()) {
         addArticle();
     }
+}
+
+$(document).ready(function () {
+    "use strict";
+    for (let i = 0; i < 10; i++) {
+        addArticle();
+    }
+    getArticleNum();
     renderPage();
+    setInterval(renderPage,2000);
+    scrollLoad();
 });
