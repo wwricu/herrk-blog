@@ -88,7 +88,9 @@ function renderPage() {
 $(document).ready(function () {
     "use strict";
     for (let i = 0; i < 10; i++) {
-        addArticle();
+        if (addArticle() < 0) {
+            break;
+        }
     }
     getArticleNum();
     renderPage();
