@@ -1,0 +1,25 @@
+a {
+    text-decoration: none;
+}
+body {
+    background: url(/res/image/ladymaria.jpg);
+    background-size: 100% 100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+}
+#mainFrame {
+    width: 85rem;
+    height: 100%;
+    margin: 4rem auto;
+}
+#centerFrame {
+    position: relative;
+    top: -4rem;
+    padding-top: 1rem;
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: rgba(233, 233, 233, 0.85);
+}

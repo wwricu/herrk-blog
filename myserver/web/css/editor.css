@@ -5,9 +5,6 @@ body {
     background-attachment: fixed;
     background-position: bottom;
 }
-a {
-    text-decoration: none;
-}
 #upload {
     position: absolute;
     width: 60rem;
