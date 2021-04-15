@@ -26,7 +26,7 @@ $(document).ready(function() {
             articleId: '0',
             title: escape(title),
             summary: escape(sum),
-            tags: 'default',
+            tags: escape('default'),
             bodyMD: escape(md),
             permission: '0'
         };

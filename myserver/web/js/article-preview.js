@@ -51,6 +51,7 @@ function addArticle() {
             article.auther_id = receive.auther_id;
             article.title = unescape(receive.title);
             article.summary = unescape(receive.summary);
+            article.tags = unescape(receive.tags);
             article.create_time = receive.create_time;
             article.last_modify_time = receive.last_modify_time;
         }
