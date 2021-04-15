@@ -25,14 +25,11 @@ function autoLogin() {
                 result = eval('(' + result + ')');
                 $("#signBtn").hide();
                 $("#loginName").show();
-                //document.getElementById("signBtn").style.display = "none";
-                //document.getElementById("loginName").style.display = "block";
+                $('#editor').attr("href", "../editor.html");
                 document.getElementById("loginName").innerHTML = result.username;
                 sessionStorage.setItem("token", result.token);
             }
         });
-
-        return;
     }
 
     var xmlHttp = new XMLHttpRequest();
@@ -42,6 +39,7 @@ function autoLogin() {
                 $("#signBtn").hide();
                 $("#loginName").show();
                 document.getElementById("loginName").innerHTML = xmlHttp.responseText;
+                $('#editor').attr("href", "../editor.html");
             } else {
                 $("#signBtn").show();
                 $("#loginName").hide();
