@@ -72,7 +72,7 @@ public class ArticleManagerServlet extends HttpServlet {
         switch (action) {
             case "post":
                 Log.Info("post an article");
-                info.setValue(0, userId, title, summary, tags, bodyMD, currentTime.toString(), null, 0);
+                info.setValue(0, userId, title, summary, tags, bodyMD, currentTime.toString(), currentTime.toString(), 0);
                 // articleId, userId, title, summary, tags, body, createtime, lstmodftime, permission
                 int createId = articleManagerDAO.createArticle(info);
                 if (createId > 0) {
