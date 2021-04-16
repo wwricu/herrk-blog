@@ -37,6 +37,7 @@ public class UserManagerServlet extends HttpServlet {
         String invitation = request.getParameter("invitation");
         String token = request.getParameter("token");
 
+        StringBuilder json = new StringBuilder("{");
         HttpSession session = request.getSession(false);
         response.setContentType("text/plain");
 
@@ -57,15 +58,14 @@ public class UserManagerServlet extends HttpServlet {
                     session.setAttribute("username", username);
                     session.setAttribute("status", "login");
 
-                    String geneToken = JwtUtils.geneJsonWebToken(username);
-
-                    response.getWriter().write(geneToken);
+                    json.append("\"userId\":\"").append(retureCode)
+                        .append("\",\"userName\":\"").append(username)
+                        .append("\",\"token\":\"").append(JwtUtils.geneJsonWebToken(username)).append("\"}");
+                    response.getWriter().write(json.toString());
                 } else {
                     // fail to log in
                     Log.Info("login fail code is " + retureCode);
                     response.getWriter().write("fail");
-
-                    // request.getRequestDispatcher("fail.html").forward(request, response);
                 }
             break;
             case "token":
@@ -77,9 +77,11 @@ public class UserManagerServlet extends HttpServlet {
                         session.setAttribute("username", info.mUserName);
                         session.setAttribute("userid", info.mUserId);
                         session.setAttribute("status", "login");
-                        response.getWriter().write(info.mUserName);
+                        json.append("\"userId\":\"").append(info.mUserId)
+                            .append("\",\"userName\":\"").append(info.mUserName)
+                            .append("\"}");
+                        response.getWriter().write(json.toString());
                     } else {
-                        // fail to log in
                         response.getWriter().write("fail");
                     }
                 } else {

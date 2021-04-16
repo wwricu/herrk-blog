@@ -30,27 +30,33 @@ function autoLogin() {
                 sessionStorage.setItem("token", result.token);
             }
         });
-    }
 
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (4 == xmlHttp.readyState && 200 == xmlHttp.status) {
-            if (null != xmlHttp.responseText && "fail" != xmlHttp.responseText) {
-                $("#signBtn").hide();
-                $("#loginName").show();
-                document.getElementById("loginName").innerHTML = xmlHttp.responseText;
-                $('#editor').attr("href", "../editor.html");
-            } else {
+        return;
+    }
+    $.ajax({
+        type: 'POST',
+        url: 'usermanage',
+        data: {
+            "action": 'token',
+            "token":  token
+        },
+        dataType: 'json',
+        async: 'true',
+        error : function() {
+            console.log('no token ajax fail');
+        },
+        success: function(result) {
+            if (result.userId <= 0) {
                 $("#signBtn").show();
                 $("#loginName").hide();
+                return;
             }
+            $("#signBtn").hide();
+            $("#loginName").show();
+            $("#loginName").text(result.userName);
+            $('#editor').attr("href", "../editor.html");
         }
-    }
-
-    xmlHttp.open("POST", "usermanage", true);
-    xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-    var parameter = 'action=token&username=admin&token='+token;
-    xmlHttp.send(parameter);
+    });
 }
 
 autoLogin();

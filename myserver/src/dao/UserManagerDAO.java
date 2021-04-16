@@ -74,6 +74,18 @@ public class UserManagerDAO {
             return false;
         } else if (passWd.length() < 8) {
             return false;
+        } else if (passWd.indexOf('\'') != -1 ||
+                   passWd.indexOf('\\') != -1 ||
+                   passWd.indexOf('"') != -1 ||
+                   passWd.indexOf('/') != -1 ||
+                   passWd.indexOf('{') != -1 ||
+                   passWd.indexOf('}') != -1 ||
+                   passWd.indexOf('[') != -1 ||
+                   passWd.indexOf(']') != -1 ||
+                   passWd.indexOf(',') != -1 ||
+                   passWd.indexOf(';') != -1
+                   ) {
+            return false;
         } else {
             return true;
         }
