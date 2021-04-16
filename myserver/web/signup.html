@@ -15,7 +15,7 @@
                     } else if ("invitation needed" == xmlHttp.responseText) {
                         alert("invitation needed!");
                     } else {
-                        sessionStorage.setItem("token", xmlHttp.responseText);
+                        localStorage.setItem("token", xmlHttp.responseText);
                         alert("Sign up Successfully\nWelcome "+document.getElementsByName("username")[0].value);
                         window.location = "/";
                     }

@@ -10,7 +10,7 @@ $(function() {
                 console.log('failed to logout');
             },
             success: function() {
-                sessionStorage.removeItem("token");
+                localStorage.removeItem("token");
                 location.reload();
             }
         });

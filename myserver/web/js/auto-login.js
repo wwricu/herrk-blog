@@ -1,7 +1,7 @@
 javascript:
 
 function autoLogin() {
-    var token = sessionStorage.getItem("token");
+    var token = localStorage.getItem("token");
     if (null == token) {
         $("#signBtn").show();
         $("#loginName").hide();
@@ -27,7 +27,7 @@ function autoLogin() {
                 $("#loginName").show();
                 $('#editor').attr("href", "../editor.html");
                 document.getElementById("loginName").innerHTML = result.username;
-                sessionStorage.setItem("token", result.token);
+                localStorage.setItem("token", result.token);
             }
         });
 

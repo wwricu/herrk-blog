@@ -18,7 +18,7 @@ function bindLogin() {
                 if (result == "fail") {
                     console.log('Mismatch between Username and Password!');
                 } else {
-                    sessionStorage.setItem("token", result.token);
+                    localStorage.setItem("token", result.token);
                     let link = "../index.html?id=" + result.userId + "&name=" + result.userName;
                     window.open(link, "_self");
                 }
