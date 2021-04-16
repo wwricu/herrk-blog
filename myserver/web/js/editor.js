@@ -39,8 +39,7 @@ function updateArticle() {
         timeout: 1000,
         success: function (receive) {
             if (receive.bodyMD != null) {
-                $(".editormd-markdown-textarea[name='editor-markdown-doc']")
-                        .val(unescape(receive.bodyMD));
+                $("textarea").val(unescape(receive.bodyMD));
                 $("#submit").unbind("click");
                 bindUpdate(articleId);
             }
@@ -54,7 +53,7 @@ function updateArticle() {
 function bindUpdate(articleId) {
     $("button").click(function() {
         var md = editor.getMarkdown();
-        var sum = md.substr(0, 50);
+        var sum = md.substr(0, 100);
         var title = $("#title").val();
         if (title == null || title.length <= 0) {
             alert("please input title!");
@@ -95,7 +94,7 @@ function bindPost() {
     $("#title").val("no title article");
     $("button").click(function() {
         var md = editor.getMarkdown();
-        var sum = md.substr(0, 50);
+        var sum = md.substr(0, 100);
         var title = $("#title").val();
         if (title == null || title.length <= 0) {
             alert("please input title!");
@@ -138,8 +137,10 @@ $(function() {
         width  : "60%",
         height : "90%",
         syncScrolling : "single",
-        path   : "res/editormd/lib/"
+        path   : "res/editormd/lib/",
+        onload : function() {
+            bindPost();
+            updateArticle();
+        }
     });
-    bindPost();
-    updateArticle();
 });
