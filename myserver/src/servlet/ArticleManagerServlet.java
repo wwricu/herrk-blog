@@ -92,6 +92,7 @@ public class ArticleManagerServlet extends HttpServlet {
                 response.getWriter().write("success");
                 break;
             case "update":
+                /* ?action=update&articleId=1&title=ww&summary=ww&tags=www&bodyMD=www?permission=1 */
                 Log.Info("update article No. " + articleId);
                 if (articleManagerDAO.legalAuthor(articleId, userId) != true) {
                     Log.Warn("auther id failure");

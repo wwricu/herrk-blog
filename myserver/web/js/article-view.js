@@ -59,9 +59,14 @@ function renderArticle(articleId) {
     });
 }
 
+function editArticle(articleId) {
+    let link = "../editor.html?id=" + articleId;
+    window.location.href = link;
+}
+
 function bindClick(articleId) {
     $("#update").click(function() {
-        alert("update function is being developed!");
+        editArticle(articleId);
     });
     $("#delete").click(function() {
         $.post("articlemanager", {
