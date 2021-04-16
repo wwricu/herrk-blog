@@ -8,9 +8,6 @@
     float: left;
     z-index: 100;
 }
-#homeBtn a {
-    margin: auto 1rem;
-}
 #signBtn {
     margin: auto 0.65rem;
 }
@@ -21,6 +18,7 @@
     color:black;
 }
 #homeBtn a {
+    margin: auto 1rem;
     color: whitesmoke;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3.5rem;
@@ -34,11 +32,93 @@
     float: right;
     display: block;
 }
-#loginName {
+/* #loginName {
     margin: 1.5rem 2.5rem;
     color: whitesmoke;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.2rem;
     float: right;
     display: none;
+} */
+
+#username-dropdown,
+#username-dropdown ul {
+    margin-right: 3rem;
+    font-size: 1.5rem;
+    float: right;
+    font-family: Arial, Helvetica, sans-serif;
+    list-style: none;
+}
+
+#username-dropdown hr {
+    position: absolute;
+    left: 0;
+}
+
+#loginName {
+    text-align: right;
+    width: 15rem;
+    color: whitesmoke;
+    float: left;
+    position: relative;
+}
+
+.mainitems {
+    background-color: rgb(81, 58, 82);
+}
+
+.mainitems a {
+    /* margin-left: 6px; */
+    /* margin-right: 8px; */
+    text-decoration: none;
+}
+
+.subuls {
+    display: none;
+    width: 10em;
+    position: absolute;
+    top: 5rem;
+    right: 0rem;
+    background-color: rgba(237, 216, 238, 0.85);
+    border: 1px solid black;
+}
+
+.subuls li {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+    width: 100%;
+}
+
+.subuls li a {
+    color: black;
+    text-decoration: none;
+}
+
+.subuls li button {
+    font-size: 1.5rem;
+    color: black;
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.subuls li a:hover,
+.subuls li button:hover {
+    color: whitesmoke;
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#username-dropdown li>ul {
+    /* to override top and left in browsers other than IE, which will position to the top right of the containing li, rather than bottom left */
+    top: auto;
+    left: auto;
+}
+
+#username-dropdown li:hover ul,
+li.over ul {
+    /* lists nested under hovered list items */
+    display: block;
 }

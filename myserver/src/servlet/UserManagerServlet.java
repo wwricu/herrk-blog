@@ -138,7 +138,10 @@ public class UserManagerServlet extends HttpServlet {
                     response.getWriter().write(failMsg);
                 }
             break;
-
+            case "logout":
+                session.setAttribute("status", "logout");
+                session.invalidate();
+            break;
             case "getstatus":
                 getLogStatus(username, session);
             break;

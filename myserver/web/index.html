@@ -15,6 +15,7 @@
 <script type="text/javascript" src="js/weather.js"></script>
 <script type="text/javascript" src="js/server-info.js"></script>
 <script type="text/javascript" src="js/article-preview.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 
 <body>
     <div id = page>
@@ -27,9 +28,16 @@
                 <a href="/login.html">Sign In</a>
                 <!--a href="https://t.me/dayazhuanjia">Telegram: @dayazhuanjia</a-->
             </span>
-            <span id = loginName>
-                <a href="personal.html"></a>
-            </span>
+            <ul id="username-dropdown">
+                <li class="mainitems">
+                    <a id=loginName href="personal.html">loginname</a>
+                    <ul class="subuls">
+                        <li><a href="personal.html">My Page</a></li>
+                        <li><a href="personal.html/">My Favourate</a></li>
+                        <li><button id=logOut>Log Out</button></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
         <div id = mainFrame>
             <div id = leftFrame>
