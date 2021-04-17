@@ -21,6 +21,7 @@ body {
     width: 70%;
     height: 100%;
     margin: 0 auto;
+    /*background-color: rgba(237, 216, 238, 0.85);*/
     background-color: rgba(255, 255, 255, 0.9);
 }
 #title {
@@ -31,10 +32,10 @@ body {
     padding-top: 1rem;
     padding-bottom: 1rem;
     padding-left: 3rem;
-    height: 3rem;
     /* background-color: rgba(226, 226, 226, 1); */
 }
 #msg {
+    position: relative;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     padding-left: 3rem;
     padding-right: 5rem;
@@ -59,6 +60,7 @@ hr {
     float: left;
     color: rgba(97, 97, 97, 0.9);
     border: none;
+    background: transparent;
 }
 #update, #delete:hover {
     color: rgba(0, 0, 0, 0.9);

@@ -134,8 +134,8 @@ function bindPost() {
 $(function() {
     editor = editormd("editor", {
         // placeholder: "",
-        width  : "60%",
-        height : "90%",
+        width  : "62%",
+        height : "94%",
         syncScrolling : "single",
         path   : "res/editormd/lib/",
         onload : function() {
