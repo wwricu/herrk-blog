@@ -258,17 +258,21 @@ public class ArticleManagerDAO {
 
     protected boolean validArticle(ArticleInfo info) {
         if (0 > info.mArticleId || 0 > info.mAutherId) {
+            Log.Error("article id is " + info.mArticleId
+                    + "auther id is " + info.mAutherId);
             return false;
         }
 
         if (null == info.mTitle ||
                 info.mTitle.length() == 0 ||
                 info.mTitle.length() > 316) {
+            Log.Error("title is " + info.mTitle);
             return false;
         }
 
         if (null != info.mSummary) {
             if (140 < info.mSummary.length()) {
+                Log.Error("summary length is " + info.mSummary.length());
                 return false;
             }
         }
