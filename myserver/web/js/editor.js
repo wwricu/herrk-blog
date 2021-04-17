@@ -51,7 +51,8 @@ function updateArticle() {
 }
 
 function bindUpdate(articleId) {
-    $("button").click(function() {
+    $("#submit").text("Update");
+    $("#submit").click(function() {
         var md = editor.getMarkdown();
         var sum = md.substr(0, 256);
         var title = $("#title").val();
