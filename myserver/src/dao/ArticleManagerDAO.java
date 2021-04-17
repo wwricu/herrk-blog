@@ -48,7 +48,7 @@ public class ArticleManagerDAO {
     */
 
     public static void init() {
-        String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id VARCHAR(100) NOT NULL, title VARCHAR(100), summary VARCHAR(100), tags VARCHAR(100), body_md MEDIUMTEXT, create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id INT UNSIGNED, title VARCHAR(1024), summary VARCHAR(1024), tags VARCHAR(1024), body_md MEDIUMTEXT, create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
              stat.execute();
@@ -265,13 +265,13 @@ public class ArticleManagerDAO {
 
         if (null == info.mTitle ||
                 info.mTitle.length() == 0 ||
-                info.mTitle.length() > 316) {
+                info.mTitle.length() > 512) {
             Log.Error("title is " + info.mTitle);
             return false;
         }
 
         if (null != info.mSummary) {
-            if (100 < info.mSummary.length()) {
+            if (info.mSummary.length() > 512) {
                 Log.Error("summary length is " + info.mSummary.length());
                 return false;
             }

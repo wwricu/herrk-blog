@@ -53,7 +53,7 @@ function updateArticle() {
 function bindUpdate(articleId) {
     $("button").click(function() {
         var md = editor.getMarkdown();
-        var sum = md.substr(0, 80);
+        var sum = md.substr(0, 256);
         var title = $("#title").val();
         if (title == null || title.length <= 0) {
             alert("please input title!");
@@ -94,7 +94,7 @@ function bindPost() {
     $("#title").val("no title article");
     $("button").click(function() {
         var md = editor.getMarkdown();
-        var sum = md.substr(0, 80);
+        var sum = md.substr(0, 256);
         var title = $("#title").val();
         if (title == null || title.length <= 0) {
             alert("please input title!");
