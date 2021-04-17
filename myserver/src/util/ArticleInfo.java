@@ -26,17 +26,31 @@ public class ArticleInfo {
     }
 
     public String toJson() {
-        StringBuilder json = new StringBuilder("{");
-        json.append("\"article_id\":").append(String.valueOf(mArticleId)).append(",");
-        json.append("\"auther_id\":").append(String.valueOf(mAutherId)).append(",");
-        json.append("\"title\":\"").append(mTitle).append("\",");
-        json.append("\"summary\":\"").append(mSummary).append("\",");
-        json.append("\"tags\":\"").append(mTags).append("\",");
-        json.append("\"bodyMD\":\"").append(mBodyMD).append("\",");
-        json.append("\"create_time\":\"").append(mCreateTime).append("\",");
-        json.append("\"last_modify_time\":\"").append(mLastModifyTime).append("\",");
-        json.append("\"permission\":").append(String.valueOf(mPermission)).append("}");
+        return new StringBuilder("{")
+            .append("\"article_id\":").append(String.valueOf(mArticleId))
+            .append(",\"auther_id\":").append(String.valueOf(mAutherId))
+            .append(",\"title\":\"").append(mTitle)
+            .append("\",\"summary\":\"").append(mSummary)
+            .append("\",\"tags\":\"").append(mTags)
+            .append("\",\"bodyMD\":\"").append(mBodyMD)
+            .append("\",\"create_time\":\"").append(mCreateTime)
+            .append("\",\"last_modify_time\":\"").append(mLastModifyTime)
+            .append("\",\"permission\":").append(String.valueOf(mPermission))
+            .append("}").toString();
+    }
 
-        return json.toString();
+    public String toJson(String autherName) {
+        return new StringBuilder("{")
+                .append("\"article_id\":").append(String.valueOf(mArticleId))
+                .append(",\"auther_id\":").append(String.valueOf(mAutherId))
+                .append(",\"auther_name\":\"").append(autherName)
+                .append("\",\"title\":\"").append(mTitle)
+                .append("\",\"summary\":\"").append(mSummary)
+                .append("\",\"tags\":\"").append(mTags)
+                .append("\",\"bodyMD\":\"").append(mBodyMD)
+                .append("\",\"create_time\":\"").append(mCreateTime)
+                .append("\",\"last_modify_time\":\"").append(mLastModifyTime)
+                .append("\",\"permission\":").append(String.valueOf(mPermission))
+                .append("}").toString();
     }
 }

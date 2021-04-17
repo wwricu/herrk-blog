@@ -52,7 +52,20 @@ public class ArticleViewerServlet extends HttpServlet {
                 Log.Verbose("article num is " + articleNum);
                 response.getWriter().write(String.valueOf(articleNum));
             break;
-            // ?action=preview&index=1&order=last_modify_time
+            /* ?action=preview&index=1&order=last_modify_time
+               {
+                    "article_id": 0,
+                    "auther_id": 0,
+                    "auther_name": "",
+                    "title": "",
+                    "summary": "",
+                    "tags": "",
+                    "bodyMD": "",
+                    "create_time": "",
+                    "last_modify_time": "",
+                    "permission": 0
+                };
+            */
             case "preview":
                 if (Integer.parseInt(index) >= articleNum) {
                     response.getWriter().write("index exceed");
@@ -64,7 +77,10 @@ public class ArticleViewerServlet extends HttpServlet {
                     Log.Error("get article failure");
                     break;
                 }
-                response.getWriter().write(list[0].toJson().replace("\r", "\\r").replace("\n", "\\n"));
+                response.getWriter().write(
+                    list[0].toJson(UserManagerDAO.getUserName(list[0].mAutherId))
+                        .replace("\r", "\\r").replace("\n", "\\n")
+                );
             break;
             // ?action=view&articleId=1
             case "view":

@@ -116,7 +116,7 @@ body {
 }
 .article {
     border-bottom: 0.1rem solid gray;
-    padding-bottom: 2rem;
+    padding-bottom: 0.5rem;
     margin: 1.5rem;
 }
 .article-title {
@@ -130,7 +130,14 @@ body {
 .article-preview {
     margin-top: 0.5rem;
     font-size: 1rem;
+    margin-bottom: 1.5rem;
     color:rgb(81, 58, 82);
+}
+.created-time {
+    margin-right: 1rem;
+}
+.auther-name {
+    margin-right: 0.5rem;
 }
 .weatherLabel {
     color:rgb(81, 58, 82);

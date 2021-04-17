@@ -83,8 +83,7 @@ public class UserManagerDAO {
                    passWd.indexOf('[') != -1 ||
                    passWd.indexOf(']') != -1 ||
                    passWd.indexOf(',') != -1 ||
-                   passWd.indexOf(';') != -1
-                   ) {
+                   passWd.indexOf(';') != -1) {
             return false;
         } else {
             return true;
@@ -95,6 +94,17 @@ public class UserManagerDAO {
         if (null == userName) {
             return false;
         } else if (userName.length() < 6 || userName.length() > 20) {
+            return false;
+        } else if (userName.indexOf('\'') != -1 ||
+                userName.indexOf('\\') != -1 ||
+                userName.indexOf('"') != -1 ||
+                userName.indexOf('/') != -1 ||
+                userName.indexOf('{') != -1 ||
+                userName.indexOf('}') != -1 ||
+                userName.indexOf('[') != -1 ||
+                userName.indexOf(']') != -1 ||
+                userName.indexOf(',') != -1 ||
+                userName.indexOf(';') != -1) {
             return false;
         } else {
             return true;

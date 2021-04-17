@@ -20,6 +20,7 @@ function addArticle() {
     let article = {
         "article_id": 0,
         "auther_id": 0,
+        "auther_name": "",
         "title": "",
         "summary": "",
         "tags": "",
@@ -47,6 +48,7 @@ function addArticle() {
             }
             article.article_id = receive.article_id;
             article.auther_id = receive.auther_id;
+            article.auther_name = receive.auther_name;
             article.title = unescape(receive.title);
             article.summary = unescape(receive.summary);
             article.tags = unescape(receive.tags);
@@ -61,7 +63,12 @@ function addArticle() {
     let title = "<a class = article-title href = \"" + link + "\"align = \"left\"></a>";
     let articleBody = $("<div class = article ></div>")
         .append($(title).text(article.title))
-        .append($("<div class = article-preview align = \"left\"></div>").text(article.summary));
+        .append($("<div class = article-preview align = \"left\"></div>").text(article.summary))
+        .append($("<div class = article-auther align = \"right\"></div>")
+                .append($("<span class=crttime-prefix></span>").text("Created time: "))
+                .append($("<span class=created-time></span>").text(article.create_time))
+                .append($("<span class=auther-prefix></span>").text("Auther: "))
+                .append($("<span class=auther-name></span>").text(article.auther_name)));
     $(".articleZone").append(articleBody);
     articleIndex++;
 }
