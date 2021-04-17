@@ -50,7 +50,7 @@ hr {
 #time {
     margin-left: 2rem;
 }
-button {
+#update, #delete {
     position: relative;
     top: -0.1rem;
     width: 4rem;
@@ -60,6 +60,6 @@ button {
     color: rgba(97, 97, 97, 0.9);
     border: none;
 }
-button:hover {
+#update, #delete:hover {
     color: rgba(0, 0, 0, 0.9);
 }

@@ -30,6 +30,9 @@ body {
 #list1 a {
     color: black;
 }
+#homeMargin {
+    padding: 0.5rem 0;
+}
 #rightPanel {
     position: relative;
     background-color: rgba(237, 216, 238, 0.85);
@@ -59,15 +62,16 @@ body {
     margin: 4rem auto;
 }
 #leftFrame {
-    position: absolute;
+    position: relative;
     width: 20%;
-    left: 5%;
+    left: -8rem;
     height: inherit;
     float: left;
 }
 #rightFrame {
     position: relative;
-    width: 19.5%;
+    left: 1rem;
+    width: 20%;
     height: inherit;
     float: right;
 }
