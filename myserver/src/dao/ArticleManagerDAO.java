@@ -271,7 +271,7 @@ public class ArticleManagerDAO {
         }
 
         if (null != info.mSummary) {
-            if (140 < info.mSummary.length()) {
+            if (100 < info.mSummary.length()) {
                 Log.Error("summary length is " + info.mSummary.length());
                 return false;
             }
