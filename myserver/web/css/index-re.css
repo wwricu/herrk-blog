@@ -1,0 +1,200 @@
+a {
+    text-decoration: none;
+}
+body {
+    background: url(/res/image/debian.jpg);
+    background-size: 100% 100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+}
+#list1 li:hover {
+    color:black;
+}
+#list1 {
+    background-color: rgba(237, 216, 238, 0.85);
+    color: darkgrey;
+    font-size: 1.5rem;
+    line-height: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    position:fixed;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+    margin-left: 5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    overflow:hidden;
+    /* list-style-type: circle; */
+}
+#list1 a {
+    color: black;
+}
+#homeMargin {
+    padding: 0.5rem 0;
+}
+#rightPanel {
+    position: relative;
+    background-color: rgba(237, 216, 238, 0.85);
+    height: 40rem;
+}
+#time {
+    color:rgb(81, 58, 82);
+    padding: 1rem 0;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+}
+.right_title {
+    color:rgb(81, 58, 82);
+    float: left;
+    font-size: 1.5rem;
+    padding-left: 0.8rem;
+}
+#click_count {
+    float: right;
+    font-size: 3rem;
+    padding-right: 1.2rem;
+}
+#mainFrame {
+    width: 85rem;
+    height: 100%;
+    margin: 4rem auto;
+}
+#leftFrame {
+    position: relative;
+    width: 20%;
+    left: -8rem;
+    height: inherit;
+    float: left;
+}
+#rightFrame {
+    position: relative;
+    left: 1rem;
+    width: 20%;
+    height: inherit;
+    float: right;
+}
+#centerFrame {
+    border-left: 2px solid gray;
+    border-right: 2px solid gray;
+    width: 60%;
+    height: inherit;
+    margin: 0 auto;
+    background-color: rgba(237, 216, 238, 0.85);
+}
+#sys-info {
+    position: relative;
+    top: 4%;
+    float: left;
+    font-size: 1.5rem;
+    padding-left: 0.8rem;
+}
+#uptime {
+    position: absolute;
+    top: 2.5rem;
+}
+#message  {
+    position: relative;
+    top: 15%;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 0.85rem;
+    text-align: left;
+}
+#net-speed {
+    position: relative;
+    top: 18%;
+    left: 0.8rem;
+}
+#search-box {
+    position: relative;
+    top: 25%;
+}
+.time-font {
+    font-size: 2rem;
+}
+.article {
+    border-bottom: 0.1rem solid gray;
+    padding-bottom: 0.5rem;
+    margin: 1.5rem;
+}
+.article-title {
+    font-size: 2rem;
+    color:rgb(81, 58, 82);
+}
+.article-title:hover {
+    color: red;
+    font-size: 2rem;
+}
+.article-preview {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color:rgb(81, 58, 82);
+}
+.created-time {
+    margin-right: 1rem;
+}
+.auther-name {
+    margin-right: 0.5rem;
+}
+.weatherLabel {
+    color:rgb(81, 58, 82);
+    font-size: 1rem;
+}
+.weatherValue {
+    font-size: 1.4rem;
+}
+.net-label {
+    color:rgb(81, 58, 82);
+    font-size: 1.25rem;
+}
+.net-speed {
+    font-size: 1.5rem;
+}
+#search-box input[type="text"] {
+    position: absolute;
+    top: 0rem;
+    left: 0.25rem;
+    width: 11.5rem;
+    height: 2rem;
+    font-size: 1rem;
+    color: rgb(81, 58, 82);
+    letter-spacing: 1px;
+    outline: rgb(81, 58, 82);
+    background: transparent;
+}
+#search-box label {
+    position: absolute;
+    top: 0.25rem;
+    left: 0.5rem;
+    font-size: 0.85rem;
+    color: rgb(81, 58, 82);
+}
+#search-box input[type="button"] {
+    background: transparent;
+    color: #fff;
+    background: rgb(81, 58, 82);
+    border-radius: 0.7rem;
+    padding: 0.5rem 0.8rem;
+    position: absolute;
+    top: 0rem;
+    left: 12rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+#search-box input:focus ~ label,
+#search-box input:valid ~ label
+{
+    display: none;
+}
+#search-box input:focus,
+#search-box input:valid
+{
+    border: rgb(237, 216, 238) inset;
+}
+.articleZone a {
+    color: rgb(81, 58, 82);
+}
