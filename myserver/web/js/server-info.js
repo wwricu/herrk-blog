@@ -1,5 +1,19 @@
 javascript:
 
+function getClickCount() {
+    $.ajax({
+        type: "post",
+        async: true,
+        url: "clickcount",
+        data: {"action": "netspeed"},
+        dataType: "text",
+        timeout: 1000,
+        success: function(click) {
+            $("#click_count").text(click);
+        }
+    });
+}
+
 function getNetSpeed() {
     var sendTime = new Date().getTime();
     $.ajax({
@@ -57,4 +71,5 @@ $(document).ready(function () {
     setInterval(getNetSpeed,2000);
     getUptime();
     setInterval(updateUptime,60000);
+    getClickCount();
 });
