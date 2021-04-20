@@ -38,6 +38,7 @@ public class ArticleManagerDAO {
 
     article_id INT UNSIGNED AUTO_INCREMENT
     auther_id VARCHAR NOT NULL
+    class_id INT UNSIGNED
     title VARCHAR
     summary VARCHAR
     tags VARCHAR
@@ -48,7 +49,7 @@ public class ArticleManagerDAO {
     */
 
     public static void init() {
-        String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id INT UNSIGNED, title VARCHAR(1024), summary VARCHAR(1024), tags VARCHAR(1024), body_md MEDIUMTEXT, create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        String sql = "CREATE TABLE IF NOT EXISTS article_table (article_id INT UNSIGNED AUTO_INCREMENT, auther_id INT UNSIGNED, class_id INT UNSIGNED, title VARCHAR(1024), summary VARCHAR(1024), tags VARCHAR(1024), body_md MEDIUMTEXT, create_time DATE, last_modify_time DATE, permission INT, PRIMARY KEY (article_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
              stat.execute();
@@ -72,6 +73,7 @@ public class ArticleManagerDAO {
             if (rs.next()) {
                 info.mArticleId = rs.getInt("article_id");
                 info.mAutherId = rs.getInt("auther_id");
+                info.mClassId = rs.getInt("class_id");
                 info.mTitle = rs.getString("title");
                 info.mSummary = rs.getString("summary");
                 info.mTags = rs.getString("tags");
@@ -95,14 +97,15 @@ public class ArticleManagerDAO {
         }
 
         int ret = 0;
-        String sql = "UPDATE article_table SET title=?, summary=?, tags=?, body_md=?, last_modify_time=?, permission=? WHERE article_id=?;";
+        String sql = "UPDATE article_table SET class_id=?, title=?, summary=?, tags=?, body_md=?, last_modify_time=?, permission=? WHERE article_id=?;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
-            stat.setString(1, info.mTitle);
-            stat.setString(2, info.mSummary);
-            stat.setString(3, info.mTags);
-            stat.setString(4, info.mBodyMD);
-            stat.setString(5, info.mLastModifyTime);
+            stat.setInt(1, info.mClassId);
+            stat.setString(2, info.mTitle);
+            stat.setString(3, info.mSummary);
+            stat.setString(4, info.mTags);
+            stat.setString(5, info.mBodyMD);
+            stat.setString(6, info.mLastModifyTime);
             stat.setInt(6, info.mPermission);
             stat.setInt(7, articleId);
 
@@ -134,7 +137,7 @@ public class ArticleManagerDAO {
         }
 
         ArticleInfo[] result = new ArticleInfo[num];
-        String sql = "SELECT article_id, auther_id, title, summary, tags, create_time, last_modify_time "
+        String sql = "SELECT article_id, auther_id, class_id, title, summary, tags, create_time, last_modify_time "
                    + "FROM article_table ORDER BY ? DESC LIMIT ?, ?;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
@@ -149,6 +152,7 @@ public class ArticleManagerDAO {
                 ArticleInfo info = new ArticleInfo();
                 info.mArticleId = rs.getInt("article_id");
                 info.mAutherId = rs.getInt("auther_id");
+                info.mClassId = rs.getInt("class_id");
                 info.mTitle = rs.getString("title");
                 info.mSummary = rs.getString("summary");
                 info.mTags = rs.getString("tags");
@@ -160,7 +164,6 @@ public class ArticleManagerDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            result = null;
         }
 
         return result;
@@ -174,7 +177,7 @@ public class ArticleManagerDAO {
 
         int insNums = 0;
         int articleId = 0;
-        String sql = "INSERT INTO article_table VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO article_table VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         String sqlId = "SELECT LAST_INSERT_ID();";
         NumberCountDAO numberDAO = new NumberCountDAO();
 
@@ -182,13 +185,14 @@ public class ArticleManagerDAO {
              PreparedStatement stat = conn.prepareStatement(sql);
              Statement statement = conn.createStatement();) {
             stat.setInt(1, info.mAutherId);
-            stat.setString(2, info.mTitle);
-            stat.setString(3, info.mSummary);
-            stat.setString(4, info.mTags);
-            stat.setString(5, info.mBodyMD);
-            stat.setString(6, info.mCreateTime);
-            stat.setString(7, info.mLastModifyTime);
-            stat.setInt(8, info.mPermission);
+            stat.setInt(1, info.mClassId);
+            stat.setString(3, info.mTitle);
+            stat.setString(4, info.mSummary);
+            stat.setString(5, info.mTags);
+            stat.setString(6, info.mBodyMD);
+            stat.setString(7, info.mCreateTime);
+            stat.setString(8, info.mLastModifyTime);
+            stat.setInt(9, info.mPermission);
 
             insNums = stat.executeUpdate();
 
@@ -229,8 +233,6 @@ public class ArticleManagerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return;
     }
 
     public boolean legalAuthor(int articleId, int autherId) {

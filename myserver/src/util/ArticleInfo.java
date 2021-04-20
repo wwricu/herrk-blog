@@ -3,6 +3,7 @@ package util;
 public class ArticleInfo {
     public int mArticleId;
     public int mAutherId;
+    public int mClassId;
     public String mTitle;
     public String mSummary;
     public String mTags;
@@ -11,11 +12,12 @@ public class ArticleInfo {
     public String mLastModifyTime;
     public int mPermission;
 
-    public void setValue(int articleId, int autherId, String title,
-                String summary, String tags, String bodyMD,
+    public void setValue(int articleId, int autherId, int classId,
+                String title, String summary, String tags, String bodyMD,
                 String createTime, String lastModifyTime, int permission) {
         mArticleId = articleId;
         mAutherId = autherId;
+        mClassId = classId;
         mTitle = title;
         mSummary = summary;
         mTags = tags;
@@ -29,6 +31,7 @@ public class ArticleInfo {
         return new StringBuilder("{")
             .append("\"article_id\":").append(String.valueOf(mArticleId))
             .append(",\"auther_id\":").append(String.valueOf(mAutherId))
+            .append(",\"class_id\":").append(String.valueOf(mClassId))
             .append(",\"title\":\"").append(mTitle)
             .append("\",\"summary\":\"").append(mSummary)
             .append("\",\"tags\":\"").append(mTags)
@@ -43,6 +46,7 @@ public class ArticleInfo {
         return new StringBuilder("{")
                 .append("\"article_id\":").append(String.valueOf(mArticleId))
                 .append(",\"auther_id\":").append(String.valueOf(mAutherId))
+                .append(",\"class_id\":").append(String.valueOf(mClassId))
                 .append(",\"auther_name\":\"").append(autherName)
                 .append("\",\"title\":\"").append(mTitle)
                 .append("\",\"summary\":\"").append(mSummary)

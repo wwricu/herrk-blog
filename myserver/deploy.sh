@@ -4,10 +4,12 @@ javac \
     src/dao/UserManagerDAO.java \
     src/dao/ArticleManagerDAO.java \
     src/dao/NumberCountDAO.java \
+    src/dao/ClassManagerDAO.java \
     src/dao/InitDAO.java \
     src/util/JwtUtils.java \
     src/util/ArticleInfo.java \
     src/util/UserInfo.java \
+    src/util/ClassInfo.java \
     src/util/Log.java \
     src/util/NetSpeed.java \
     src/util/SystemInfo.java \

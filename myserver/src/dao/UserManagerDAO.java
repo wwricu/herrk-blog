@@ -44,13 +44,13 @@ public class UserManagerDAO {
     user_name VARCHAR NOT NULL
     user_passwd VARCHAR NOT NULL
     create_time DATE
-    permission INT
+    group INT
     passwd_salt VARCHAR NOT NULL
     */
 
     public static void init() {
         // UserManagerDAO thiz = new UserManagerDAO();
-        String sql = "CREATE TABLE IF NOT EXISTS user_table (user_id INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(100) NOT NULL, user_passwd VARCHAR(100) NOT NULL, create_time DATE, permission INT, passwd_salt VARCHAR(100) NOT NULL, PRIMARY KEY (user_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        String sql = "CREATE TABLE IF NOT EXISTS user_table (user_id INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(100) NOT NULL, user_passwd VARCHAR(100) NOT NULL, create_time DATE, group INT, passwd_salt VARCHAR(100) NOT NULL, PRIMARY KEY (user_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         // String queryAdmin = "SELECT * FROM user_table WHERE user_name='administrator';";
 
         try (Connection conn = getConnection();
@@ -245,7 +245,7 @@ public class UserManagerDAO {
             stat.setString(1, userName);
             stat.setString(2, PassWdStor);
             stat.setString(3, currentDate.toString());
-            stat.setInt(4, 0);
+            stat.setInt(4, 2);
             stat.setString(5, salt);
 
             stat.execute();
@@ -268,7 +268,7 @@ public class UserManagerDAO {
             status = -3;
         }
 
-        String sql = "SELECT user_id, user_passwd, permission, passwd_salt FROM user_table WHERE user_name = ? limit 1;";
+        String sql = "SELECT user_id, user_passwd, group, passwd_salt FROM user_table WHERE user_name = ? limit 1;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, userName);
@@ -278,7 +278,7 @@ public class UserManagerDAO {
             rs.next();
             String userId = rs.getString("user_id");
             String passWdStor = rs.getString("user_passwd");
-            int permission = rs.getInt("permission");
+            int group = rs.getInt("group");
             String salt = rs.getString("passwd_salt");
 
 
@@ -287,7 +287,7 @@ public class UserManagerDAO {
                 status = Integer.valueOf(userId);
             }
 
-            if (0 > permission) {
+            if (0 > group) {
                 status = -5;
             }
 
