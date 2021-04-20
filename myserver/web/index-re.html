@@ -11,6 +11,7 @@
 
 <script src="js/server-info.js"></script>
 <script src="js/weather.js"></script>
+<script src="js/search-baidu.js"></script>
 
 <body>
 <div id="top-frame">
@@ -52,45 +53,67 @@
         <div id="right-frame">
             <div class="card">
                 <div class="container">
-                    <h4><b>Website Info</b></h4>
-                    <p>Click Count:
-                        <span id="click_count"></span>
-                    </p>
-                    <p>Has run for:
-                        <span id="day"></span>
-                        <span id="hour"></span>
-                        <span id="minute"></span>
-                    </p>
-                    <p>Download Rate:
-                    <span id="inbound"></span>
-                    </p>
-                    <p>Upload Rate:
-                    <span id="outbound"></span>
-                    </p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="container">
-                    <div id = message>
-                        <span class = weatherLabel>Location: </span>
-                        <span id = location class = weatherValue></span></br>
-                        <span class = weatherLabel>Weather: </span>
-                        <span id = weather class = weatherValue></span></br>
-                        <span class = weatherLabel>Temperature: </span>
-                        <span id = temperature class = weatherValue></span></br>
+                    <img class="card-img" src="res/image/compass.png">
+                    <span class="card-title"><b>Navigator</b></span>
+                    <div id="padding"></div>
+                    <div class = "card-item" align="center" style="margin: 1rem 0;">
+                        <img src="res/image/bilibili.png" class="card-img" style="margin-left: -0.8rem">
+                        <a class=navigation href="www.bilibili.com" style="margin-left: 2.3rem">bilibili</a>
+                    </div>
+                    <div class = "card-item" align="center" style="margin: 1rem 0;">
+                        <img src="res/image/github.png" class="card-img">
+                        <a class=navigation href="www.github.com">github</a>
+                    </div>
+                    <div class="search">
+                        <input id=search-input type="text" placeholder="Search in Baidu...">
+                        <button id=search-button></button>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="container">
-                    <h3>Navigator:</h3>
-                    <a href="www.bilibili.com">BILIBILI</a>
-                    <a href="www.github.com">github</a>
-                    <div class="search">
-                        <form>
-                            <input type="text" placeholder="Search in Baidu...">
-                            <button type="submit"></button>
-                        </form>
+                    <img class="card-img" src="res/image/sun.png">
+                    <span class="card-title"><b>Local Weather</b></span>
+                    <div id="padding"></div>
+                    <div class = "card-item">
+                        <span class = "item-title">Location:</span>
+                        <span id = location class = item-stat></span>
+                    </div>
+                    <div class = "card-item">
+                        <span class = "item-title">Weather:</span>
+                        <span id = weather class = item-stat></span>
+                    </div>
+                    <div class = "card-item">
+                        <span class = "item-title">Temperature:</span>
+                        <span id = temperature class = item-stat></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="container">
+                    <img class="card-img" src="res/image/stats-dots.png">
+                    <span class="card-title"><b>Website Info</b></span><br>
+                    <div id="padding"></div>
+                    <div class = "card-item">
+                        <span class = "item-title">Click Count:</span>
+                        <span id = click_count class = item-stat></span>
+                    </div>
+                    <div class = "card-item">
+                        <span class = "item-title">Has run for:</span>
+                        <span class = item-stat>Min</span>
+                        <span id="minute" class = item-stat></span>
+                        <span class = item-stat>Hour</span>
+                        <span id="hour" class = item-stat></span>
+                        <span class = item-stat>Day</span>
+                        <span id="day" class = item-stat></span>
+                    </div>
+                    <div class = "card-item">
+                        <span class = "item-title">Download rate:</span>
+                        <span id="inbound" class = item-stat></span>
+                    </div>
+                    <div class = "card-item">
+                        <span class = "item-title">Upload rate:</span>
+                        <span id="outbound" class = item-stat></span>
                     </div>
                 </div>
             </div>
