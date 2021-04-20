@@ -51,7 +51,6 @@ public class ArticleManagerServlet extends HttpServlet {
         String articleIdS = request.getParameter("articleId");
         String classIdS = request.getParameter("classId");
         String title = request.getParameter("title");
-        String coverLink = request.getParameter("coverLink");
         String summary = request.getParameter("summary");
         String tags = request.getParameter("tags");
         String bodyMD = request.getParameter("bodyMD");
@@ -78,8 +77,7 @@ public class ArticleManagerServlet extends HttpServlet {
         switch (action) {
             case "post":
                 Log.Info("post an article");
-                info.setValue(0, userId, classId, title, coverLink, summary, tags, bodyMD,
-                            currentTime.toString(), currentTime.toString(), 0);
+                info.setValue(0, userId, classId, title, summary, tags, bodyMD, currentTime.toString(), currentTime.toString(), 0);
                 // articleId, userId, classId, title, summary, tags, body, createtime, lstmodftime, permission
                 int createId = articleManagerDAO.createArticle(info);
                 if (createId > 0) {
@@ -105,8 +103,7 @@ public class ArticleManagerServlet extends HttpServlet {
                     Log.Warn("auther id failure");
                     break;
                 }
-                info.setValue(0, userId, classId, title, coverLink,
-                        summary, tags, bodyMD, null, currentTime.toString(), 0);
+                info.setValue(0, userId, classId, title, summary, tags, bodyMD, null, currentTime.toString(), 0);
                 articleManagerDAO.updateArticle(articleId, info);
             default:
                 Log.Info("unrecognized action " + action);
