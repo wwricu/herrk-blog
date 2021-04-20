@@ -16,6 +16,7 @@ javac \
     src/util/Daemon.java \
     src/servlet/ClickCountServlet.java \
     src/servlet/UserManagerServlet.java \
+    src/servlet/ClassManagerServlet.java \
     src/servlet/InitServlet.java \
     src/servlet/ArticleManagerServlet.java \
     src/servlet/ArticleViewerServlet.java \

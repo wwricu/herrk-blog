@@ -34,4 +34,21 @@ public class ClassInfo {
         mFatherId = fatherId;
         mGroup = group;
     }
+
+    public String toJson() {
+        return new StringBuilder("{\"classId\":").append(String.valueOf(mClassId))
+            .append(",\"className\":\"").append(mClassName)
+            .append("\",\"fatherId\":").append(String.valueOf(mFatherId))
+            .append(",\"group\":").append(String.valueOf(mGroup))
+            .append("}").toString();
+    }
+
+    public String toJson(String fatherName) {
+        return new StringBuilder("{\"classId\":").append(String.valueOf(mClassId))
+            .append(",\"className\":\"").append(mClassName)
+            .append("\",\"fatherName\":\"").append(fatherName)
+            .append("\",\"fatherId\":").append(String.valueOf(mFatherId))
+            .append(",\"group\":").append(String.valueOf(mGroup))
+            .append("}").toString();
+    }
 }

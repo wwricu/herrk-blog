@@ -24,7 +24,16 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UserManagerServlet</servlet-name>
-        <url-pattern>/usermanage</url-pattern>
+        <url-pattern>/usermanager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ClassManagerServlet</servlet-name>
+        <servlet-class>servlet.ClassManagerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClassManagerServlet</servlet-name>
+        <url-pattern>/classmanager</url-pattern>
     </servlet-mapping>
 
     <servlet>

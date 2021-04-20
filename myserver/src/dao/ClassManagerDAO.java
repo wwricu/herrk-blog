@@ -163,8 +163,8 @@ public class ClassManagerDAO {
         return 0;
     }
 
-    public ClassInfo[] subClasses(ClassInfo info) {
-        if (info == null || info.mClassId <= 0) {
+    public ClassInfo[] subClasses(int classId) {
+        if (classId <= 0) {
             Log.Error("invalid info");
             return null;
         }
@@ -172,7 +172,7 @@ public class ClassManagerDAO {
         final String sql = "SELECT * FROM class_table WHERE father_id=?;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql);) {
-            stat.setInt(1, info.mClassId);
+            stat.setInt(1, classId);
 
             ResultSet rs = stat.executeQuery();
             rs.last();
