@@ -10,6 +10,7 @@
 </head>
 
 <script src="js/server-info.js"></script>
+<script src="js/weather.js"></script>
 
 <body>
 <div id="top-frame">
@@ -70,20 +71,32 @@
             </div>
             <div class="card">
                 <div class="container">
-                    <h4><b>card 2</b></h4>
-                    <p>www.runoob.com</p>
+                    <div id = message>
+                        <span class = weatherLabel>Location: </span>
+                        <span id = location class = weatherValue></span></br>
+                        <span class = weatherLabel>Weather: </span>
+                        <span id = weather class = weatherValue></span></br>
+                        <span class = weatherLabel>Temperature: </span>
+                        <span id = temperature class = weatherValue></span></br>
+                    </div>
                 </div>
             </div>
             <div class="card">
                 <div class="container">
-                    <h4><b>card 2</b></h4>
-                    <p>www.runoob.com</p>
+                    <h3>Navigator:</h3>
+                    <a href="www.bilibili.com">BILIBILI</a>
+                    <a href="www.github.com">github</a>
+                    <div class="search">
+                        <form>
+                            <input type="text" placeholder="Search in Baidu...">
+                            <button type="submit"></button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="card">
                 <div class="container">
-                    <h4><b>card 2</b></h4>
-                    <p>www.runoob.com</p>
+                    <div id="classes"></div>
                 </div>
             </div>
         </div>

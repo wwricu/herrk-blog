@@ -31,3 +31,24 @@ body {
     height: 100%;
     margin: 1rem 0;
 }
+
+.search {background: transparent;}
+.search input, .search button {
+    background: transparent;
+}
+.search input {
+    border: 2px solid #000000;
+}
+.search button {
+    top: 0;
+    right: 0;
+}
+.search button:before {
+    content: "\f002";
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #000000;
+}
+.search input:focus {
+    border-color: #311c24
+}
