@@ -5,6 +5,7 @@ public class ArticleInfo {
     public int mAutherId;
     public int mClassId;
     public String mTitle;
+    public String mCoverLink;
     public String mSummary;
     public String mTags;
     public String mBodyMD;
@@ -12,13 +13,14 @@ public class ArticleInfo {
     public String mLastModifyTime;
     public int mPermission;
 
-    public void setValue(int articleId, int autherId, int classId,
-                String title, String summary, String tags, String bodyMD,
+    public void setValue(int articleId, int autherId, int classId, String title,
+                String coverLink, String summary, String tags, String bodyMD,
                 String createTime, String lastModifyTime, int permission) {
         mArticleId = articleId;
         mAutherId = autherId;
         mClassId = classId;
         mTitle = title;
+        mCoverLink = coverLink;
         mSummary = summary;
         mTags = tags;
         mBodyMD = bodyMD;
@@ -33,6 +35,7 @@ public class ArticleInfo {
             .append(",\"auther_id\":").append(String.valueOf(mAutherId))
             .append(",\"class_id\":").append(String.valueOf(mClassId))
             .append(",\"title\":\"").append(mTitle)
+            .append(",\"coverLink\":\"").append(mCoverLink)
             .append("\",\"summary\":\"").append(mSummary)
             .append("\",\"tags\":\"").append(mTags)
             .append("\",\"bodyMD\":\"").append(mBodyMD)
@@ -49,6 +52,7 @@ public class ArticleInfo {
                 .append(",\"class_id\":").append(String.valueOf(mClassId))
                 .append(",\"auther_name\":\"").append(autherName)
                 .append("\",\"title\":\"").append(mTitle)
+                .append(",\"coverLink\":\"").append(mCoverLink)
                 .append("\",\"summary\":\"").append(mSummary)
                 .append("\",\"tags\":\"").append(mTags)
                 .append("\",\"bodyMD\":\"").append(mBodyMD)
