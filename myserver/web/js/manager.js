@@ -1,11 +1,12 @@
 function bindManagers() {
-    $("#article-manager").click(function() {
+    $("#class-manager").click(function() {
         /* classData = {"list": [{
                     "classId":1,
                     "className":"1",
                     "fatherId": 1,
                     "group":0
             }]} */
+        $(".append").remove();
         $.ajax({
             type: "POST",
             async: true,
@@ -20,7 +21,7 @@ function bindManagers() {
                     return;
                 }
                 for (let i = 0; i < result.list.length; i++) {
-                    let classCard = $("<div class=card></div>")
+                    let classCard = $("<div class=\"card append\"></div>")
                     .append("<div class=container></div>")
                         .append($("<h4 class = class-name align = \"left\"></h4>").text(result.list[i].className));
                     $("#right-frame").append(classCard);
