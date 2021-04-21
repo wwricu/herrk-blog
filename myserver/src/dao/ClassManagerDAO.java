@@ -70,7 +70,7 @@ public class ClassManagerDAO {
 
             stat.setString(1, info.mClassName);
             stat.setInt(2, info.mFatherId);
-            stat.setInt(4, info.mGroup);
+            stat.setInt(3, info.mGroup);
 
             stat.executeUpdate();
 

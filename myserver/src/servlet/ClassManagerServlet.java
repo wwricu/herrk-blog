@@ -17,22 +17,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
-public class ClassManagerServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+public class ClassManagerServlet extends HttpServlet {
+
+    protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(true);
+        /* HttpSession session = request.getSession(true);
         String logStatus = (String)session.getAttribute("status");
-        if (logStatus == null ||
-                true != logStatus.equals("login")) {
+        if (logStatus == null || true != logStatus.equals("login")) {
             return;
         }
-        int userId = (int) session.getAttribute("userid");
+        int userId = (int) session.getAttribute("userid"); */
         String action = request.getParameter("action");
 
         String classIdS = request.getParameter("classId");
-        String className = request.getParameter("class_name");
-        String fatherIdS = request.getParameter("father_id");
+        String className = request.getParameter("className");
+        String fatherIdS = request.getParameter("fatherId");
         String groupS = request.getParameter("group");
 
         int classId = 0;
@@ -57,6 +57,7 @@ public class ClassManagerServlet {
         response.setContentType("text/plain");
 
         switch (action) {
+            /* ?action=create&className=ww&fatherId=0&group=0 */
             case "create":
                 Log.Info("create a class");
                 info.setValue(0, className, fatherId, group);
@@ -64,9 +65,10 @@ public class ClassManagerServlet {
                 int createId = classManagerDAO.createClass(info);
                 if (createId > 0) {
                     Log.Info("class id is " + createId);
+                    response.getWriter().write(String.valueOf(createId));
                 } else {
                     Log.Info("class id is " + createId);
-                    response.getWriter().write("fail");
+                    response.getWriter().write("failure");
                 }
                 break;
             case "delete":

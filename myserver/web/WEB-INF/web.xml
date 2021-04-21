@@ -37,15 +37,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>FileManagerServlet</servlet-name>
-        <servlet-class>servlet.FileManagerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FileManagerServlet</servlet-name>
-        <url-pattern>/filemanager</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>ArticleViewerServlet</servlet-name>
         <servlet-class>servlet.ArticleViewerServlet</servlet-class>
     </servlet>
