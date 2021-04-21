@@ -1,6 +1,7 @@
 package dao;
 
 import util.ArticleInfo;
+import util.ClassInfo;
 import util.Log;
 
 import java.io.File;
@@ -121,7 +122,7 @@ public class ArticleManagerDAO {
         return 0;
     }
 
-    public ArticleInfo[] getLatestArticles(int start, int num, String order) {
+    public ArticleInfo[] getLatestArticles(int start, int num, int classId, String order) {
 
         if (start < 0) {
             start = 0;
@@ -136,23 +137,32 @@ public class ArticleManagerDAO {
             order = "last_modify_time";
         }
 
-        ArticleInfo[] result = new ArticleInfo[num];
-        String sql = "SELECT article_id, auther_id, class_id, title, summary, tags, create_time, last_modify_time "
-                   + "FROM article_table ORDER BY ? DESC LIMIT ?, ?;";
+        String sql = "SELECT article_id, auther_id, title, summary, tags, create_time, last_modify_time "
+                   + "FROM article_table WHERE class_id=? ORDER BY ? DESC LIMIT ?, ?;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
 
-            stat.setString(1, order);
-            stat.setInt(2, start);
-            stat.setInt(3, num);
+            stat.setInt(1, classId);
+            stat.setString(2, order);
+            stat.setInt(3, start);
+            stat.setInt(4, num);
 
             int count = 0;
             ResultSet rs = stat.executeQuery();
+            rs.last();
+            int line = rs.getRow();
+            if (line == 0) {
+                Log.Error("get no result");
+                return new ArticleInfo[0];
+            }
+            rs.beforeFirst();
+            ArticleInfo[] result = new ArticleInfo[line];
+
             while (rs.next() && count < num) {
                 ArticleInfo info = new ArticleInfo();
                 info.mArticleId = rs.getInt("article_id");
                 info.mAutherId = rs.getInt("auther_id");
-                info.mClassId = rs.getInt("class_id");
+                info.mClassId = classId;
                 info.mTitle = rs.getString("title");
                 info.mSummary = rs.getString("summary");
                 info.mTags = rs.getString("tags");
@@ -162,11 +172,12 @@ public class ArticleManagerDAO {
                 info.mPermission = 0;
                 result[count++] = info;
             }
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return result;
+        return new ArticleInfo[0];
     }
 
     public int createArticle(ArticleInfo info) {

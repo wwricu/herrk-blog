@@ -36,22 +36,17 @@ public class ArticleViewerServlet extends HttpServlet {
         }
 
         String index = request.getParameter("index");
+        String num = request.getParameter("num");
         String order = request.getParameter("order");
         String articleId = request.getParameter("articleId");
+        String classId = request.getParameter("classId");
         Log.Info("action is " + action);
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        NumberCountDAO numberCountDAO = new NumberCountDAO();
-        int articleNum = numberCountDAO.getArticleCount();
         StringBuilder json = new StringBuilder("{");
         response.setContentType("text/plain");
 
         switch (action) {
-            // ?action=getnum
-            case "getnum":
-                Log.Verbose("article num is " + articleNum);
-                response.getWriter().write(String.valueOf(articleNum));
-            break;
             /* ?action=preview&index=1&order=last_modify_time
                {
                     "article_id": 0,
@@ -67,20 +62,26 @@ public class ArticleViewerServlet extends HttpServlet {
                 };
             */
             case "preview":
-                if (Integer.parseInt(index) >= articleNum) {
-                    response.getWriter().write("index exceed");
-                    break;
-                }
                 ArticleInfo[] list = articleManagerDAO.getLatestArticles(
-                        Integer.parseInt(index), 1, order);
+                        Integer.parseInt(index), Integer.parseInt(classId),
+                            Integer.parseInt(num), order);
                 if (list == null || list.length == 0) {
                     Log.Error("get article failure");
                     break;
                 }
+                Log.Info(list.length);
+                json.append("\"list\":[");
+                for (int i = 0; i < list.length; i++) {
+                    json.append(list[i].toJson());
+                    if (i != list.length - 1) {
+                        json.append(",");
+                    }
+                }
+                json.append("]}");
                 response.getWriter().write(
-                    list[0].toJson(UserManagerDAO.getUserName(list[0].mAutherId))
-                        .replace("\r", "\\r").replace("\n", "\\n")
-                );
+                        json.toString()
+                        .replace("\r", "\\r")
+                        .replace("\n", "\\n"));
             break;
             // ?action=view&articleId=1
             case "view":
