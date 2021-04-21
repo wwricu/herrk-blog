@@ -177,13 +177,14 @@ public class ClassManagerDAO {
             rs.beforeFirst();
             ClassInfo[] res = new ClassInfo[line];
             for (int i = 0; i < line; i++) {
-                rs.next();
-                res[i].setValue(
-                    rs.getInt("class_id"),
-                    rs.getString("class_name"),
-                    rs.getInt("father_id"),
-                    rs.getInt("class_group")
-                );
+                if (rs.next()) {
+                    res[i] = new ClassInfo(
+                        rs.getInt("class_id"),
+                        rs.getString("class_name"),
+                        rs.getInt("father_id"),
+                        rs.getInt("class_group")
+                    );
+                }
             }
             return res;
         } catch (SQLException e) {
@@ -217,7 +218,7 @@ public class ClassManagerDAO {
                 rs.next();
                 res[i].mClassId = rs.getInt("class_id");
                 res[i].mClassName = rs.getString("class_name");
-                res[i].mFatherId = rs.getInt("mFatherId");
+                res[i].mFatherId = rs.getInt("father_id");
                 res[i].mGroup = rs.getInt("class_group");
             }
             return res;

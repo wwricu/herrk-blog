@@ -11,7 +11,7 @@ function bindManagers() {
             async: true,
             url: "classmanager",
             data: {
-                "action": "allclasses",
+                "action": "allclasses"
             },
             dataType: "json",
             timeout: 1000,
@@ -38,7 +38,6 @@ function bindAddClass() {
         $("#add-class-cancel").show();
     });
     $("#add-class-cancel").click(function() {
-        alert(111);
         $("#add-class-add").show();
         $("#add-class-name").hide();
         $("#add-class-submit").hide();
@@ -63,7 +62,6 @@ function bindAddClass() {
             dataType: "text",
             timeout: 1000,
             success: function (result) {
-                alert(result);
                 if (result == "failure") {
                     return;
                 }

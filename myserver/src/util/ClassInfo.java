@@ -29,7 +29,7 @@ public class ClassInfo {
 
     public void setValue(int classId, String className,
             int fatherId, int group) {
-        mGroup = classId;
+        mClassId = classId;
         mClassName = className;
         mFatherId = fatherId;
         mGroup = group;
