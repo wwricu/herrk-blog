@@ -38,12 +38,13 @@ function bindAddClass() {
         $("#add-class-cancel").show();
     });
     $("#add-class-cancel").click(function() {
+        alert(111);
         $("#add-class-add").show();
         $("#add-class-name").hide();
         $("#add-class-submit").hide();
         $("#add-class-cancel").hide();
     });
-    $("add-class-submit").click(function() {
+    $("#add-class-submit").click(function() {
         let className = $("#add-class-name").val();
         if (className.length < 0 || className.length > 100) {
             alert("invalid length");
@@ -70,7 +71,6 @@ function bindAddClass() {
                 $("#add-class-name").hide();
                 $("#add-class-submit").hide();
                 $("#add-class-cancel").hide();
-                alert(result);
             }
         });
     });
@@ -78,4 +78,5 @@ function bindAddClass() {
 
 $(function() {
     bindAddClass();
+    bindManagers();
 });
