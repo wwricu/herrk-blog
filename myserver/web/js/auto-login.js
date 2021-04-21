@@ -5,7 +5,6 @@ function autoLogin() {
     if (null == token) {
         $("#signBtn").show();
         $("#loginName").hide();
-
         $.ajax({
             type: 'POST',
             url: 'usermanage',
@@ -35,7 +34,7 @@ function autoLogin() {
     }
     $.ajax({
         type: 'POST',
-        url: 'usermanage',
+        url: 'usermanager',
         data: {
             "action": 'token',
             "token":  token

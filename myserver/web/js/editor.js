@@ -10,6 +10,33 @@ function getQueryVariable(variable) {
     return false;
 }
 
+function getClasses() {
+    $.ajax({
+        type: "POST",
+        async: true,
+        url: "classmanager",
+        data: {
+            "action": "allclasses"
+        },
+        dataType: "json",
+        timeout: 1000,
+        success: function (result) {
+            if (result == "failure") {
+                return;
+            }
+            for (let i = 0; i < result.list.length; i++) {
+                let classId = result.list[i].classId;
+                let classOption = $("<option value =\"" +
+                            classId +
+                            "\" class='class-option'>" +
+                            result.list[i].className +
+                            "</option>");
+                $("#class-select").append(classOption);
+            }
+        }
+    });
+}
+
 function updateArticle() {
     let articleId = getQueryVariable("id");
     if (articleId == false) {
@@ -18,6 +45,7 @@ function updateArticle() {
     let article = {
         "article_id": articleId,
         "auther_id": 0,
+        "class_id": 0,
         "title": "",
         "summary": "",
         "tags": "",
@@ -64,6 +92,7 @@ function bindUpdate(articleId) {
         var msg = {
             action: 'update',
             articleId: articleId,
+            classId: $('#class-select option:selected').val(),
             title: escape(title),
             summary: escape(sum),
             tags: escape('default'),
@@ -80,7 +109,7 @@ function bindUpdate(articleId) {
                 console.log('submit failure');
             },
             success: function(result) {
-                if (result == "fail") {
+                if (result == "failure") {
                     console.log('server failed to submit');
                 } else {
                     alert("successfully updated");
@@ -105,6 +134,7 @@ function bindPost() {
         var msg = {
             action: 'post',
             articleId: '0',
+            classId: $('#class-select option:selected').val(),
             title: escape(title),
             summary: escape(sum),
             tags: escape('default'),
@@ -122,7 +152,7 @@ function bindPost() {
                 console.log('submit failure');
             },
             success: function(result) {
-                if (result == "fail") {
+                if (result == "failure" && result < 0) {
                     console.log('server failed to submit');
                 } else {
                     window.open("../index.html", "_self");
@@ -144,4 +174,5 @@ $(function() {
             updateArticle();
         }
     });
+    getClasses();
 });

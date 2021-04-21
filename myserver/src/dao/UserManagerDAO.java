@@ -245,7 +245,7 @@ public class UserManagerDAO {
             stat.setString(1, userName);
             stat.setString(2, PassWdStor);
             stat.setString(3, currentDate.toString());
-            stat.setInt(4, 2);
+            stat.setInt(4, 0);
             stat.setString(5, salt);
 
             stat.execute();

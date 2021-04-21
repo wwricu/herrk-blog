@@ -2,7 +2,7 @@ $(function() {
     $("#logOut").click(function() {
         $.ajax({
             type: 'POST',
-            url: 'usermanage',
+            url: 'usermanager',
             data: {action: "logout"},
             // dataType: 'JSON',
             async: 'true',

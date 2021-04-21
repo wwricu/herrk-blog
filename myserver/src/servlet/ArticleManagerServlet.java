@@ -38,9 +38,14 @@ public class ArticleManagerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            Log.Error("no session");
+            return;
+        }
         String logStatus = (String)session.getAttribute("status");
         if (logStatus == null || true != logStatus.equals("login")) {
+            Log.Error("not logged in");
             return;
         }
         int userId = (int) session.getAttribute("userid");
@@ -82,9 +87,10 @@ public class ArticleManagerServlet extends HttpServlet {
                 int createId = articleManagerDAO.createArticle(info);
                 if (createId > 0) {
                     Log.Info("article id is " + createId);
+                    response.getWriter().write(String.valueOf(createId));
                 } else {
                     Log.Info("article id is " + createId);
-                    response.getWriter().write("fail");
+                    response.getWriter().write("failure");
                 }
                 break;
             case "delete":
@@ -101,10 +107,12 @@ public class ArticleManagerServlet extends HttpServlet {
                 Log.Info("update article No. " + articleId);
                 if (articleManagerDAO.legalAuthor(articleId, userId) != true) {
                     Log.Warn("auther id failure");
+                    response.getWriter().write("failure");
                     break;
                 }
                 info.setValue(0, userId, classId, title, summary, tags, bodyMD, null, currentTime.toString(), 0);
                 articleManagerDAO.updateArticle(articleId, info);
+                break;
             default:
                 Log.Info("unrecognized action " + action);
                 break;

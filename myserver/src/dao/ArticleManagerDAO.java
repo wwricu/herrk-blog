@@ -106,8 +106,8 @@ public class ArticleManagerDAO {
             stat.setString(4, info.mTags);
             stat.setString(5, info.mBodyMD);
             stat.setString(6, info.mLastModifyTime);
-            stat.setInt(6, info.mPermission);
-            stat.setInt(7, articleId);
+            stat.setInt(7, info.mPermission);
+            stat.setInt(8, articleId);
 
             ret = stat.executeUpdate();
             if (ret == 0) {
@@ -185,7 +185,7 @@ public class ArticleManagerDAO {
              PreparedStatement stat = conn.prepareStatement(sql);
              Statement statement = conn.createStatement();) {
             stat.setInt(1, info.mAutherId);
-            stat.setInt(1, info.mClassId);
+            stat.setInt(2, info.mClassId);
             stat.setString(3, info.mTitle);
             stat.setString(4, info.mSummary);
             stat.setString(5, info.mTags);

@@ -3,11 +3,11 @@ function bindLogin() {
     $("#login").click(function() {
         $.ajax({
             type: 'POST',
-            url: 'usermanage',
+            url: 'usermanager',
             data: {
                 "action": "login",
-                "username": $("#username").val(),
-                "password": $("#password").val()
+                "username": escape($("#username").val()),
+                "password": escape($("#password").val())
             },
             async: 'true',
             dataType: "json",
@@ -19,7 +19,7 @@ function bindLogin() {
                     console.log('Mismatch between Username and Password!');
                 } else {
                     localStorage.setItem("token", result.token);
-                    let link = "../index.html?id=" + result.userId + "&name=" + result.userName;
+                    let link = "../index.html?id=" + result.userId + "&name=" + unescape(result.userName);
                     window.open(link, "_self");
                 }
             }
