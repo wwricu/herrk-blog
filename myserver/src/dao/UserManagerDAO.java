@@ -44,13 +44,13 @@ public class UserManagerDAO {
     user_name VARCHAR NOT NULL
     user_passwd VARCHAR NOT NULL
     create_time DATE
-    group INT
+    user_group INT
     passwd_salt VARCHAR NOT NULL
     */
 
     public static void init() {
         // UserManagerDAO thiz = new UserManagerDAO();
-        String sql = "CREATE TABLE IF NOT EXISTS user_table (user_id INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(100) NOT NULL, user_passwd VARCHAR(100) NOT NULL, create_time DATE, group INT, passwd_salt VARCHAR(100) NOT NULL, PRIMARY KEY (user_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        String sql = "CREATE TABLE IF NOT EXISTS user_table (user_id INT UNSIGNED AUTO_INCREMENT, user_name VARCHAR(100) NOT NULL, user_passwd VARCHAR(100) NOT NULL, create_time DATE, user_group INT, passwd_salt VARCHAR(100) NOT NULL, PRIMARY KEY (user_id))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         // String queryAdmin = "SELECT * FROM user_table WHERE user_name='administrator';";
 
         try (Connection conn = getConnection();
@@ -268,7 +268,7 @@ public class UserManagerDAO {
             status = -3;
         }
 
-        String sql = "SELECT user_id, user_passwd, group, passwd_salt FROM user_table WHERE user_name = ? limit 1;";
+        String sql = "SELECT user_id, user_passwd, user_group, passwd_salt FROM user_table WHERE user_name = ? limit 1;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql)) {
             stat.setString(1, userName);
@@ -278,7 +278,7 @@ public class UserManagerDAO {
             rs.next();
             String userId = rs.getString("user_id");
             String passWdStor = rs.getString("user_passwd");
-            int group = rs.getInt("group");
+            int group = rs.getInt("user_group");
             String salt = rs.getString("passwd_salt");
 
 

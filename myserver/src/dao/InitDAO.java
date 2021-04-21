@@ -9,5 +9,6 @@ public class InitDAO {
         NumberCountDAO.init();
         UserManagerDAO.init();
         ArticleManagerDAO.init();
+        ClassManagerDAO.init();
     }
 }

@@ -39,11 +39,11 @@ public class ClassManagerDAO {
     class_id INT UNSIGNED AUTO_INCREMENT
     class_name VARCHAR(1024)
     father_id INT UNSIGNED
-    group INT
+    class_group INT
     */
 
     public static void init() {
-        final String sql = "CREATE TABLE IF NOT EXISTS class_table (class_id INT UNSIGNED AUTO_INCREMENT, class_name VARCHAR(1024), father_id INT UNSIGNED, group INT, PRIMARY KEY (class_id))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        final String sql = "CREATE TABLE IF NOT EXISTS class_table (class_id INT UNSIGNED AUTO_INCREMENT, class_name VARCHAR(1024), father_id INT UNSIGNED, class_group INT, PRIMARY KEY (class_id))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
              stat.execute();
@@ -128,7 +128,7 @@ public class ClassManagerDAO {
                 info.setValue(rs.getInt("class_id"),
                               rs.getString("class_name"),
                               rs.getInt("father_id"),
-                              rs.getInt("group"));
+                              rs.getInt("class_group"));
             } else {
                 Log.Error("result set is null");
             }
@@ -144,7 +144,7 @@ public class ClassManagerDAO {
             return -1;
         }
 
-        String sql = "UPDATE class_table WHERE class_id=? SET class_name=?, father_id=?, group=?;";
+        String sql = "UPDATE class_table WHERE class_id=? SET class_name=?, father_id=?, class_group=?;";
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setInt(1, info.mClassId);
@@ -182,7 +182,7 @@ public class ClassManagerDAO {
                     rs.getInt("class_id"),
                     rs.getString("class_name"),
                     rs.getInt("father_id"),
-                    rs.getInt("group")
+                    rs.getInt("class_group")
                 );
             }
             return res;
@@ -218,7 +218,7 @@ public class ClassManagerDAO {
                 res[i].mClassId = rs.getInt("class_id");
                 res[i].mClassName = rs.getString("class_name");
                 res[i].mFatherId = rs.getInt("mFatherId");
-                res[i].mGroup = rs.getInt("group");
+                res[i].mGroup = rs.getInt("class_group");
             }
             return res;
         } catch (SQLException e) {
