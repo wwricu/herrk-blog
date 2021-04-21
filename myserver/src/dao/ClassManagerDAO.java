@@ -163,6 +163,36 @@ public class ClassManagerDAO {
         return 0;
     }
 
+    public ClassInfo[] allTopClasses() {
+        String sql = "SELECT * FROM class_table WHERE father_id=0;";
+        try (Connection conn = getConnection();
+                PreparedStatement stat = conn.prepareStatement(sql);) {
+            ResultSet rs = stat.executeQuery();
+            rs.last();
+            int line = rs.getRow();
+            if (line == 0) {
+                Log.Error("get no result");
+                return new ClassInfo[0];
+            }
+            rs.beforeFirst();
+            ClassInfo[] res = new ClassInfo[line];
+            for (int i = 0; i < line; i++) {
+                rs.next();
+                res[i].setValue(
+                    rs.getInt("class_id"),
+                    rs.getString("class_name"),
+                    rs.getInt("father_id"),
+                    rs.getInt("group")
+                );
+            }
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new ClassInfo[0];
+    }
+
     public ClassInfo[] subClasses(int classId) {
         if (classId <= 0) {
             Log.Error("invalid info");

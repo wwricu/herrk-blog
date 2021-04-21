@@ -79,16 +79,32 @@ public class ClassManagerServlet {
                 info.setValue(classId, className, fatherId, group);
                 classManagerDAO.updateClass(info);
             break;
-            case "subclasses":
-                ClassInfo[] res = classManagerDAO.subClasses(classId);
-                if (res == null || res.length == 0) {
+            /* ?action=allclasses */
+            case "allclasses":
+                ClassInfo[] allClasses = classManagerDAO.allTopClasses();
+                if (allClasses == null || allClasses.length == 0) {
                     response.getWriter().write("failure");
                 }
                 json.append("\"list\":[");
-                for (int i = 0; i < res.length; i++) {
-                    String fatherName = classManagerDAO.searchClass(res[i].mFatherId).mClassName;
-                    json.append(res[i].toJson(fatherName));
-                    if (i != res.length - 1) {
+                for (int i = 0; i < allClasses.length; i++) {
+                    json.append(allClasses[i].toJson());
+                    if (i != allClasses.length - 1) {
+                        json.append(",");
+                    }
+                }
+                json.append("]}");
+                response.getWriter().write(json.toString());
+            break;
+            case "subclasses":
+                ClassInfo[] subClasses = classManagerDAO.subClasses(classId);
+                if (subClasses == null || subClasses.length == 0) {
+                    response.getWriter().write("failure");
+                }
+                json.append("\"list\":[");
+                for (int i = 0; i < subClasses.length; i++) {
+                    String fatherName = classManagerDAO.searchClass(subClasses[i].mFatherId).mClassName;
+                    json.append(subClasses[i].toJson(fatherName));
+                    if (i != subClasses.length - 1) {
                         json.append(",");
                     }
                 }
