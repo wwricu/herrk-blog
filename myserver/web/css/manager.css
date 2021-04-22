@@ -42,3 +42,8 @@ a {
     height: 100%;
     width: 100%;
 }
+
+.add-class-btn {
+    background: transparent;
+    border: none;
+}
