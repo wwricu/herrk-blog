@@ -63,13 +63,12 @@ public class ArticleViewerServlet extends HttpServlet {
             */
             case "preview":
                 ArticleInfo[] list = articleManagerDAO.getLatestArticles(
-                        Integer.parseInt(index), Integer.parseInt(classId),
-                            Integer.parseInt(num), order);
+                        Integer.parseInt(index), Integer.parseInt(num),
+                            Integer.parseInt(classId), order);
                 if (list == null || list.length == 0) {
                     Log.Error("get article failure");
                     break;
                 }
-                Log.Info(list.length);
                 json.append("\"list\":[");
                 for (int i = 0; i < list.length; i++) {
                     json.append(list[i].toJson());

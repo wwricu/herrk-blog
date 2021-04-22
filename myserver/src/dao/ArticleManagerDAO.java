@@ -137,15 +137,24 @@ public class ArticleManagerDAO {
             order = "last_modify_time";
         }
 
-        String sql = "SELECT article_id, auther_id, title, summary, tags, create_time, last_modify_time "
-                   + "FROM article_table WHERE class_id=? ORDER BY ? DESC LIMIT ?, ?;";
+        StringBuilder sql_builder = new StringBuilder(
+            "SELECT article_id, auther_id, class_id, title, summary, tags, create_time, last_modify_time FROM article_table ");
+        if (classId != 0) {
+            sql_builder.append("WHERE class_id=? ");
+        }
+        sql_builder.append("ORDER BY ? DESC LIMIT ?, ?;");
+        String sql = sql_builder.toString();
+         
         try (Connection conn = getConnection();
-             PreparedStatement stat = conn.prepareStatement(sql);) {
+                PreparedStatement stat = conn.prepareStatement(sql);) {
 
-            stat.setInt(1, classId);
-            stat.setString(2, order);
-            stat.setInt(3, start);
-            stat.setInt(4, num);
+            int s = 1;
+            if (classId != 0) {
+                stat.setInt(s++, classId);
+            }
+            stat.setString(s++, order);
+            stat.setInt(s++, start);
+            stat.setInt(s++, num);
 
             int count = 0;
             ResultSet rs = stat.executeQuery();
@@ -162,7 +171,7 @@ public class ArticleManagerDAO {
                 ArticleInfo info = new ArticleInfo();
                 info.mArticleId = rs.getInt("article_id");
                 info.mAutherId = rs.getInt("auther_id");
-                info.mClassId = classId;
+                info.mClassId = rs.getInt("class_id");
                 info.mTitle = rs.getString("title");
                 info.mSummary = rs.getString("summary");
                 info.mTags = rs.getString("tags");

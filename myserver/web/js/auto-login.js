@@ -3,8 +3,7 @@ javascript:
 function autoLogin() {
     var token = localStorage.getItem("token");
     if (null == token) {
-        $("#signBtn").show();
-        $("#loginName").hide();
+        alert("1");
         $.ajax({
             type: 'POST',
             url: 'usermanage',
@@ -22,10 +21,8 @@ function autoLogin() {
                 }
                 // json string-->json object
                 result = eval('(' + result + ')');
-                $("#signBtn").hide();
-                $("#loginName").show();
-                $('#editor').attr("href", "../editor.html");
-                document.getElementById("loginName").innerHTML = result.username;
+                $(".log").hide();
+                $(".manager").show();
                 localStorage.setItem("token", result.token);
             }
         });
@@ -46,14 +43,10 @@ function autoLogin() {
         },
         success: function(result) {
             if (result.userId <= 0) {
-                $("#signBtn").show();
-                $("#loginName").hide();
                 return;
             }
-            $("#signBtn").hide();
-            $("#loginName").show();
-            $("#loginName").text(result.userName);
-            $('#editor').attr("href", "../editor.html");
+            $(".log").hide();
+            $(".manager").show();
         }
     });
 }

@@ -1,7 +1,8 @@
 let articleLeft = true;
 let articleIndex = 0;
+let classId = 0;
 
-function addArticle(classId, num) {
+function addArticle(num) {
     "use strict";
     let article = {
         "article_id": 0,
@@ -49,21 +50,38 @@ function addArticle(classId, num) {
             articleLeft = false;
         }
     });
-    /*if (article.article_id <= 0) {
-        return -1;
-    }
-    let link = '../viewer.html?id=' + article.article_id;
-    let title = "<a class = article-title href = \"" + link + "\"align = \"left\"></a>";
-    let articleBody = $("<div class = article ></div>")
-        .append($(title).text(article.title))
-        .append($("<div class = article-preview align = \"left\"></div>").text(article.summary))
-        .append($("<div class = article-auther align = \"right\"></div>")
-                .append($("<span class=crttime-prefix></span>").text("Created time: "))
-                .append($("<span class=created-time></span>").text(article.create_time))
-                .append($("<span class=auther-prefix></span>").text("Auther: "))
-                .append($("<span class=auther-name></span>").text(article.auther_name)));
-    $(".articleZone").append(articleBody);
-    articleIndex++;*/
+}
+
+function getClasses() {
+    $.ajax({
+        type: "POST",
+        async: true,
+        url: "classmanager",
+        data: {
+            "action": "allclasses"
+        },
+        dataType: "json",
+        timeout: 1000,
+        success: function(result) {
+            if (result == "failure") {
+                return;
+            }
+            for (let i = 0; i < result.list.length; i++) {
+                let localClassId = result.list[i].classId;
+                let button = "<button id=class-" + localClassId + " class='class-append'></button>"
+                let classCard = $("<div class = \"card-item\"></div>")
+                        .append($(button).text(result.list[i].className));
+                $("#class-container").append(classCard);
+                $("#class-" + localClassId).click(function() {
+                    $(".article-append").remove();
+                    articleLeft = true;
+                    articleIndex = 0;
+                    classId = localClassId;
+                    renderPage();
+                });
+            }
+        }
+    });
 }
 
 function scrollLoad() {
@@ -72,21 +90,20 @@ function scrollLoad() {
         if ($(document).scrollTop() + $(window).height() >= $(document).height() - 1) {
             // console.log($(document).scrollTop() + $(window).height() + $(document).height());
             if (articleLeft) {
-                addArticle(0, 1);
+                addArticle(1);
             }
         }
     });
 }
 
 function renderPage() {
-    while (articleLeft && $(window).height() == $(document).height()) {
-        addArticle(0, 5);
-    }
+    addArticle(5);
 }
 
 $(document).ready(function () {
     "use strict";
+    getClasses();
     renderPage();
-    setInterval(renderPage,2000);
+    // setInterval(renderPage(0),2000);
     scrollLoad();
 });
