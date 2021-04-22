@@ -1,15 +1,18 @@
-function bindManagers() {
-    $("#class-manager").on("click", classManager);
-}
-
-function classManager() {
-    $(".append").remove();
+function classAdder() {
     let classAdder = $("<div id=\"add-class\" class=\"append\" align=center></div>")
         .append($("<button id=add-class-add class=add-class-btn>Add a new class</button>"))
         .append($("<input id=add-class-name class=add-class-btn type=\"text\" placeholder=\"input class name\" style=\"display: none;\">"))
         .append($("<button id=add-class-submit class=add-class-btn style=\"display: none;\">confirm</button>"))
         .append($("<button id=add-class-cancel class=add-class-btn style=\"display: none;\">cancel</button>"));
     $("#right-frame").append(classAdder);
+}
+
+function bindManagers() {
+    $("#class-manager").on("click", classManager);
+}
+
+function classManager() {
+    $(".append").remove();
     bindAddClass();
     $.ajax({
         type: "POST",
@@ -20,14 +23,19 @@ function classManager() {
         },
         dataType: "json",
         timeout: 1000,
+        error: function() {
+            classAdder();
+        },
         /* result = {"list": [{
                 "classId":1,
                 "className":"1",
                 "fatherId": 1,
-                "group":0
+                "group":0,
+                "articleCount":0
             }]} */
         success: function (result) {
             if (result == "failure") {
+                classAdder();
                 return;
             }
             for (let i = 0; i < result.list.length; i++) {
@@ -57,6 +65,7 @@ function classManager() {
                     });
                 });
             }
+            classAdder();
         }
     });
 }
