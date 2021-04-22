@@ -51,4 +51,8 @@ public class ClassInfo {
             .append(",\"group\":").append(String.valueOf(mGroup))
             .append("}").toString();
     }
+    public static String jsonAppend(String json, String pair) {
+        StringBuilder builder = new StringBuilder(json);
+        return builder.insert(builder.length() - 1, pair).toString();
+    }
 }

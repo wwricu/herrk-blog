@@ -89,7 +89,9 @@ public class ClassManagerServlet extends HttpServlet {
                 }
                 json.append("\"list\":[");
                 for (int i = 0; i < allClasses.length; i++) {
-                    json.append(allClasses[i].toJson());
+                    int subArtNum = classManagerDAO.subArticleCount(allClasses[i].mClassId);
+                    StringBuilder pair = new StringBuilder(",\"articleCount\":").append(String.valueOf(subArtNum));
+                    json.append(ClassInfo.jsonAppend(allClasses[i].toJson(), pair.toString()));
                     if (i != allClasses.length - 1) {
                         json.append(",");
                     }

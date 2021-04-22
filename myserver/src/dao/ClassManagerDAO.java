@@ -270,6 +270,24 @@ public class ClassManagerDAO {
         return null;
     }
 
+    public int subArticleCount(int classId) {
+        if (classId <= 0) {
+            return 0;
+        }
+
+        String sql = "SELECT article_id FROM article_table WHERE class_id=?;";
+        try (Connection conn = getConnection();
+                PreparedStatement stat = conn.prepareStatement(sql);) {
+            stat.setInt(1, classId);
+            ResultSet rs = stat.executeQuery();
+            rs.last();
+            return rs.getRow();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     private boolean validClass(ClassInfo info) {
         return true;
     }
