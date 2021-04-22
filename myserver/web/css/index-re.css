@@ -84,6 +84,9 @@ a {
     height: 2rem;
     margin: 0.3rem 0.3rem;
 }
+.container {
+    padding: 2px 16px;
+}
 .card-item .navigation {
     margin-left: 3rem;
     font-size: 1.8rem;

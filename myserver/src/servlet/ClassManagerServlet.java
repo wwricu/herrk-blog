@@ -72,8 +72,10 @@ public class ClassManagerServlet extends HttpServlet {
                 }
                 break;
             case "delete":
+                /* ?action=delete&classId=1 */
+                // return deleted id
                 Log.Info("delete class No. " + classId);
-                articleManagerDAO.deleteArticle(classId);
+                response.getWriter().write(String.valueOf(classManagerDAO.deleteClass(classId)));
                 break;
             case "update":
                 /* ?action=update&articleId=1&title=ww&summary=ww&tags=www&bodyMD=www?permission=1 */

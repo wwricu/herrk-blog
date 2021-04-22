@@ -47,3 +47,22 @@ a {
     background: transparent;
     border: none;
 }
+
+.class-container {
+    height: 3rem;
+    padding: 2px 16px;
+}
+.class-name {
+    float: left;
+    margin: 0.5rem 0;
+}
+.class-count {
+    float: right;
+    margin: 0.5rem 0;
+}
+.class-delete {
+    float: right;
+    margin: 0.5rem 0;
+    background: transparent;
+    border: none;
+}

@@ -1,41 +1,63 @@
 function bindManagers() {
-    $("#class-manager").click(function() {
-        $(".append").remove();
-        let classAdder = $("<div id=\"add-class\" class=\"append\" align=center></div>")
-            .append($("<button id=add-class-add class=add-class-btn>Add a new class</button>"))
-            .append($("<input id=add-class-name class=add-class-btn type=\"text\" placeholder=\"input class name\" style=\"display: none;\">"))
-            .append($("<button id=add-class-submit class=add-class-btn style=\"display: none;\">confirm</button>"))
-            .append($("<button id=add-class-cancel class=add-class-btn style=\"display: none;\">cancel</button>"));
-        $("#right-frame").append(classAdder);
-        bindAddClass();
-        $.ajax({
-            type: "POST",
-            async: true,
-            url: "classmanager",
-            data: {
-                "action": "allclasses"
-            },
-            dataType: "json",
-            timeout: 1000,
-            /* result = {"list": [{
-                    "classId":1,
-                    "className":"1",
-                    "fatherId": 1,
-                    "group":0
-                }]} */
-            success: function (result) {
-                if (result == "failure") {
-                    return;
-                }
-                for (let i = 0; i < result.list.length; i++) {
-                    let classCard = $("<div class=\"card append\"></div>")
-                        .append($("<div class=container></div>")
-                                .append($("<h4 class = class-name align = \"left\"></h4>")
-                                    .text(result.list[i].className)));
-                    $("#right-frame").append(classCard);
-                }
+    $("#class-manager").on("click", classManager);
+}
+
+function classManager() {
+    $(".append").remove();
+    let classAdder = $("<div id=\"add-class\" class=\"append\" align=center></div>")
+        .append($("<button id=add-class-add class=add-class-btn>Add a new class</button>"))
+        .append($("<input id=add-class-name class=add-class-btn type=\"text\" placeholder=\"input class name\" style=\"display: none;\">"))
+        .append($("<button id=add-class-submit class=add-class-btn style=\"display: none;\">confirm</button>"))
+        .append($("<button id=add-class-cancel class=add-class-btn style=\"display: none;\">cancel</button>"));
+    $("#right-frame").append(classAdder);
+    bindAddClass();
+    $.ajax({
+        type: "POST",
+        async: true,
+        url: "classmanager",
+        data: {
+            "action": "allclasses"
+        },
+        dataType: "json",
+        timeout: 1000,
+        /* result = {"list": [{
+                "classId":1,
+                "className":"1",
+                "fatherId": 1,
+                "group":0
+            }]} */
+        success: function (result) {
+            if (result == "failure") {
+                return;
             }
-        });
+            for (let i = 0; i < result.list.length; i++) {
+                let classCard = $("<div id=class-card-" + result.list[i].classId + " class=\"card append\"></div>")
+                    .append($("<div class=class-container></div>")
+                            .append($("<span class = class-name></span>").text("class name: " + result.list[i].className))
+                            .append($("<button class=class-delete id=delete-" + result.list[i].classId + "></button>").text("delete"))
+                            .append($("<span class = class-count></span>").text("article count: " + result.list[i].articleCount))
+                    );
+                $("#right-frame").append(classCard);
+                $("#delete-" + result.list[i].classId).click(function() {
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "classmanager",
+                        data: {
+                            "action": "delete",
+                            "classId": result.list[i].classId,
+                        },
+                        dataType: "text",
+                        timeout: 1000,
+                        success: function(result) {
+                            if (result > 0) {
+                                $("#class-card-" + result).hide();
+                            }
+                        }
+                    });
+                });
+            }
+        }
     });
 }
 
@@ -83,6 +105,7 @@ function bindAddClass() {
                     return;
                 }
                 showAddBtn(true);
+                classManager();
             }
         });
     });

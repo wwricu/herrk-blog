@@ -89,22 +89,20 @@ public class ClassManagerDAO {
         return classId;
     }
 
+    // return deleted id
     public int deleteClass(int classId) {
         if (classId < 0) {
             return -1;
         }
 
-        int delNums = 0;
-        // NumberCountDAO numberDAO = new NumberCountDAO();
-        String sql = "DELETE FROM article_table WHERE class_id=?;";
+        String sql = "DELETE FROM class_table WHERE class_id=?;";
 
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setInt(1, classId);
-            /* delNums = stat.executeUpdate();
-            if (delNums != 0) {
-                numberDAO.articleCountDecrement(delNums);
-            } */
+            if (stat.executeUpdate() > 0) {
+                return classId;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
