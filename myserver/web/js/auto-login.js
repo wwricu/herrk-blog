@@ -3,7 +3,6 @@ javascript:
 function autoLogin() {
     var token = localStorage.getItem("token");
     if (null == token) {
-        alert("1");
         $.ajax({
             type: 'POST',
             url: 'usermanage',

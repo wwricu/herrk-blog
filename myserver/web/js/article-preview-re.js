@@ -4,23 +4,23 @@ let classId = 0;
 
 function addArticle(num) {
     "use strict";
-    let article = {
-        "article_id": 0,
-        "auther_id": 0,
-        "class_id": 0,
-        "class_name": "",
-        "title": "",
-        "summary": "",
-        "tags": "",
-        "bodyMD": "",
-        "create_time": "",
-        "last_modify_time": "",
-        "permission": 0
-    };
     $.ajax({
         type: "POST",
         async: false,
         url: "articleviewer",
+        /* receive = { list:[{
+            "article_id": 0,
+            "auther_id": 0,
+            "class_id": 0,
+            "class_name": "",
+            "title": "",
+            "summary": "",
+            "tags": "",
+            "bodyMD": "",
+            "create_time": "",
+            "last_modify_time": "",
+            "permission": 0
+        }];*/
         data: {
             "action": "preview",
             "classId": classId,
@@ -39,10 +39,13 @@ function addArticle(num) {
 
                 for (let i = 0; i < receive.list.length; i++) {
                     let link = '../viewer.html?id=' + receive.list[i].article_id;
-                    let title = "<a class = \"article-title\" href = \"" + link + "\"align = \"left\"></a>";
                     let articleCard = $("<div class=\"card article-append\"></div>")
                         .append("<div class=container></div>")
-                        .append($(title).text(receive.list[i].title));
+                        .append($("<a class=article-title href=\"" + link + "\"align=\"left\"></a>")
+                                    .text(unescape(receive.list[i].title)))
+                        .append($("<hr class='title-sum-hr'>"))
+                        .append($("<p class = article-summary align = \"left\"></p>")
+                                .text(unescape(receive.list[i].summary)));
                     $("#left-frame").append(articleCard);
                 }
                 return;
@@ -68,9 +71,10 @@ function getClasses() {
             }
             for (let i = 0; i < result.list.length; i++) {
                 let localClassId = result.list[i].classId;
-                let button = "<button id=class-" + localClassId + " class='class-append'></button>"
+                let button = "<button id=class-" + localClassId + " class='class-append item-title'></button>"
                 let classCard = $("<div class = \"card-item\"></div>")
-                        .append($(button).text(result.list[i].className));
+                        .append($(button).text(result.list[i].className))
+                        .append($("<span class = item-stat></span>").text(result.list[i].articleCount));
                 $("#class-container").append(classCard);
                 $("#class-" + localClassId).click(function() {
                     $(".article-append").remove();

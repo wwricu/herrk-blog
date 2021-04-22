@@ -5,6 +5,7 @@ function classAdder() {
         .append($("<button id=add-class-submit class=add-class-btn style=\"display: none;\">confirm</button>"))
         .append($("<button id=add-class-cancel class=add-class-btn style=\"display: none;\">cancel</button>"));
     $("#right-frame").append(classAdder);
+    bindAddClass();
 }
 
 function bindManagers() {
