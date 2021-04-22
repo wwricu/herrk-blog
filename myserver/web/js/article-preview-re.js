@@ -76,11 +76,26 @@ function getClasses() {
                         .append($(button).text(result.list[i].className))
                         .append($("<span class = item-stat></span>").text(result.list[i].articleCount));
                 $("#class-container").append(classCard);
-                $("#class-" + localClassId).click(function() {
+
+                /*
+                   when the user click a specific class,
+                   its font would go bigger to hint the user which class he is viewing.
+                   when the user click anther class,
+                   all of the font go back to their origin size except the one he choose.
+                 */
+                $("#class-" + localClassId).on("click", function() {
                     $(".article-append").remove();
                     articleLeft = true;
                     articleIndex = 0;
-                    classId = localClassId;
+
+                    $(".class-append").css("font-size","1.2rem");
+                    if (classId == localClassId) {
+                        classId = 0;
+                    } else {
+                        classId = localClassId;
+                        $("#class-" + localClassId).css("font-size","1.5rem");
+                    }
+
                     renderPage();
                 });
             }
@@ -92,7 +107,6 @@ function scrollLoad() {
     "use strict";
     $(window).scroll(function() {
         if ($(document).scrollTop() + $(window).height() >= $(document).height() - 1) {
-            // console.log($(document).scrollTop() + $(window).height() + $(document).height());
             if (articleLeft) {
                 addArticle(1);
             }

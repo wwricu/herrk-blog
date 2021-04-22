@@ -5,16 +5,6 @@ a {
     color: black;
     text-decoration: none;
 }
-
-#top-frame {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 3rem;
-    margin: 0 0;
-    background: #00aaaa;
-}
 #main-frame {
     margin-left: auto;
     margin-right: auto;
@@ -72,6 +62,10 @@ a {
     height: 1rem;
 }
 .manage-item {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
     text-align: center;
 }
 .card-img {
@@ -105,7 +99,21 @@ a {
     background: transparent;
 }
 .class-append {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: left;
+    margin-left: 1.5rem;
     font-size: 1.2rem;
+}
+.class-append:hover {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: left;
+    margin-left: 1.5rem;
+    font-size: 1.5rem;
+    color: #606060;
 }
 .item-stat {
     float: right;

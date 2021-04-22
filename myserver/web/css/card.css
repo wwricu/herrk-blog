@@ -1,6 +1,9 @@
 .card {
     /* left: 30%;
     top:50%; */
+    position: relative;
+    left: 0;
+    top: 0;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 95%;
@@ -8,11 +11,6 @@
     margin: 1.2rem auto;
     padding: 1rem 0.5rem;
 }
-
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.card img {
-    border-radius: 5px 5px 0 0;
 }
