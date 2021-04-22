@@ -33,50 +33,34 @@
 
 <body>
 <div id = page>
-    <div id = topFrame>
-        <div id = homeBtn>
-            <a href="/">HOME</a>
+    <div id="top-frame">
+        <div id="home-link">
+            <img src="res/image/home.png" style="display: inline">
+            <a href="index.html">home</a>
         </div>
-        <span id = signBtn>
-            <a href="/signup.html">Sign Up</a>
-            <a href="/login.html">Sign In</a>
-            <!--a href="https://t.me/dayazhuanjia">Telegram: @dayazhuanjia</a-->
-        </span>
-        <ul id="username-dropdown">
-            <li class="mainitems">
-                <a id=loginName href="personal.html"></a>
-                <ul class="subuls">
-                    <li><a href="personal.html">My Page</a></li>
-                    <li><a href="personal.html/">My Favourate</a></li>
-                    <li><button id=logOut>Log Out</button></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div id = leftFrame>
-        <div id = "list-container">
-            <ul id = list1>
-                <li><a href="/editor.html" target="_self">Modify&ensp;&ensp;&ensp;</a></li>
-                <li><a href="/login.html">Delete&ensp;&ensp;&ensp;</a></li>
-            </ul>
+        <div id="comment-board" class="top-frame-container">
+            <img class="top-frame-icon" src="res/image/pencil.png" style="display: inline">
+            <a class="top-frame-item" href="index.html">Comment Board</a>
+        </div>
+        <div id="personal-link" class="top-frame-container">
+            <img class="top-frame-icon" src="res/image/heart.png" style="display: inline">
+            <a class="top-frame-item" href="index.html">About me</a>
         </div>
     </div>
-    <div id = mainFrame>
-        <div id = centerFrame>
-            <div id=title></div>
-            <div id=msg>
-                <span id=auther></span>
-                <span id=blogid style="display: none;"></span>
-                <span id=autherid style="display: none;"></span>
-                <span id=time></span>
-                <span id=modify style="float: right;">
-                    <button id=update>Modify</button>
-                    <button id=delete>Delete</button>
-                </span>
-            </div>
-            <hr></hr>
-            <div id = content class = articleZone>
-            </div>
+    <div id = center-frame>
+        <div id=title></div>
+        <div id=msg>
+            <span id=auther></span>
+            <span id=blogid style="display: none;"></span>
+            <span id=autherid style="display: none;"></span>
+            <span id=time></span>
+            <span id=modify style="float: right;">
+                <button id=update>Modify</button>
+                <button id=delete>Delete</button>
+            </span>
+        </div>
+        <hr></hr>
+        <div id = content class = articleZone>
         </div>
     </div>
 </div>

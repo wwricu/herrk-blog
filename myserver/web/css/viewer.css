@@ -1,8 +1,8 @@
 a {
+    color: black;
     text-decoration: none;
 }
 body {
-    background: url(/res/image/debian.jpg);
     background-size: 100% 100%;
     background-repeat: repeat-y;
     background-attachment: fixed;
@@ -12,17 +12,20 @@ body {
     height: 100%;
     margin: 4rem auto;
 }
-#centerFrame {
-    position: relative;
-    top: -4rem;
-    padding-top: 1rem;
-    border-left: 2px solid gray;
-    border-right: 2px solid gray;
-    width: 70%;
+#center-frame {
+    position: absolute;
+    left: 50%;
+    top: 3rem;
+    transform: translateX(-50%);
+    z-index: 90;
+    padding-top: -1rem;
+    width: 60%;
     height: 100%;
     margin: 0 auto;
     /*background-color: rgba(237, 216, 238, 0.85);*/
     background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
 }
 #title {
     text-align: left;
