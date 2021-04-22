@@ -9,7 +9,7 @@
     width: 95%;
     border-radius: 5px;
     margin: 1.2rem auto;
-    padding: 1rem 0.5rem;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
 }
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
