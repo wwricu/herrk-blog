@@ -37,20 +37,31 @@ function addArticle(num) {
                     articleLeft = false;
                 }
 
+                /*
+                <div class="card article-append">
+                    <a class=article-title href="title-link">title</a>
+                    <div class=article-info>class | Created at 2021/04/24  |  Last modified at 2021/04/25</div>
+                    <hr class='title-sum-hr'>
+                    <p class = article-summary>summary</p>
+                </div>
+                */
                 for (let i = 0; i < receive.list.length; i++) {
                     let link = '../viewer.html?id=' + receive.list[i].article_id;
-                    let articleCard = $("<div class=\"card article-append\"></div>")
-                        .append("<div class=container></div>")
-                        .append($("<a class=article-title href=\"" + link + "\"align=\"left\"></a>")
-                                    .text(unescape(receive.list[i].title)))
-                        .append($("<hr class='title-sum-hr'>"))
-                        .append($("<p class = article-summary align = \"left\"></p>")
-                                .text(unescape(receive.list[i].summary)));
+                    let info = receive.list[i].class_name +
+                            " | Created at " + receive.list[i].create_time +
+                            " | Last modified at " + receive.list[i].last_modify_time;
+                    let articleCard =
+                        "<div class='card article-append'> \
+                            <a class=article-title href='" + link + "'>" + unescape(receive.list[i].title) + "</a> \
+                            <div class=article-info>" + info + "</div> \
+                            <hr class='title-sum-hr'> \
+                            <p class = article-summary>" + unescape(receive.list[i].summary) + "</p> \
+                        </div>";
                     $("#left-frame").append(articleCard);
                 }
-                return;
+            } else {
+                articleLeft = false;
             }
-            articleLeft = false;
         }
     });
 }

@@ -30,9 +30,6 @@ a {
 
 .item-container {
     height: 5rem;
-    border-bottom: 0.1rem solid gray;
-    border-left: 0.1rem solid gray;
-    border-right: 0.1rem solid gray;
 }
 
 .manager-button {

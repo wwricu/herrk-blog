@@ -124,19 +124,24 @@ a {
 }
 .article-title {
     font-size: 1.8rem;
-    margin: 0.5rem 1rem;
+    margin: 1.5rem 1rem;
 }
-.article-summary {
-    margin: 0.5rem 1rem;
+.article-info {
+    text-align: right;
+    padding-right: 2rem;
+    color: #666666;
+    font-size: 0.8rem;
 }
 .title-sum-hr {
     border:none;
     border-bottom:1px solid #DaDaDa;
     height:1px;
-    -webkit-transform: scaleY(0.5);
-    -webkit-transform-origin:0 0;
-    margin: 1rem;
 }
+.article-summary {
+    margin: 1.5rem 1rem;
+    height: 5rem;
+}
+
 .clear {
     clear: both;
 }
