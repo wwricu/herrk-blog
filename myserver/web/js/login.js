@@ -6,7 +6,7 @@ function bindLogin() {
             url: 'usermanager',
             data: {
                 "action": "login",
-                "username": escape($("#username").val()),
+                "userName": escape($("#username").val()),
                 "password": escape($("#password").val())
             },
             async: 'true',

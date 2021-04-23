@@ -95,6 +95,7 @@ public class UserManagerDAO {
         if (null == userName) {
             return false;
         } else if (userName.length() < 6 || userName.length() > 20) {
+            Log.Error("userName's length is " + userName.length());
             return false;
         } else if (userName.indexOf('\'') != -1 ||
                 userName.indexOf('\\') != -1 ||
@@ -106,6 +107,7 @@ public class UserManagerDAO {
                 userName.indexOf(']') != -1 ||
                 userName.indexOf(',') != -1 ||
                 userName.indexOf(';') != -1) {
+            Log.Error("userName " + userName + " contain invalid charactors");
             return false;
         } else {
             return true;
@@ -302,8 +304,11 @@ public class UserManagerDAO {
 
             ResultSet rs = stat.executeQuery();
 
-            rs.next();
-            String userId = rs.getString("user_id");
+            if (!rs.next()) {
+                Log.Error("no such user " + userName);
+                return -6;
+            }
+            int userId = rs.getInt("user_id");
             String passWdStor = rs.getString("user_passwd");
             int group = rs.getInt("user_group");
             String salt = rs.getString("passwd_salt");

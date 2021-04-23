@@ -60,7 +60,7 @@ public class UserManagerServlet extends HttpServlet {
              */
             case "login":
                 retureCode = dao.authUser(userName, password);
-                if (0 < retureCode) {
+                if (retureCode > 0) {
                     session = request.getSession(true);
 
                     info = dao.getUserInfo(info.mUserId);
