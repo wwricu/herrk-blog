@@ -1,5 +1,6 @@
 body {
     height:100%;
+    background: center center fixed url("../res/image/3.jpg");
 }
 a {
     color: black;

@@ -8,41 +8,43 @@ body {
     background-attachment: fixed;
     background-position: bottom;
 }
-#upload {
+#class-selector {
     position: absolute;
-    width: 60rem;
-    height: 4rem;
-    left: 45%;
-    z-index: 200;
+    left: 10rem;
 }
-#title {
-    position: relative;
-    top: 1rem;
-    left: 0rem;
-    transform: translate(-50%, 0);
-    width: 40rem;
-    height: 2rem;
-    font-size: 1rem;
-    color: rgb(81, 58, 82);
-    letter-spacing: 1px;
-    outline: rgb(81, 58, 82);
-    background: rgba(237, 216, 238, 0.85);
+#class-selector select {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+#class-select {
+    position: absolute;
+    top: 50%;
+    right: 25rem;
+    transform: translateY(-50%);
+    border: none;
 }
 #submit {
-    position: relative;
-    top: 1rem;
-    left: 28rem;
-    transform: translate(-50%, 0);
-    width: 5rem;
-    height: 2.5rem;
-    font-size: 1rem;
-    float: left;
-    background: rgba(237, 216, 238, 0.85);
+    position: absolute;
+    top: 50%;
+    right: 18rem;
+    transform: translateY(-50%);
+    border: none;
+    background: #FFFFFF;
+}
+#title {
+    position: absolute;
+    right: 2rem;
+    height: 2rem;
+    width: 50%;
+    top: 50%;
+    left: 10rem;
+    transform: translate(0, -50%);
 }
 #editor {
     position: absolute;
     left: 50%;
-    top: 4rem;
+    top: 3rem;
     transform: translate(-50%);
     opacity: 90%;
 }

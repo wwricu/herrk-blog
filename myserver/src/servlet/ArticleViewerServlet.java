@@ -109,7 +109,7 @@ public class ArticleViewerServlet extends HttpServlet {
                 * but only trust the autherId pass from the front end because this API only control the visibility,
                 * It front-end cheated, he can only get a button, our article manager will finally decide his permission.
                 */
-                if (userId == 1 || userId == Integer.parseInt(autherId)) {
+                if (userId == 1 || userGroup > 0 || userId == Integer.parseInt(autherId)) {
                     json.append("true");
                 } else {
                     json.append("false");

@@ -137,8 +137,7 @@ public class ClassManagerServlet extends HttpServlet {
         int userGroup = (int)session.getAttribute("userGroup");
         int userId = (int) session.getAttribute("userId");
 
-        if (logStatus == null || !logStatus.equals("login") ||
-                    userGroup < 0 || userGroup > 1) {
+        if (logStatus == null || !logStatus.equals("login") || userGroup > 1) {
             Log.Error("not logged in or unauthorized group");
             return false;
         }

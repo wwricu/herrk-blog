@@ -51,9 +51,9 @@
 }
 #personal-link {
     position: absolute;
-    right: 0;
+    right: -2rem;
 }
 #comment-board {
     position: absolute;
-    right: 10rem;
+    right: 6rem;
 }
