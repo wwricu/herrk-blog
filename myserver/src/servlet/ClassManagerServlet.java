@@ -26,15 +26,10 @@ public class ClassManagerServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         String logStatus = (String)session.getAttribute("status");
         int userGroup = (int)session.getAttribute("userGroup");
-        if (logStatus == null ||
-                !logStatus.equals("login") ||
-                userGroup < 0 || userGroup > 1) {
-            Log.Error("not logged in or unauthorized group");
-            return;
-        }
         int userId = (int) session.getAttribute("userId");
 
         String action = request.getParameter("action");
+
         String classIdS = request.getParameter("classId");
         String className = request.getParameter("className");
         String fatherIdS = request.getParameter("fatherId");
@@ -65,6 +60,12 @@ public class ClassManagerServlet extends HttpServlet {
             /* ?action=create&className=ww&fatherId=0&group=0 */
             case "create":
                 Log.Info("create a class");
+                if (logStatus == null ||
+                        !logStatus.equals("login") ||
+                        userGroup < 0 || userGroup > 1) {
+                    Log.Error("not logged in or unauthorized group");
+                    return;
+                }
                 info.setValue(0, className, fatherId, group);
                 // classId, className, fatherId, group
                 int createId = classManagerDAO.createClass(info);
@@ -77,12 +78,24 @@ public class ClassManagerServlet extends HttpServlet {
                 }
                 break;
             case "delete":
+                if (logStatus == null ||
+                        !logStatus.equals("login") ||
+                        userGroup < 0 || userGroup > 1) {
+                    Log.Error("not logged in or unauthorized group");
+                    return;
+                }
                 /* ?action=delete&classId=1 */
                 // return deleted id
                 Log.Info("delete class No. " + classId);
                 response.getWriter().write(String.valueOf(classManagerDAO.deleteClass(classId)));
                 break;
             case "update":
+                if (logStatus == null ||
+                        !logStatus.equals("login") ||
+                        userGroup < 0 || userGroup > 1) {
+                    Log.Error("not logged in or unauthorized group");
+                    return;
+                }
                 /* ?action=update&articleId=1&title=ww&summary=ww&tags=www&bodyMD=www?permission=1 */
                 Log.Info("update article No. " + classId);
                 info.setValue(classId, className, fatherId, group);
