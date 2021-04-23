@@ -1,5 +1,6 @@
 package dao;
 
+import util.UserInfo;
 import java.util.Random;
 import java.security.SecureRandom;
 import java.security.MessageDigest;
@@ -130,13 +131,13 @@ public class UserManagerDAO {
     public static String toMD5(String plainText) {
         String result = "";
         try {
-            //生成实现指定摘要算法的 MessageDigest 对象。
+            // generate a MessageDigiest Object which implements specified digest algorithm
             MessageDigest md = MessageDigest.getInstance("MD5");
-            //使用指定的字节数组更新摘要。
+            // Update the digest with specified byte array
             md.update(plainText.getBytes());
-            //通过执行诸如填充之类的最终操作完成哈希计算。
+            // Complete Hash calculation with executing final operations like fullfilling
             byte b[] = md.digest();
-            //生成具体的md5密码到buf数组
+            // generate concrete md5 password to the buf array
             int i;
             StringBuffer buf = new StringBuffer("");
             for (int offset = 0; offset < b.length; offset++) {
@@ -148,7 +149,7 @@ public class UserManagerDAO {
                 buf.append(Integer.toHexString(i));
             }
             result = buf.toString();
-            //System.out.println("16位: " + buf.toString().substring(8, 24));// 16位的加密，其实就是32位加密后的截取
+            //System.out.println("16bit: " + buf.toString().substring(8, 24)); 16bit encryption which is the segment of 32bit encryption
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -156,62 +157,74 @@ public class UserManagerDAO {
         return result;
     }
 
-    public static String getUserName(int userId) {
-        if (userId < 0) {
-            return "";
+    public static UserInfo getUserInfo(int userId)
+    {
+        UserInfo info = new UserInfo();
+        if (userId <= 0) {
+            return info;
         }
 
-        String sql = "SELECT user_name FROM user_table WHERE user_id=?";
+        String sql = "SELECT * FROM user_table WHERE user_id=?";
         try (Connection conn = getConnection();
             PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setInt(1, userId);
             ResultSet rs = stat.executeQuery();
 
             if (rs.next()) {
-                return rs.getString("user_name");
+                info.mUserId = rs.getInt("user_id");
+                info.mUserName = rs.getString("user_name");
+                info.mCreatedTime = rs.getString("create_time");
+                info.mGroup = rs.getInt("user_group");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return "";
+        return info;
     }
 
-    public static int getUserId(String userName)
+    public static UserInfo getUserInfo(String userName)
     {
+        UserInfo info = new UserInfo();
         if (null == userName) {
-            return 0;
+            return info;
         }
 
-        String sql = "SELECT user_id FROM user_table WHERE user_name=?";
+        String sql = "SELECT * FROM user_table WHERE user_name=?";
         try (Connection conn = getConnection();
             PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setString(1, userName);
             ResultSet rs = stat.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt("user_id");
+                info.mUserId = rs.getInt("user_id");
+                info.mUserName = rs.getString("user_name");
+                info.mCreatedTime = rs.getString("create_time");
+                info.mGroup = rs.getInt("user_group");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return 0;
+        return info;
     }
 
-    public int addUser(String userName, String UserPassWd) {
-
+    public UserInfo addUser(String userName, String UserPassWd) {
+        UserInfo info = new UserInfo();
         if (null == userName) {
             Log.Info("userName is null");
-            return -1;
+            info.mUserId = -1;
+            return info;
         } else if (true != validUserName(userName)) {
             Log.Info("invalid username " + userName);
-            return -2;
+            info.mUserId = -2;
+            return info;
         } else if (true != validPassWd(UserPassWd)) {
             Log.Info("invalid password " + UserPassWd);
-            return -3;
+            info.mUserId = -3;
+            return info;
         } else {
-            // log
+            Log.Info("valid name and pwd for " + userName);
         }
 
         Date currentDate = new java.sql.Date(System.currentTimeMillis());
@@ -219,16 +232,19 @@ public class UserManagerDAO {
         String salt = generateSalt();
         if (null == salt) {
             Log.Error("failed to generate salt");
-            return -4;
+            info.mUserId = -4;
+            return info;
         }
 
         String PassWdStor = toMD5(toMD5(UserPassWd) + salt);
 
         String sql = "INSERT INTO user_table VALUES(null, ?, ?, ?, ?, ?);";
         String dupsql = "SELECT user_name FROM user_table WHERE user_name = ?;";
+        String sqlId = "SELECT LAST_INSERT_ID();";
 
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql);
+                PreparedStatement statId = conn.prepareStatement(sqlId);
                 // add these two parameter to move pointer freely
                 PreparedStatement dupstat = conn.prepareStatement(dupsql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);) {
 
@@ -238,23 +254,34 @@ public class UserManagerDAO {
             int row = rs.getRow();
             rs.beforeFirst();
             if (0 != row) {
-                // have dup
-                return -5;
+                info.mUserId = -5;
+                return info;
             }
 
             stat.setString(1, userName);
             stat.setString(2, PassWdStor);
             stat.setString(3, currentDate.toString());
-            stat.setInt(4, 0);
+            stat.setInt(4, 3);
             stat.setString(5, salt);
 
-            stat.execute();
+            if (stat.executeUpdate() == 0) {
+                Log.Error("mysql failed to insert new user info");
+                info.mUserId = -6;
+                return info;
+            }
+
+            ResultSet rsId = statId.executeQuery();
+            if (rsId.next()) {
+                info.mUserId = rsId.getInt(1);
+                info.mUserName = userName;
+                info.mGroup = 3;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return -6;
+            info.mUserId = -7;
         }
 
-        return 0;
+        return info;
     }
 
     public int authUser(String userName, String userPassWd) {
@@ -324,5 +351,4 @@ public class UserManagerDAO {
 
         return null;
     }
-
 };

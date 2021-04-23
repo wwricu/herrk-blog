@@ -31,8 +31,10 @@ public class ArticleViewerServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         String logStatus = (String)session.getAttribute("status");
         int userId = -1;
+        int userGroup = -1;
         if (logStatus != null && logStatus.equals("login")) {
-            userId = (int) session.getAttribute("userid");
+            userId = (int)session.getAttribute("userId");
+            userGroup = (int)session.getAttribute("userGroup");
         }
 
         String index = request.getParameter("index");
@@ -97,7 +99,7 @@ public class ArticleViewerServlet extends HttpServlet {
                 String autherName = "";
                 String autherId = request.getParameter("autherId");
                 if (autherId != null && autherId.length() > 0) {
-                    autherName = UserManagerDAO.getUserName(Integer.parseInt(autherId));
+                    autherName = UserManagerDAO.getUserInfo(Integer.parseInt(autherId)).mUserName;
                 }
                 json.append("\"autherName\":\"")
                     .append(autherName)

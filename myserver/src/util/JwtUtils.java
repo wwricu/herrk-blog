@@ -32,7 +32,7 @@ public class JwtUtils {
             return null;
         }
 
-        int userId = UserManagerDAO.getUserId(userName);
+        int userId = UserManagerDAO.getUserInfo(userName).mUserId;
         if (userId <= 0) {
             return null;
         }
@@ -89,7 +89,7 @@ public class JwtUtils {
             return null;
         }
 
-        if (UserManagerDAO.getUserId(userName) != userId) {
+        if (UserManagerDAO.getUserInfo(userName).mUserId != userId) {
             return null;
         }
 

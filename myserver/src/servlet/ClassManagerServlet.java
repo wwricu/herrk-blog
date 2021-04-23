@@ -22,14 +22,19 @@ public class ClassManagerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        /* HttpSession session = request.getSession(true);
+
+        HttpSession session = request.getSession(true);
         String logStatus = (String)session.getAttribute("status");
-        if (logStatus == null || true != logStatus.equals("login")) {
+        int userGroup = (int)session.getAttribute("userGroup");
+        if (logStatus == null ||
+                !logStatus.equals("login") ||
+                userGroup < 0 || userGroup > 1) {
+            Log.Error("not logged in or unauthorized group");
             return;
         }
-        int userId = (int) session.getAttribute("userid"); */
-        String action = request.getParameter("action");
+        int userId = (int) session.getAttribute("userId");
 
+        String action = request.getParameter("action");
         String classIdS = request.getParameter("classId");
         String className = request.getParameter("className");
         String fatherIdS = request.getParameter("fatherId");

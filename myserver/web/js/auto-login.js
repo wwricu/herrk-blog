@@ -5,7 +5,7 @@ function autoLogin() {
     if (null == token) {
         $.ajax({
             type: 'POST',
-            url: 'usermanage',
+            url: 'usermanager',
             data: {
                 action: 'notoken'
             },
@@ -15,7 +15,7 @@ function autoLogin() {
                 console.log('no token ajax fail');
             },
             success: function(result) {
-                if (result == "fail") {
+                if (result == "failure") {
                     return;
                 }
                 // json string-->json object

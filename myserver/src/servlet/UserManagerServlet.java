@@ -32,7 +32,7 @@ public class UserManagerServlet extends HttpServlet {
         UserManagerDAO dao = new UserManagerDAO();
 
         String action = request.getParameter("action");
-        String username = request.getParameter("username");
+        String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         String invitation = request.getParameter("invitation");
         String token = request.getParameter("token");
@@ -49,59 +49,94 @@ public class UserManagerServlet extends HttpServlet {
         }
 
         switch (action) {
+            /*
+             * Request: usermanager?action=login&username=string&password=string
+             * Response: {
+             *  "userId": digit,
+             *  "userName": "string",
+             *  "userGroup": digit
+             *  "token": "string"
+             * }
+             */
             case "login":
-                retureCode = dao.authUser(username, password);
+                retureCode = dao.authUser(userName, password);
                 if (0 < retureCode) {
                     session = request.getSession(true);
 
-                    session.setAttribute("userid", retureCode);
-                    session.setAttribute("username", username);
+                    info = dao.getUserInfo(info.mUserId);
+
+                    session.setAttribute("userId", retureCode);
+                    session.setAttribute("userName", userName);
+                    session.setAttribute("userGroup", info.mGroup);
                     session.setAttribute("status", "login");
 
                     json.append("\"userId\":\"").append(retureCode)
-                        .append("\",\"userName\":\"").append(username)
-                        .append("\",\"token\":\"").append(JwtUtils.geneJsonWebToken(username)).append("\"}");
+                        .append("\",\"userName\":\"").append(userName)
+                        .append("\",\"userGroup\":").append(info.mGroup)
+                        .append(",\"token\":\"").append(JwtUtils.geneJsonWebToken(userName))
+                        .append("\"}");
                     response.getWriter().write(json.toString());
                 } else {
                     // fail to log in
                     Log.Info("login fail code is " + retureCode);
-                    response.getWriter().write("fail");
+                    response.getWriter().write("failure");
                 }
             break;
+            /*
+             * Request: usermanager?action=token&token=string
+             * Response: {
+             *  "userId": digit,
+             *  "userName": "string",
+             *  "userGroup": digit,
+             *  "token": "string"
+             * }
+             */
             case "token":
-                if (true != getLogStatus(username, session)) {
-                    info = JwtUtils.authJWT(token);
-                    if (null != info) {
-                        session = request.getSession(true);
-
-                        session.setAttribute("username", info.mUserName);
-                        session.setAttribute("userid", info.mUserId);
-                        session.setAttribute("status", "login");
-                        json.append("\"userId\":\"").append(info.mUserId)
-                            .append("\",\"userName\":\"").append(info.mUserName)
-                            .append("\"}");
-                        response.getWriter().write(json.toString());
-                    } else {
-                        response.getWriter().write("fail");
-                    }
-                } else {
-                    tokenUsername = (String)session.getAttribute("username");
-                    response.getWriter().write(tokenUsername);
+                info = JwtUtils.authJWT(token);
+                if (info == null || info.mUserId <= 0) {
+                    response.getWriter().write("failure");
+                    break;
                 }
-            break;
+                info = dao.getUserInfo(info.mUserId);
+                session = request.getSession(true);
 
+                session.setAttribute("userId", info.mUserId);
+                session.setAttribute("userName", info.mUserName);
+                session.setAttribute("userGroup", info.mGroup);
+                session.setAttribute("status", "login");
+                json.append("\"userId\":\"").append(info.mUserId) // int
+                    .append("\",\"userName\":\"").append(info.mUserName) // string
+                    .append("\",\"userGroup\":").append(info.mGroup) // int
+                    .append("}");
+                response.getWriter().write(json.toString());
+            break;
+            /*
+             * Request: ?action=notoken
+             * Response: {
+             *  "userId": digit,
+             *  "userName": "string",
+             *  "userGroup": digit,
+             *  "token": "string"
+             * }
+             */
             case "notoken":
                 if (null == session) {
-                    response.getWriter().write("fail");
+                    response.getWriter().write("failure");
                 }
 
-                username = (String)session.getAttribute("username");
+                int userId = (int)session.getAttribute("userId");
+                userName = (String)session.getAttribute("userName");
                 logStatus = (String)session.getAttribute("status");
+                String userGroup = (String)session.getAttribute("userGroup");
 
-                if (logStatus.equals("login") && null != username) {
-                    geneSignToken = JwtUtils.geneJsonWebToken(username);
-                    String result = "{username: \'" + username + "\', token: \'" + geneSignToken + "\'}";
-                    response.getWriter().write(result);
+                if (logStatus.equals("login") && null != userName && userId > 0) {
+                    geneSignToken = JwtUtils.geneJsonWebToken(userName);
+                    json.append("\"userId\":").append(userId)
+                        .append("\"userName\":\"").append(userName)
+                        .append("\"userGroup\":\"").append(userGroup)
+                        .append("\",\"token\":\"").append(geneSignToken)
+                        .append("\"}");
+                    response.getWriter().write(json.toString());
                 }
             break;
 
@@ -110,19 +145,21 @@ public class UserManagerServlet extends HttpServlet {
                     response.getWriter().write("invitation needed");
                     return;
                 }
-                int ret = dao.addUser(username, password);
+                info = dao.addUser(userName, password);
                 String failMsg = null;
-                if (0 == ret) {
+                if (info.mUserId > 0) {
                     session = request.getSession(true);
 
-                    session.setAttribute("username", username);
+                    session.setAttribute("userId", info.mUserId);
+                    session.setAttribute("userName", userName);
+                    session.setAttribute("userGroup", info.mGroup);
                     session.setAttribute("status", "login");
 
-                    geneSignToken = JwtUtils.geneJsonWebToken(username);
+                    geneSignToken = JwtUtils.geneJsonWebToken(userName);
 
                     response.getWriter().write(geneSignToken);
                 } else {
-                    switch (ret) {
+                    switch (info.mUserId) {
                     case -1:
                         failMsg = "connect error";
                         break;
@@ -142,13 +179,8 @@ public class UserManagerServlet extends HttpServlet {
                 session.setAttribute("status", "logout");
                 session.invalidate();
             break;
-            case "getstatus":
-                getLogStatus(username, session);
-            break;
-
             default:
                 Log.Info("unrecognized action");
-            break;
         }
     }
 
@@ -158,7 +190,7 @@ public class UserManagerServlet extends HttpServlet {
             return false;
         }
 
-        if ((String)session.getAttribute("username") == username
+        if ((String)session.getAttribute("userName") == username
                     && (String)session.getAttribute("status") == "login") {
             return true;
         }

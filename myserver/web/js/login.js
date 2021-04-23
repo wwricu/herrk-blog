@@ -15,7 +15,7 @@ function bindLogin() {
                 console.log('submit failure');
             },
             success: function(result) {
-                if (result == "fail") {
+                if (result == "failure") {
                     console.log('Mismatch between Username and Password!');
                 } else {
                     localStorage.setItem("token", result.token);

@@ -44,12 +44,15 @@ public class ArticleManagerServlet extends HttpServlet {
             return;
         }
         String logStatus = (String)session.getAttribute("status");
-        if (logStatus == null || true != logStatus.equals("login")) {
-            Log.Error("not logged in");
+        int userGroup = (int)session.getAttribute("userGroup");
+        if (logStatus == null ||
+                !logStatus.equals("login") ||
+                userGroup < 0 || userGroup > 1) {
+            Log.Error("not logged in or unauthorized group");
             return;
         }
-        int userId = (int) session.getAttribute("userid");
-        Log.Info("article manager invoked, user is " + userId);
+        int userId = (int) session.getAttribute("userId");
+        Log.Info("article manager invoked, user is " + userId + " belongs to group " + userGroup);
 
         String action = request.getParameter("action");
 
@@ -61,10 +64,6 @@ public class ArticleManagerServlet extends HttpServlet {
         String bodyMD = request.getParameter("bodyMD");
         String permission = request.getParameter("permission");
 
-        // String autherIdS = request.getParameter("autherid");
-        // String createTime = request.getParameter("mCreateTime");
-        // String lastModifyTime = request.getParameter("mLastModifyTime");
-
         int articleId = 0;
         int classId = 0;
         if (articleIdS != null && articleIdS.length() != 0) {
@@ -73,6 +72,7 @@ public class ArticleManagerServlet extends HttpServlet {
         if (classIdS != null && classIdS.length() != 0) {
             classId = Integer.parseInt(classIdS);
         }
+
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         NumberCountDAO numberCountDAO = new NumberCountDAO();
         ArticleInfo info = new ArticleInfo();
@@ -92,7 +92,7 @@ public class ArticleManagerServlet extends HttpServlet {
                     Log.Info("article id is " + createId);
                     response.getWriter().write("failure");
                 }
-                break;
+            break;
             case "delete":
                 Log.Info("delete article No. " + articleId);
                 if (articleManagerDAO.legalAuthor(articleId, userId) != true) {
@@ -101,7 +101,7 @@ public class ArticleManagerServlet extends HttpServlet {
                 }
                 articleManagerDAO.deleteArticle(articleId);
                 response.getWriter().write("success");
-                break;
+            break;
             case "update":
                 /* ?action=update&articleId=1&title=ww&summary=ww&tags=www&bodyMD=www?permission=1 */
                 Log.Info("update article No. " + articleId);
@@ -112,10 +112,9 @@ public class ArticleManagerServlet extends HttpServlet {
                 }
                 info.setValue(0, userId, classId, title, summary, tags, bodyMD, null, currentTime.toString(), 0);
                 articleManagerDAO.updateArticle(articleId, info);
-                break;
+            break;
             default:
                 Log.Info("unrecognized action " + action);
-                break;
         }
     }
 }
