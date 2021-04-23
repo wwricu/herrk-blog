@@ -10,7 +10,8 @@
     border-radius: 5px;
     margin: 1.2rem auto;
     padding: 1rem 0.5rem 0.5rem 0.5rem;
-    alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.6;
+    background: #fafbf1;
+    alpha(Opacity=85);-moz-opacity:0.85;opacity: 0.85;
 }
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);

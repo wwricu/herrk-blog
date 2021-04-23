@@ -3,8 +3,10 @@ package servlet;
 import dao.NumberCountDAO;
 import dao.ArticleManagerDAO;
 import dao.UserManagerDAO;
+import dao.ClassManagerDAO;
 
 import util.ArticleInfo;
+import util.ClassInfo;
 import util.Log;
 
 import java.io.File;
@@ -45,6 +47,7 @@ public class ArticleViewerServlet extends HttpServlet {
         Log.Info("action is " + action);
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
+        ClassManagerDAO classManagerDAO = new ClassManagerDAO();
         StringBuilder json = new StringBuilder("{");
         response.setContentType("text/plain");
 
@@ -73,7 +76,11 @@ public class ArticleViewerServlet extends HttpServlet {
                 }
                 json.append("\"list\":[");
                 for (int i = 0; i < list.length; i++) {
-                    json.append(list[i].toJson());
+                    String className =
+                                new StringBuilder(",\"class_name\":\"")
+                                .append(classManagerDAO.searchClass(list[i].mClassId).mClassName)
+                                .append("\"").toString();
+                    json.append(ClassInfo.jsonAppend(list[i].toJson(), className));
                     if (i != list.length - 1) {
                         json.append(",");
                     }

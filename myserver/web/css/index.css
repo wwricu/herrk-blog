@@ -1,6 +1,7 @@
 body {
     height:100%;
-    background: center center fixed url("../res/image/3.jpg");
+    background: bottom fixed url("../res/image/bkgrd.jpg");
+    background-size: 100%;
 }
 a {
     color: black;
@@ -26,7 +27,6 @@ a {
     height: 100%;
     margin: 1rem 0;
 }
-
 .search {
     position: relative;
     background: transparent;
@@ -50,15 +50,10 @@ a {
     width: 1.5rem;
     top: 0.4rem;
     right: 2%;
-    /*left: 90%;*/
     background: center center no-repeat url("../res/image/search.png");
     background-size: 70%;
     border: none;
 }
-/*.search button:before {*/
-/*    font-family: FontAwesome;*/
-/*    font-size: 16px;*/
-/*}*/
 .manage-img {
     height: 1rem;
 }
@@ -104,17 +99,26 @@ a {
     left: 0;
     width: 100%;
     text-align: left;
-    margin-left: 1.5rem;
+    padding-left: 1.5rem;
     font-size: 1.2rem;
+    z-index: 100;
 }
 .class-append:hover {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    text-align: left;
-    margin-left: 1.5rem;
+    /*padding-left: 2rem;
     font-size: 1.5rem;
-    color: #606060;
+    /*background: #49b1f5;*/
+    color: darkmagenta;
+}
+.class-stat {
+    position: absolute;
+    right: 1rem;
+    z-index: 101;
+}
+.class-card img {
+    position: absolute;
+    height: 1.8rem;
+    display: none;
+    left: 0;
 }
 .item-stat {
     float: right;
@@ -124,8 +128,8 @@ a {
     padding: 0.8rem 0;
 }
 .article-title {
-    font-size: 1.8rem;
-    margin: 1.5rem 1rem;
+    font-size: 1.3rem;
+    margin: 1.5rem 1.5rem;
 }
 .article-info {
     text-align: right;
@@ -135,14 +139,15 @@ a {
 }
 .title-sum-hr {
     border:none;
-    border-bottom:1px solid #DaDaDa;
-    height:1px;
+    border-bottom:1px solid #dadada;
+    height: 1px;
 }
 .article-summary {
-    margin: 1.5rem 1rem;
-    height: 5rem;
+    color: #434343;
+    font-size: 1rem;
+    margin: 1.5rem 1.5rem;
+    overflow: hidden;
 }
-
 .clear {
     clear: both;
 }

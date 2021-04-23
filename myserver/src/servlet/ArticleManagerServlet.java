@@ -43,12 +43,15 @@ public class ArticleManagerServlet extends HttpServlet {
             Log.Error("no session");
             return;
         }
+        Log.Info(session.getId());
         String logStatus = (String)session.getAttribute("status");
+        if (logStatus == null || !logStatus.equals("login")) {
+            Log.Error("did not logged in");
+            return;
+        }
         int userGroup = (int)session.getAttribute("userGroup");
-        if (logStatus == null ||
-                !logStatus.equals("login") ||
-                    userGroup > 1) {
-            Log.Error("not logged in or unauthorized group");
+        if (userGroup < 1) {
+            Log.Error("unauthorized group");
             return;
         }
         int userId = (int) session.getAttribute("userId");

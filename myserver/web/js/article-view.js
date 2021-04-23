@@ -107,8 +107,55 @@ function getAutherName(article) {
         }
     });
 }
+function isMobile() {
+    var system = {
+        win: false,
+        mac: false,
+        xll: false,
+        ipad: false
+    };
 
-$(document).ready(function () {
+    var p = navigator.platform;
+
+    system.win = p.indexOf("Win") == 0;
+    system.mac = p.indexOf("Mac") == 0;
+    system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+    system.ipad = (navigator.userAgent.match(/iPad/i) != null) ? true : false;
+
+    if (system.win || system.mac || system.xll || system.ipad) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function isMobile() {
+    var system = {
+        win: false,
+        mac: false,
+        xll: false,
+        ipad: false
+    };
+
+    var p = navigator.platform;
+
+    system.win = p.indexOf("Win") == 0;
+    system.mac = p.indexOf("Mac") == 0;
+    system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+    system.ipad = (navigator.userAgent.match(/iPad/i) != null) ? true : false;
+
+    if (system.win || system.mac || system.xll || system.ipad) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+$(function () {
     "use strict";
+    if (isMobile()) {
+        $("#center-frame").css("width", "100%");
+        $("body").css("background", "#F4E7D7");
+    }
     renderArticle(getQueryVariable("id"));
 });

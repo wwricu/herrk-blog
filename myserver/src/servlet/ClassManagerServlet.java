@@ -134,11 +134,16 @@ public class ClassManagerServlet extends HttpServlet {
         }
 
         String logStatus = (String)session.getAttribute("status");
+        if (logStatus == null || !logStatus.equals("login")) {
+            Log.Error("not logged in!");
+            return false;
+        }
+
         int userGroup = (int)session.getAttribute("userGroup");
         int userId = (int) session.getAttribute("userId");
-
-        if (logStatus == null || !logStatus.equals("login") || userGroup > 1) {
-            Log.Error("not logged in or unauthorized group");
+        if (userGroup < 1) {
+            Log.Error("unauthorized group, user is "
+                        + userId + " group is " + userGroup);
             return false;
         }
 

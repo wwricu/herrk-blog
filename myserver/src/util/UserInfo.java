@@ -9,7 +9,7 @@ public class UserInfo {
     public UserInfo(int userId, String userName) {
         mUserId = userId;
         mUserName = userName;
-        mGroup = 3;
+        mGroup = -1;
     }
     public int mUserId;
     public String mUserName;
