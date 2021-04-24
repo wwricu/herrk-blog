@@ -28,9 +28,13 @@ body {
     position: absolute;
     top: 50%;
     right: 18rem;
+    width: 5rem;
+    background: transparent;
     transform: translateY(-50%);
     border: none;
-    background: #FFFFFF;
+}
+#submit:hover {
+    color: darkmagenta;
 }
 #title {
     position: absolute;
