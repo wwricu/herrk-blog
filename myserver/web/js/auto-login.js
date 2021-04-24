@@ -20,8 +20,8 @@ function autoLogin() {
                 }
                 // json string-->json object
                 result = eval('(' + result + ')');
-                $(".log").hide();
                 $(".manager").show();
+                $(".log-card").show();
                 localStorage.setItem("token", result.token);
             }
         });
@@ -44,8 +44,8 @@ function autoLogin() {
             if (result.userId <= 0) {
                 return;
             }
-            $(".log").hide();
             $(".manager").show();
+            $(".log-card").show();
         }
     });
 }

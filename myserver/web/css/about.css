@@ -1,0 +1,33 @@
+body {
+    background: bottom fixed url("../res/image/about.jpg");
+    background-size: 100%;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+#main-frame {
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 60%;
+    height: 40rem;
+    background: rgba(250, 251, 241, 0.85);
+}
+#about-me {
+    float: right;
+    margin-right: 5rem;
+    width: 60%;
+    color: #484848;
+}
+#about-site {
+    position: absolute;
+    top: 15rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    text-align: left;
+    padding-left: 5rem;
+    width: 100%;
+    color: #484848;
+}
