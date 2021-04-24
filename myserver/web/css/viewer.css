@@ -14,7 +14,7 @@ body {
     height: max-content;
     margin: 0 auto;
     /*background: #f4efef;*/
-
+    min-height: 60rem;
     background-color: rgba(244, 239, 239, 0.9);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;

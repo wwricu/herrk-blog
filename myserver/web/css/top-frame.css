@@ -11,9 +11,17 @@
     alpha(Opacity=80);-moz-opacity:0.8;opacity: 0.8;
     z-index: 100;
 }
+button {
+    width: 100%;
+    background: transparent;
+}
 .top-frame-container {
+    float: right;
     height: 100%;
     width: 10rem;
+}
+.top-right {
+    float: right;
 }
 .top-frame-icon {
     position: absolute;
@@ -49,9 +57,6 @@
     font-size: 1.5rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-#personal-link {
-    float: right;
-}
 #personal-link a {
     position: absolute;
     top: 50%;
@@ -63,10 +68,6 @@
     top: 50%;
     right: 6rem;
     transform: translateY(-50%);
-}
-
-#comment-board {
-    float: right;
 }
 #comment-board a {
     position: absolute;
@@ -80,3 +81,18 @@
     right: 14.5rem;
     transform: translateY(-50%);
 }
+#class-manager {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+#article-manager {
+    position: absolute;
+    left: 50%;
+    transform: translate(-100%, 0);
+}
+#user-manager {
+    position: absolute;
+    left: 50%;
+}
+

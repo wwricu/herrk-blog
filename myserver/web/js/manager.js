@@ -1,10 +1,12 @@
 function classAdder() {
-    let classAdder = $("<div id=\"add-class\" class=\"append\" align=center></div>")
-        .append($("<button id=add-class-add class=add-class-btn>Add a new class</button>"))
-        .append($("<input id=add-class-name class=add-class-btn type=\"text\" placeholder=\"input class name\" style=\"display: none;\">"))
-        .append($("<button id=add-class-submit class=add-class-btn style=\"display: none;\">confirm</button>"))
-        .append($("<button id=add-class-cancel class=add-class-btn style=\"display: none;\">cancel</button>"));
-    $("#right-frame").append(classAdder);
+    let classAdder =
+        "<div id=add-class class='manager-card append' align='center'> \
+            <div id=add-class-add></div> \
+            <input id=add-class-name type=\"text\" placeholder=\"input class name\" style=\"display: none;\"> \
+            <div id=add-class-submit style=\"display: none;\">confirm</div> \
+            <div id=add-class-cancel style=\"display: none;\">cancel</div> \
+        </div>";
+    $("#main-frame").append(classAdder);
     bindAddClass();
 }
 
@@ -40,13 +42,14 @@ function classManager() {
                 return;
             }
             for (let i = 0; i < result.list.length; i++) {
-                let classCard = $("<div id=class-card-" + result.list[i].classId + " class=\"card append\"></div>")
-                    .append($("<div class=class-container></div>")
-                            .append($("<span class = class-name></span>").text("class name: " + result.list[i].className))
-                            .append($("<button class=class-delete id=delete-" + result.list[i].classId + "></button>").text("delete"))
-                            .append($("<span class = class-count></span>").text("article count: " + result.list[i].articleCount))
-                    );
-                $("#right-frame").append(classCard);
+                let classCard =
+                    "<div id=class-card-" + result.list[i].classId + " class='manager-card append'> \
+                        <span class=class-name>" + result.list[i].className + "</span> \
+                        <div id=delete-" + result.list[i].classId + " class=class-delete>delete</div> \
+                        <div id=update-" + result.list[i].classId + " class=class-update>update</div> \
+                        <span class=class-count>article count: " + result.list[i].articleCount + "</span> \
+                    </div>";
+                $("#main-frame").append(classCard);
                 $("#delete-" + result.list[i].classId).click(function() {
                     $.ajax({
                         type: "POST",

@@ -6,14 +6,29 @@ a {
     color: black;
     text-decoration: none;
 }
+.manager-card {
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 95%;
+    border-bottom: gray solid 2px;
+    padding: 2rem 1rem;
+    margin: 1rem 0;
+    background: #fafbf1;
+    alpha(Opacity=85);-moz-opacity:0.85;opacity: 0.85;
+}
 
 #main-frame {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 3rem;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0);
+    margin-top: 2rem;
     width: 60%;
     height: 100%;
-    background: #00a8c6;
+    min-height: 60rem;
+    height: max-content;
 }
 #left-frame {
     float: left;
@@ -27,39 +42,87 @@ a {
     height: 100%;
     margin: 1rem 0;
 }
-
-.item-container {
-    height: 5rem;
-}
-
 .manager-button {
     /* background: transparent; */
+    float: right;
     padding: 1rem 0.5rem;
     border: none;
     height: 100%;
-    width: 100%;
 }
-
-.add-class-btn {
-    background: transparent;
+#add-class {
+    position: relative;
     border: none;
+    width: 15rem;
+}
+#add-class-add {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 32px;
+    width: 32px;
+    background: center center url("../res/image/plus.png");
+}
+#add-class-name {
+    position: absolute;
+    left: 1rem;
+    height: 1.5rem;
+}
+#add-class-submit {
+    position: absolute;
+    margin: 0 0.5rem;
+    left: 12rem;
+}
+#add-class-cancel {
+    position: absolute;
+    left: 17rem;
 }
 
-.class-container {
-    height: 3rem;
-    padding: 2px 16px;
-}
 .class-name {
-    float: left;
-    margin: 0.5rem 0;
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    transform: translate(0, -50%);
 }
 .class-count {
-    float: left;
-    margin: 0.5rem 1rem;
+    position: absolute;
+    top: 50%;
+    left: 20rem;
+    transform: translate(0, -50%);
 }
-.class-delete {
-    float: right;
-    margin: 0.5rem 0;
+.class-update {
+    position: absolute;
+    top: 50%;
+    right: 10rem;
+    width: 3rem;
+    transform: translate(0, -50%);
     background: transparent;
     border: none;
+}
+.class-delete {
+    position: absolute;
+    top: 50%;
+    right: 5rem;
+    width: 3rem;
+    transform: translate(0, -50%);
+    background: transparent;
+    border: none;
+}
+
+#article-manager button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-200%);
+    background: transparent;
+}
+#class-manager button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+}
+#user-manager button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(100%);
+    background: transparent;
 }
