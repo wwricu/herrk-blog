@@ -65,7 +65,7 @@ public class NumberCountDAO {
         return;
     }
 
-    public void clickCountIncrement() {
+    public static void clickCountIncrement() {
 
         try (Connection conn = getConnection(); Statement stat = conn.createStatement();) {
             String sql = "UPDATE number_count_table SET count=count+'1' WHERE count_name='click_count';";
@@ -77,7 +77,7 @@ public class NumberCountDAO {
         return;
     }
 
-    public int getClickCount() {
+    public static int getClickCount() {
 
         int count = 0;
 
@@ -94,7 +94,7 @@ public class NumberCountDAO {
         return count;
     }
 
-    public void articleCountIncrement(int num) {
+    public static void articleCountIncrement(int num) {
 
         if (num <= 0) {
             return;
@@ -112,7 +112,7 @@ public class NumberCountDAO {
         return;
     }
 
-    public void articleCountDecrement(int num) {
+    public static void articleCountDecrement(int num) {
         if (num <= 0) {
             return;
         }
@@ -127,7 +127,7 @@ public class NumberCountDAO {
         }
     }
 
-    public int getArticleCount() {
+    public static int getArticleCount() {
 
         int count = 0;
 

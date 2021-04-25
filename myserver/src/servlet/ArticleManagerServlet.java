@@ -22,8 +22,7 @@ public class ArticleManagerServlet extends HttpServlet {
         super.init();
         Log.Info("start Article Servlet");
 
-        NumberCountDAO numberCountDAO = new NumberCountDAO();
-        mArticleNumber = numberCountDAO.getArticleCount();
+        mArticleNumber = NumberCountDAO.getArticleCount();
 
         ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         Log.Info("ArticleManagerServlet.init() article number = " + mArticleNumber);
@@ -76,8 +75,6 @@ public class ArticleManagerServlet extends HttpServlet {
             classId = Integer.parseInt(classIdS);
         }
 
-        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        NumberCountDAO numberCountDAO = new NumberCountDAO();
         ArticleInfo info = new ArticleInfo();
         java.sql.Date currentTime = new java.sql.Date(System.currentTimeMillis());
         response.setContentType("text/plain");
@@ -87,7 +84,7 @@ public class ArticleManagerServlet extends HttpServlet {
                 Log.Info("post an article");
                 info.setValue(0, userId, classId, title, summary, tags, bodyMD, currentTime.toString(), currentTime.toString(), 0);
                 // articleId, userId, classId, title, summary, tags, body, createtime, lstmodftime, permission
-                int createId = articleManagerDAO.createArticle(info);
+                int createId = ArticleManagerDAO.createArticle(info);
                 if (createId > 0) {
                     Log.Info("article id is " + createId);
                     response.getWriter().write(String.valueOf(createId));
@@ -98,23 +95,23 @@ public class ArticleManagerServlet extends HttpServlet {
             break;
             case "delete":
                 Log.Info("delete article No. " + articleId);
-                if (articleManagerDAO.legalAuthor(articleId, userId) != true) {
+                if (ArticleManagerDAO.legalAuthor(articleId, userId) != true) {
                     Log.Warn("auther id failure");
                     break;
                 }
-                articleManagerDAO.deleteArticle(articleId);
+                ArticleManagerDAO.deleteArticle(articleId);
                 response.getWriter().write("success");
             break;
             case "update":
                 /* ?action=update&articleId=1&title=ww&summary=ww&tags=www&bodyMD=www?permission=1 */
                 Log.Info("update article No. " + articleId);
-                if (articleManagerDAO.legalAuthor(articleId, userId) != true) {
+                if (ArticleManagerDAO.legalAuthor(articleId, userId) != true) {
                     Log.Warn("auther id failure");
                     response.getWriter().write("failure");
                     break;
                 }
                 info.setValue(0, userId, classId, title, summary, tags, bodyMD, null, currentTime.toString(), 0);
-                articleManagerDAO.updateArticle(articleId, info);
+                ArticleManagerDAO.updateArticle(articleId, info);
             break;
             default:
                 Log.Info("unrecognized action " + action);

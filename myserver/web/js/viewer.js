@@ -107,11 +107,12 @@ function getAutherName(article) {
         }
     });
 }
+
 function isMobile() {
     var system = {
         win: false,
         mac: false,
-        xll: false,
+        x11: false,
         ipad: false
     };
 
@@ -122,29 +123,7 @@ function isMobile() {
     system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
     system.ipad = (navigator.userAgent.match(/iPad/i) != null) ? true : false;
 
-    if (system.win || system.mac || system.xll || system.ipad) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function isMobile() {
-    var system = {
-        win: false,
-        mac: false,
-        xll: false,
-        ipad: false
-    };
-
-    var p = navigator.platform;
-
-    system.win = p.indexOf("Win") == 0;
-    system.mac = p.indexOf("Mac") == 0;
-    system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
-    system.ipad = (navigator.userAgent.match(/iPad/i) != null) ? true : false;
-
-    if (system.win || system.mac || system.xll || system.ipad) {
+    if (system.win || system.mac || system.x11 || system.ipad) {
         return false;
     } else {
         return true;

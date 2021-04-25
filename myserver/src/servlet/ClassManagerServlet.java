@@ -46,9 +46,6 @@ public class ClassManagerServlet extends HttpServlet {
             group = Integer.parseInt(groupS);
         }
 
-        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        NumberCountDAO numberCountDAO = new NumberCountDAO();
-        ClassManagerDAO classManagerDAO = new ClassManagerDAO();
         ClassInfo info = new ClassInfo();
         StringBuilder json = new StringBuilder("{");
         response.setContentType("text/plain");
@@ -62,7 +59,7 @@ public class ClassManagerServlet extends HttpServlet {
                 }
                 info.setValue(0, className, fatherId, group);
                 // classId, className, fatherId, group
-                int createId = classManagerDAO.createClass(info);
+                int createId = ClassManagerDAO.createClass(info);
                 if (createId > 0) {
                     Log.Info("class id is " + createId);
                     response.getWriter().write(String.valueOf(createId));
@@ -78,7 +75,7 @@ public class ClassManagerServlet extends HttpServlet {
                     Log.Error("Unauthorized access!");
                 }
                 Log.Info("delete class No. " + classId);
-                response.getWriter().write(String.valueOf(classManagerDAO.deleteClass(classId)));
+                response.getWriter().write(String.valueOf(ClassManagerDAO.deleteClass(classId)));
                 break;
             case "update":
                 /* ?action=update&articleId=1&title=ww&summary=ww&tags=www&bodyMD=www?permission=1 */
@@ -87,17 +84,17 @@ public class ClassManagerServlet extends HttpServlet {
                 }
                 Log.Info("update article No. " + classId);
                 info.setValue(classId, className, fatherId, group);
-                classManagerDAO.updateClass(info);
+                ClassManagerDAO.updateClass(info);
             break;
             /* ?action=allclasses */
             case "allclasses":
-                ClassInfo[] allClasses = classManagerDAO.allTopClasses();
+                ClassInfo[] allClasses = ClassManagerDAO.allTopClasses();
                 if (allClasses == null || allClasses.length == 0) {
                     response.getWriter().write("failure");
                 }
                 json.append("\"list\":[");
                 for (int i = 0; i < allClasses.length; i++) {
-                    int subArtNum = classManagerDAO.subArticleCount(allClasses[i].mClassId);
+                    int subArtNum = ClassManagerDAO.subArticleCount(allClasses[i].mClassId);
                     StringBuilder pair = new StringBuilder(",\"articleCount\":").append(String.valueOf(subArtNum));
                     json.append(ClassInfo.jsonAppend(allClasses[i].toJson(), pair.toString()));
                     if (i != allClasses.length - 1) {
@@ -108,13 +105,13 @@ public class ClassManagerServlet extends HttpServlet {
                 response.getWriter().write(json.toString());
             break;
             case "subclasses":
-                ClassInfo[] subClasses = classManagerDAO.subClasses(classId);
+                ClassInfo[] subClasses = ClassManagerDAO.subClasses(classId);
                 if (subClasses == null || subClasses.length == 0) {
                     response.getWriter().write("failure");
                 }
                 json.append("\"list\":[");
                 for (int i = 0; i < subClasses.length; i++) {
-                    String fatherName = classManagerDAO.searchClass(subClasses[i].mFatherId).mClassName;
+                    String fatherName = ClassManagerDAO.searchClass(subClasses[i].mFatherId).mClassName;
                     json.append(subClasses[i].toJson(fatherName));
                     if (i != subClasses.length - 1) {
                         json.append(",");

@@ -59,7 +59,7 @@ public class ArticleManagerDAO {
         }
     }
 
-    public ArticleInfo searchArticle(int articleId) {
+    public static ArticleInfo searchArticle(int articleId) {
         if (articleId <= 0) {
             return null;
         }
@@ -92,7 +92,7 @@ public class ArticleManagerDAO {
         return info;
     }
 
-    public int updateArticle(int articleId, ArticleInfo info) {
+    public static int updateArticle(int articleId, ArticleInfo info) {
         if (info == null || articleId <= 0) {
             return -1;
         }
@@ -122,7 +122,7 @@ public class ArticleManagerDAO {
         return 0;
     }
 
-    public ArticleInfo[] getLatestArticles(int start, int num, int classId, String order) {
+    public static ArticleInfo[] getLatestArticles(int start, int num, int classId, String order) {
 
         if (start < 0) {
             start = 0;
@@ -189,7 +189,7 @@ public class ArticleManagerDAO {
         return new ArticleInfo[0];
     }
 
-    public int createArticle(ArticleInfo info) {
+    public static int createArticle(ArticleInfo info) {
 
         if (!validArticle(info)) {
             return -1;
@@ -199,7 +199,6 @@ public class ArticleManagerDAO {
         int articleId = 0;
         String sql = "INSERT INTO article_table VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         String sqlId = "SELECT LAST_INSERT_ID();";
-        NumberCountDAO numberDAO = new NumberCountDAO();
 
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);
@@ -225,7 +224,7 @@ public class ArticleManagerDAO {
             }
 
             if (insNums != 0) {
-                numberDAO.articleCountIncrement(insNums);
+                NumberCountDAO.articleCountIncrement(insNums);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -234,13 +233,12 @@ public class ArticleManagerDAO {
         return articleId;
     }
 
-    public void deleteArticle(int articleId) {
+    public static void deleteArticle(int articleId) {
         if (articleId < 0) {
             return;
         }
 
         int delNums = 0;
-        NumberCountDAO numberDAO = new NumberCountDAO();
         String sql = "DELETE FROM article_table WHERE article_id=?;";
 
         try (Connection conn = getConnection();
@@ -248,14 +246,14 @@ public class ArticleManagerDAO {
             stat.setInt(1, articleId);
             delNums = stat.executeUpdate();
             if (delNums != 0) {
-                numberDAO.articleCountDecrement(delNums);
+                NumberCountDAO.articleCountDecrement(delNums);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean legalAuthor(int articleId, int autherId) {
+    public static boolean legalAuthor(int articleId, int autherId) {
         if (autherId == 1) {
             return true;
         }
@@ -278,7 +276,7 @@ public class ArticleManagerDAO {
         return false;
     }
 
-    protected boolean validArticle(ArticleInfo info) {
+    protected static boolean validArticle(ArticleInfo info) {
         if (0 > info.mArticleId || 0 > info.mAutherId) {
             Log.Error("article id is " + info.mArticleId
                     + "auther id is " + info.mAutherId);

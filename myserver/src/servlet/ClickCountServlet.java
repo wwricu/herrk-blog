@@ -12,14 +12,13 @@ public class ClickCountServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         int count = 0;
-        NumberCountDAO dao = new NumberCountDAO();
         HttpSession session = request.getSession(true);
         String countString = (String)session.getAttribute("count");
         response.setContentType("text/plain");
 
         if (null == countString) {
-            dao.clickCountIncrement();
-            count = dao.getClickCount();
+            NumberCountDAO.clickCountIncrement();
+            count = NumberCountDAO.getClickCount();
             session.setAttribute("count", String.valueOf(count));
         } else {
             count = Integer.parseInt(countString);

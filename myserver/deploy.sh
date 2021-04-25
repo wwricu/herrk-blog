@@ -5,6 +5,7 @@ javac \
     src/dao/ArticleManagerDAO.java \
     src/dao/NumberCountDAO.java \
     src/dao/ClassManagerDAO.java \
+    src/dao/CommentManagerDAO.java \
     src/dao/InitDAO.java \
     src/util/JwtUtils.java \
     src/util/ArticleInfo.java \
@@ -13,6 +14,7 @@ javac \
     src/util/Log.java \
     src/util/NetSpeed.java \
     src/util/SystemInfo.java \
+    src/util/CommentInfo.java \
     src/util/Daemon.java \
     src/servlet/ClickCountServlet.java \
     src/servlet/UserManagerServlet.java \

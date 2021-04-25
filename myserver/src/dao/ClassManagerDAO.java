@@ -52,7 +52,7 @@ public class ClassManagerDAO {
         }
     }
 
-    public int createClass(ClassInfo info) {
+    public static int createClass(ClassInfo info) {
 
         if (!validClass(info)) {
             return -1;
@@ -90,7 +90,7 @@ public class ClassManagerDAO {
     }
 
     // return deleted id
-    public int deleteClass(int classId) {
+    public static int deleteClass(int classId) {
         if (classId < 0) {
             return -1;
         }
@@ -110,7 +110,7 @@ public class ClassManagerDAO {
         return 0;
     }
 
-    public ClassInfo searchClass(int classId) {
+    public static ClassInfo searchClass(int classId) {
         ClassInfo info = new ClassInfo();
         if (classId <= 0) {
             return info;
@@ -137,7 +137,7 @@ public class ClassManagerDAO {
         return info;
     }
 
-    public int updateClass(ClassInfo info) {
+    public static int updateClass(ClassInfo info) {
         if (info == null || info.mClassId <= 0) {
             return -1;
         }
@@ -161,7 +161,7 @@ public class ClassManagerDAO {
         return 0;
     }
 
-    public ClassInfo[] allTopClasses() {
+    public static ClassInfo[] allTopClasses() {
         String sql = "SELECT * FROM class_table WHERE father_id=0;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql);) {
@@ -192,7 +192,7 @@ public class ClassManagerDAO {
         return new ClassInfo[0];
     }
 
-    public ClassInfo[] subClasses(int classId) {
+    public static ClassInfo[] subClasses(int classId) {
         if (classId <= 0) {
             Log.Error("invalid info");
             return null;
@@ -227,7 +227,7 @@ public class ClassManagerDAO {
         return null;
     }
 
-    public ArticleInfo[] subArticles(ClassInfo info) {
+    public static ArticleInfo[] subArticles(ClassInfo info) {
         if (info == null || info.mClassId <= 0
                     || info.mGroup != 0) {
             return null;
@@ -268,7 +268,7 @@ public class ClassManagerDAO {
         return null;
     }
 
-    public int subArticleCount(int classId) {
+    public static int subArticleCount(int classId) {
         if (classId <= 0) {
             return 0;
         }
@@ -286,7 +286,7 @@ public class ClassManagerDAO {
         return 0;
     }
 
-    private boolean validClass(ClassInfo info) {
+    private static boolean validClass(ClassInfo info) {
         return true;
     }
 }

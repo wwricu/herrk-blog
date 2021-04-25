@@ -46,8 +46,6 @@ public class ArticleViewerServlet extends HttpServlet {
         String classId = request.getParameter("classId");
         Log.Info("action is " + action);
 
-        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
-        ClassManagerDAO classManagerDAO = new ClassManagerDAO();
         StringBuilder json = new StringBuilder("{");
         response.setContentType("text/plain");
 
@@ -67,7 +65,7 @@ public class ArticleViewerServlet extends HttpServlet {
                 };
             */
             case "preview":
-                ArticleInfo[] list = articleManagerDAO.getLatestArticles(
+                ArticleInfo[] list = ArticleManagerDAO.getLatestArticles(
                         Integer.parseInt(index), Integer.parseInt(num),
                             Integer.parseInt(classId), order);
                 if (list == null || list.length == 0) {
@@ -78,7 +76,7 @@ public class ArticleViewerServlet extends HttpServlet {
                 for (int i = 0; i < list.length; i++) {
                     String className =
                                 new StringBuilder(",\"class_name\":\"")
-                                .append(classManagerDAO.searchClass(list[i].mClassId).mClassName)
+                                .append(ClassManagerDAO.searchClass(list[i].mClassId).mClassName)
                                 .append("\"").toString();
                     json.append(ClassInfo.jsonAppend(list[i].toJson(), className));
                     if (i != list.length - 1) {
@@ -93,7 +91,7 @@ public class ArticleViewerServlet extends HttpServlet {
             break;
             // ?action=view&articleId=1
             case "view":
-                ArticleInfo info = articleManagerDAO.searchArticle(Integer.parseInt(articleId));
+                ArticleInfo info = ArticleManagerDAO.searchArticle(Integer.parseInt(articleId));
                 response.getWriter().write(info.toJson());
             break;
             /* ?action=modify&autherId=1&articleId
