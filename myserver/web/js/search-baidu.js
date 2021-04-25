@@ -14,10 +14,11 @@ $(document).ready(function() {
     $("#search-input").val("");
     $("#search-button").click(function () {
         $("#search-input").focus();
-        let baiduHeader = "https://www.baidu.com/s?ie=utf-8&f=12&tn=baidulocal&wd="
+        /* Baidu interfere the usage of baidulocal, sad*/
+        let baiduHeader = "https://www.baidu.com/s?wd="
         let keyWord = $("#search-input").val();
         if (null != keyWord && "" != keyWord) {
-            window.open(baiduHeader+keyWord, "_self");
+            window.open(baiduHeader+keyWord, "_blank");
             $("#search-input").val("");
         }
     });
