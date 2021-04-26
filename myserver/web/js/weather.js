@@ -46,12 +46,11 @@ $.ajax({
                 break;
             default:
                 weather = 'did not get';
-                break;
+                $("#weather-card").hide();
         }
 
         $("#location").text(result.cityEn + ', ' + result.countryEn);
         $("#weather").text(weather);
         $("#temperature").text(result.tem);
-
     }
 });
