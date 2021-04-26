@@ -126,3 +126,17 @@ a {
     transform: translateX(100%);
     background: transparent;
 }
+#class-manager {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+#article-manager {
+    position: absolute;
+    left: 50%;
+    transform: translate(-100%, 0);
+}
+#user-manager {
+    position: absolute;
+    left: 50%;
+}

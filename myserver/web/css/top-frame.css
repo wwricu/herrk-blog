@@ -6,36 +6,58 @@
     width: 100%;
     height: 3rem;
     margin: 0 0;
-    /*background: #f4efef;*/
     background: #fafbf1;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     alpha(Opacity=80);-moz-opacity:0.8;opacity: 0.8;
     z-index: 100;
 }
-button {
-    width: 100%;
-    background: transparent;
-}
 .top-frame-container {
-    float: right;
-    height: 100%;
     width: 10rem;
+    height: 3rem;
 }
-.top-right {
-    float: right;
+@keyframes btn-personal {
+    0% {
+        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/1-5.png");
+        background-size: 70% 45%;
+    }
+    25% {
+        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/2-5.png");
+        background-size: 70% 45%;
+    }
+    50% {
+        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/3-5.png");
+        background-size: 70% 45%;
+    }
+    75% {
+        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/4-5.png");
+        background-size: 70% 45%;
+    }
+    100% {
+        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/5-5.png");
+        background-size: 70% 45%;
+    }
 }
-.top-frame-icon {
-    position: absolute;
-    top: 50%;
-    height: 1rem;
-    transform: translateY(-50%);
-}
-.top-frame-item {
-    position: absolute;
-    top: 50%;
-    padding-left: 1rem;
-    transform: translateY(-50%);
-    font-size: 0.8rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+@keyframes btn-comment {
+    0% {
+        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/1-5.png");
+        background-size: 85% 45%;
+    }
+    25% {
+        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/2-5.png");
+        background-size: 85% 45%;
+    }
+    50% {
+        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/3-5.png");
+        background-size: 85% 45%;
+    }
+    75% {
+        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/4-5.png");
+        background-size: 85% 45%;
+    }
+    100% {
+        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/5-5.png");
+        background-size: 85% 45%;
+    }
 }
 #home-link {
     float: left;
@@ -57,42 +79,57 @@ button {
     font-size: 1.5rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-#personal-link a {
+#personal-link {
     position: absolute;
+    right: -2rem;
     top: 50%;
-    right: 2rem;
     transform: translateY(-50%);
+    cursor: pointer;
+}
+#personal-link:hover {
+    animation-name: btn-personal;
+    animation-duration: 150ms;
+    background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/5-5.png");
+    background-size: 70% 45%;
 }
 #personal-link img {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1rem;
+}
+#personal-link span {
+    position: absolute;
+    left: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+}
+#comment-board {
     position: absolute;
     top: 50%;
     right: 6rem;
     transform: translateY(-50%);
+    cursor: pointer;
 }
-#comment-board a {
-    position: absolute;
-    top: 50%;
-    right: 8rem;
-    transform: translateY(-50%);
+#comment-board:hover {
+    animation-name: btn-comment;
+    animation-duration: 150ms;
+    background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/5-5.png");
+    background-size: 85% 45%;
 }
 #comment-board img {
     position: absolute;
+    left: 0.5rem;
     top: 50%;
-    right: 14.5rem;
     transform: translateY(-50%);
+    height: 1rem;
 }
-#class-manager {
+#comment-board span {
     position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
 }
-#article-manager {
-    position: absolute;
-    left: 50%;
-    transform: translate(-100%, 0);
-}
-#user-manager {
-    position: absolute;
-    left: 50%;
-}
-
