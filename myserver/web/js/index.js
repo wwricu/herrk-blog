@@ -52,7 +52,7 @@ function addArticle(num) {
                             " | Created at " + receive.list[i].create_time +
                             " | Last modified at " + receive.list[i].last_modify_time;
                     let articleCard =
-                        "<div id=article-" + receive.list[i].article_id + " class='card article-append'> \
+                        "<div id=article-" + receive.list[i].article_id + " class='article-append'> \
                             <a class=article-title href='" + link + "'>" + unescape(receive.list[i].title) + "</a> \
                             <div class=article-info>" + info + "</div> \
                             <hr class='title-sum-hr'> \
@@ -189,6 +189,7 @@ function turnToMobile() {
     $("#main-frame").css("width", "100%");
     $(".article-info").css("font-size", "0.7rem");
     $("body").css("background", "#F4E7D7");
+    $("#top").hide();
 }
 
 function renderPage() {
@@ -201,6 +202,9 @@ $(document).ready(function () {
     renderPage();
     // setInterval(renderPage(0),2000);
     scrollLoad();
+    $("#top").click(function() {
+        window.open("#goTop", "_self");
+    });
     if (isMobile()) {
         turnToMobile();
     }

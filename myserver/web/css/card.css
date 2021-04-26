@@ -1,17 +1,12 @@
 .card {
-    /* left: 30%;
-    top:50%; */
     position: relative;
-    left: 0;
-    top: 0;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
     width: 95%;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 1.2rem auto;
     padding: 1rem 0.5rem 0.5rem 0.5rem;
-    background: #fafbf1;
-    alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;
+    background: rgba(250, 251, 241, 0.9);
 }
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
