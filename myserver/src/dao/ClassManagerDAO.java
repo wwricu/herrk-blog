@@ -270,7 +270,7 @@ public class ClassManagerDAO {
     }
 
     public static int subArticleCount(int classId) {
-        if (classId <= 0) {
+        if (classId < 0) {
             return 0;
         }
 

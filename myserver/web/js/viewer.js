@@ -22,7 +22,8 @@ function renderArticle(articleId) {
         "bodyMD": "",
         "create_time": "",
         "last_modify_time": "",
-        "permission": 0
+        "permission": 0,
+        "class_name": ""
     };
 
     $.ajax({
@@ -36,26 +37,16 @@ function renderArticle(articleId) {
         dataType: "json",
         timeout: 1000,
         success: function (receive) {
-            article.article_id = receive.article_id;
-            article.auther_id = receive.auther_id;
-            article.title = unescape(receive.title);
-            article.summary = unescape(receive.summary);
-            article.tags = receive.tags;
-            article.bodyMD = unescape(receive.bodyMD);
-            article.create_time = receive.create_time;
-            article.last_modify_time = receive.last_modify_time;
-            article.permission = receive.permission;
+            getAutherName(receive);
+            $("#title").text(unescape(receive.title));
+            $("#className").text(receive.class_name);
+            $("#time").text("Created at " + receive.create_time
+                + " Last modified at " + receive.last_modify_time);
+
+            let testEditor = editormd.markdownToHTML("content", {
+                markdown: unescape(receive.bodyMD)
+            });
         }
-    });
-
-    getAutherName(article);
-    $("#title").text(article.title);
-    $("#time").text("Created at " + article.create_time
-        + " Last modified at " + article.last_modify_time);
-
-    let testEditor;
-    testEditor = editormd.markdownToHTML("content", {
-        markdown: article.bodyMD
     });
 }
 

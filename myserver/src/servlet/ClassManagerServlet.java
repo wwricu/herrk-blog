@@ -88,6 +88,7 @@ public class ClassManagerServlet extends HttpServlet {
             break;
             /* ?action=allclasses */
             case "allclasses":
+                Log.Info("0 num is " + ClassManagerDAO.subArticleCount(0));
                 ClassInfo[] allClasses = ClassManagerDAO.allTopClasses();
                 if (allClasses == null || allClasses.length == 0) {
                     response.getWriter().write("failure");

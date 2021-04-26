@@ -87,6 +87,10 @@ function getClasses() {
             }
             for (let i = 0; i < result.list.length; i++) {
                 let localClassId = result.list[i].classId;
+                if (localClassId == 0 &&
+                        result.list[i].articleCount == 0) {
+                    continue;
+                }
                 let classCard =
                     "<div class = 'class-item class-card'> \
                         <button id=class-" + localClassId + " class='class-append item-title'> \

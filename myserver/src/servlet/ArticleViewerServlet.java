@@ -92,7 +92,11 @@ public class ArticleViewerServlet extends HttpServlet {
             // ?action=view&articleId=1
             case "view":
                 ArticleInfo info = ArticleManagerDAO.searchArticle(Integer.parseInt(articleId));
-                response.getWriter().write(info.toJson());
+                String className =
+                        new StringBuilder(",\"class_name\":\"")
+                                .append(ClassManagerDAO.searchClass(info.mClassId).mClassName)
+                                .append("\"").toString();
+                response.getWriter().write(ClassInfo.jsonAppend(info.toJson(), className));
             break;
             /* ?action=modify&autherId=1&articleId
              * {
