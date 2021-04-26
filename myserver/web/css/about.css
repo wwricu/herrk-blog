@@ -13,13 +13,14 @@ a {
     transform: translate(-50%, 0);
     width: 70rem;
     height: max-content;
+    min-height: 100%;
     background: rgba(250, 251, 241, 0.85);
 }
 #main-frame img {
     float: left;
 }
 #about-me div {
-    padding-left: 6rem;
+    padding-left: 9rem;
     width: 70%;
     height: 15rem;
     text-align: left;

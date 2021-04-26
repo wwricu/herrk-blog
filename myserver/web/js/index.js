@@ -87,11 +87,11 @@ function getClasses() {
             for (let i = 0; i < result.list.length; i++) {
                 let localClassId = result.list[i].classId;
                 let classCard =
-                    "<div class = 'card-item class-card'> \
+                    "<div class = 'class-item class-card'> \
                         <button id=class-" + localClassId + " class='class-append item-title'> \
                             <img id=class-icon-" + localClassId + " src='../res/image/chooser.png' >" +
                             result.list[i].className +
-                            "<span id=class-stat-" + localClassId + " class='item-stat class-stat'>" +
+                            "<span id=class-stat-" + localClassId + " class='class-stat'>" +
                                 result.list[i].articleCount +
                             "</span> \
                         </button> \
@@ -112,21 +112,31 @@ function getClasses() {
                  */
                 $("#class-" + localClassId).on("click", function() {
                     $(".article-append").remove();
+                    $(".class-stat").css("padding-right", "0");
                     $(".class-append").children("img").hide();
+                    $(".class-chosen").children("img").hide();
+
 
                     articleLeft = true;
                     articleIndex = 0;
 
-                    $(".class-append").css("font-size","1.2rem").css("padding-left", "1.5rem");
-                    // $("#class-icon-" + localClassId).css("display", "none");
-
                     if (classId == localClassId) {
                         classId = 0;
-                        getClasses();
+                        $("#class-" + localClassId).removeClass('class-chosen');
+                        $("#class-" + localClassId).addClass('class-append item-title');
+                        $(".class-append").children("img").hide();
                     } else {
+                        /* Two actions when choose another button:
+                         * 1. clear all other button's css
+                         * 2. set a new btn's css
+                        */
                         classId = localClassId;
-                        $("#class-" + localClassId).css("font-size", "1.5rem").css("padding-left", "2rem");
-                        $("#class-icon-" + localClassId).css("display", "inline");
+                        // restore
+                        $(".class-chosen").addClass("class-append").removeClass("class-chosen");
+                        // add css
+                        $("#class-" + localClassId).removeClass('class-append').addClass('class-chosen item-title');
+                        $("#class-stat-" + localClassId).css("padding-right", "0.5rem");
+                        // $("#class-icon-" + localClassId).show();
                     }
                     renderPage();
                 });

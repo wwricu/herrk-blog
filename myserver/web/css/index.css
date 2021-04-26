@@ -10,7 +10,7 @@ a {
 #main-frame {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     width: 70rem;
     height: 100%;
     background: #00a8c6;
@@ -81,7 +81,7 @@ a {
 .card-item {
     height: 2rem;
     width: 100%;
-    margin: 0.3rem 0.3rem;
+    margin: 0 0.5rem;
 }
 .card-item .navigation {
     margin-left: 3rem;
@@ -93,21 +93,54 @@ a {
     float: left;
     border: none;
     background: transparent;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, 'Microsoft YaHei', 'WenQuanYi Micro Hei', 'WenQuanYi Micro Hei Mono', 'WenQuanYi Zen Hei','WenQuanYi Zen Hei Mono','Noto Sans CJK SC','Source Han Sans CN',SimSun,sans-serif;
+}
+.item-stat {
+    float: right;
+    margin: 0 1.5rem;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, 'Microsoft YaHei', 'WenQuanYi Micro Hei', 'WenQuanYi Micro Hei Mono', 'WenQuanYi Zen Hei','WenQuanYi Zen Hei Mono','Noto Sans CJK SC','Source Han Sans CN',SimSun,sans-serif;
+}
+.class-item {
+    height: 2rem;
+    width: 100%;
+    margin: 0.3rem 0.3rem;
 }
 .class-append {
     position: absolute;
     left: 0;
-    width: 100%;
+    /* 21rem for right panel */
+    width: 18rem;
     text-align: left;
-    padding-left: 1.5rem;
+    /* padding-left: 1.5rem; */
+    margin: 0 1.5rem;
     font-size: 1.2rem;
+    background-color: transparent;
     z-index: 100;
 }
 .class-append:hover {
-    /*padding-left: 2rem;
+    padding-left: 1rem;
     font-size: 1.5rem;
-    /*background: #49b1f5;*/
     color: darkmagenta;
+}
+.class-chosen {
+    position: absolute;
+    left: 0;
+    /* 21rem for right panel */
+    width: 18rem;
+    text-align: left;
+    /* padding-left: 1.5rem; */
+    margin: 0 1.5rem;
+    font-size: 1.7rem;
+    /* 
+     * cyan is (0, 255, 255), darkcyan is (0, 139, 139);
+     * I mixed them up and divided it;
+     * to get a 'Choice Color';
+    */
+    color: black;
+    background-color: #00cccc;
+
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 3px;
 }
 .class-stat {
     position: absolute;
@@ -119,10 +152,6 @@ a {
     height: 1.8rem;
     display: none;
     left: 0;
-}
-.item-stat {
-    float: right;
-    margin: 0 0.5rem;
 }
 #padding {
     padding: 0.8rem 0;
@@ -147,6 +176,10 @@ a {
     font-size: 1rem;
     margin: 1.5rem 1.5rem;
     overflow: hidden;
+}
+.article-append:hover {
+    box-shadow: 0 72px 144px 0 rgba(0, 0, 0, 0.9);
+    alpha(Opacity=100); -moz-opacity: 1; opacity: 1;
 }
 .clear {
     clear: both;

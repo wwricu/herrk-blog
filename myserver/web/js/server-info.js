@@ -43,9 +43,9 @@ function getUptime() {
             var mins = Math.floor(uptime / 60);
             var hrs = Math.floor(mins / 60);
             var days = Math.floor(hrs / 24);
-            $("#uptime").text(String(days) + "days " +
-                    String(hrs - days * 24) + "hrs " +
-                    String(mins - hrs * 60) + "mins");
+            $("#uptime").text(String(days) + "d " +
+                    String(hrs - days * 24) + "h " +
+                    String(mins - hrs * 60) + "m");
         }
     });
 }
