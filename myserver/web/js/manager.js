@@ -50,6 +50,11 @@ function classManager() {
                         <span class=class-count>article count: " + result.list[i].articleCount + "</span> \
                     </div>";
                 $("#main-frame").append(classCard);
+                $("#update-0").hide();
+                $("#delete-0").hide();
+                if (result.list[i].classId == 0) {
+                    continue;
+                }
                 $("#delete-" + result.list[i].classId).click(function() {
                     $.ajax({
                         type: "POST",

@@ -1,6 +1,7 @@
 let articleLeft = true;
 let articleIndex = 0;
-let classId = 0;
+// classId 0 to search default class, -1 to search all
+let classId = -1;
 
 function addArticle(num) {
     "use strict";
@@ -121,7 +122,7 @@ function getClasses() {
                     articleIndex = 0;
 
                     if (classId == localClassId) {
-                        classId = 0;
+                        classId = -1;
                         $("#class-" + localClassId).removeClass('class-chosen');
                         $("#class-" + localClassId).addClass('class-append item-title');
                         $(".class-append").children("img").hide();

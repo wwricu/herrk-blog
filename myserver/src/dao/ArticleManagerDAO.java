@@ -139,17 +139,18 @@ public class ArticleManagerDAO {
 
         StringBuilder sql_builder = new StringBuilder(
             "SELECT article_id, auther_id, class_id, title, summary, tags, create_time, last_modify_time FROM article_table ");
-        if (classId != 0) {
+        if (classId >= 0) {
+            // specify 0 as classId to search default classes and minus to search all.
             sql_builder.append("WHERE class_id=? ");
         }
         sql_builder.append("ORDER BY ? DESC LIMIT ?, ?;");
         String sql = sql_builder.toString();
-         
+
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql);) {
 
             int s = 1;
-            if (classId != 0) {
+            if (classId >= 0) {
                 stat.setInt(s++, classId);
             }
             stat.setString(s++, order);

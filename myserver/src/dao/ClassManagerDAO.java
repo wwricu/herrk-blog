@@ -96,11 +96,15 @@ public class ClassManagerDAO {
         }
 
         String sql = "DELETE FROM class_table WHERE class_id=?;";
+        String sql_art = "UPDATE article_table SET class_id=0 WHERE class_id=?;";
 
         try (Connection conn = getConnection();
-             PreparedStatement stat = conn.prepareStatement(sql);) {
+             PreparedStatement stat = conn.prepareStatement(sql);
+             PreparedStatement stat_art = conn.prepareStatement(sql_art);) {
             stat.setInt(1, classId);
             if (stat.executeUpdate() > 0) {
+                stat_art.setInt(1, classId);
+                stat_art.executeUpdate();
                 return classId;
             }
         } catch (SQLException e) {
@@ -168,13 +172,10 @@ public class ClassManagerDAO {
             ResultSet rs = stat.executeQuery();
             rs.last();
             int line = rs.getRow();
-            if (line == 0) {
-                Log.Error("get no result");
-                return new ClassInfo[0];
-            }
             rs.beforeFirst();
-            ClassInfo[] res = new ClassInfo[line];
-            for (int i = 0; i < line; i++) {
+            ClassInfo[] res = new ClassInfo[line + 1];
+            res[0] = new ClassInfo(0, "default", 0, 0);
+            for (int i = 1; i <= line; i++) {
                 if (rs.next()) {
                     res[i] = new ClassInfo(
                         rs.getInt("class_id"),
