@@ -131,12 +131,12 @@ a {
     /* padding-left: 1.5rem; */
     margin: 0 1.5rem;
     font-size: 1.7rem;
-    /* 
-     * cyan is (0, 255, 255), darkcyan is (0, 139, 139);
-     * I mixed them up and divided it;
-     * to get a 'Choice Color';
-    */
     color: black;
+    /* 
+     * Cyan is (0, 255, 255) while darkcyan is (0, 139, 139),
+     * I mixed them up, divided it equally,
+     * and Choose this Cyan as the Color of Choice.
+    */
     background-color: #00cccc;
 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

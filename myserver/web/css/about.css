@@ -14,27 +14,43 @@ a {
     width: 70rem;
     height: max-content;
     min-height: 100%;
-    background: rgba(250, 251, 241, 0.85);
+    background-color: transparent;
+}
+#about-me {
+    height: 15rem;
 }
 #main-frame img {
+    width: 15rem;
     float: left;
 }
 #about-me div {
-    padding-left: 9rem;
-    width: 70%;
-    height: 15rem;
+    float: left;
+    width: 40rem;
+    height: 100%;
+    margin-left: 6rem;
     text-align: left;
-    font-size: 14px;
+    font-size: 1.2rem;
     overflow: hidden;
     /*color: #484848;*/
 }
 #about-site {
-    float: left;
-    text-align: left;
-    padding-left: 8rem;
-    /*color: #484848;*/
+    height: 25rem;
 }
-#dependencies {
-    float: right;
-    margin-right: 8rem;
+#about-site div {
+    float: left;
+    margin-left: 5rem;
+    text-align: left;
+}
+#about-site pre {
+    float: left;
+    padding-top: 7rem;
+    text-align: left;
+}
+#cyan {
+    position: relative;
+    top: 1.3rem;
+    left: 5.2rem;
+    height: 1rem;
+    width: 1rem;
+    background-color: #00cccc;
 }
