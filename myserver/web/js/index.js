@@ -202,9 +202,7 @@ $(document).ready(function () {
     renderPage();
     // setInterval(renderPage(0),2000);
     scrollLoad();
-    $("#top").click(function() {
-        window.open("#goTop", "_self");
-    });
+
     if (isMobile()) {
         turnToMobile();
     }
