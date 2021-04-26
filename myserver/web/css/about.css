@@ -11,7 +11,7 @@ a {
     top: 3rem;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 60rem;
+    width: 70rem;
     height: max-content;
     background: rgba(250, 251, 241, 0.85);
 }

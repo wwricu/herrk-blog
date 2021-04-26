@@ -4,13 +4,14 @@ a {
 }
 body {
     background: bottom fixed url("../res/image/bkgrd.jpg");
+    background-size: 100%;
 }
 #center-frame {
     position: absolute;
     top: 3rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 60%;
+    width: 70rem;
     height: max-content;
     margin: 0 auto;
     /*background: #f4efef;*/
