@@ -38,12 +38,30 @@ public class CommentManagerDAO {
         auther_id INT UNSIGNED
         article_id INT UNSIGNED
         reply_comment_id INT UNSIGNED
+        nickname VARCHAR(1024)
+        avatar_link VARCHAR(1024)
+        email VARCHAR(1024)
+        website VARCHAR(65535)
         body_md TEXT
         created_time DATE
+        ip_address VARCHAR(1024)
     */
 
     public static void init() {
-        final String sql = "CREATE TABLE IF NOT EXISTS comment_table (comment_id INT UNSIGNED AUTO_INCREMENT, auther_id INT UNSIGNED, article_id INT UNSIGNED, reply_comment_id INT UNSIGNED, body_md TEXT, created_time DATE, PRIMARY KEY (comment_id))ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        final String sql =
+            new StringBuilder("CREATE TABLE IF NOT EXISTS comment_table (")
+                .append("comment_id INT UNSIGNED AUTO_INCREMENT,")
+                .append("auther_id INT UNSIGNED,")
+                .append("article_id INT UNSIGNED,")
+                .append("reply_comment_id INT UNSIGNED,")
+                .append("nickname VARCHAR(1024),")
+                .append("email VARCHAR(1024),")
+                .append("website VARCHAR(65535),")
+                .append("body_md TEXT,")
+                .append("created_time DATE,")
+                .append("ip_address VARCHAR(1024),")
+                .append("PRIMARY KEY (comment_id)")
+                .append(")ENGINE=InnoDB DEFAULT CHARSET=utf8;").toString();
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
              stat.execute();
@@ -57,17 +75,23 @@ public class CommentManagerDAO {
             return -1;
         }
 
-        final String sql = "INSERT INTO comment_table VALUES(null, ?, ?, ?, ?, ?);";
+        final String sql = "INSERT INTO comment_table VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         String sqlId = "SELECT LAST_INSERT_ID();";
 
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql);
                 Statement statement = conn.createStatement();) {
-            stat.setInt(1, info.mAutherId);
-            stat.setInt(2, info.mArticleId);
-            stat.setInt(3, info.mReplyCommentId);
-            stat.setString(4, info.mBodyMD);
-            stat.setString(5, info.mCreatedTime);
+            int i = 1;
+            stat.setInt(i++, info.mAutherId);
+            stat.setInt(i++, info.mArticleId);
+            stat.setInt(i++, info.mReplyCommentId);
+            stat.setString(i++, info.mNickname);
+            stat.setString(i++, info.mAvatarLink);
+            stat.setString(i++, info.mEmail);
+            stat.setString(i++, info.mWebsite);
+            stat.setString(i++, info.mBodyMD);
+            stat.setString(i++, info.mCreatedTime);
+            stat.setString(i++, info.mIpAddress);
 
             int line = stat.executeUpdate();
             if (line == 0) {
@@ -138,13 +162,17 @@ public class CommentManagerDAO {
                     rs.getInt("auther_id"),
                     rs.getInt("article_id"),
                     rs.getInt("reply_comment_id"),
+                    rs.getString("nickname"),
+                    rs.getString("avatar_link"),
+                    rs.getString("email"),
+                    rs.getString("website"),
                     rs.getString("body_md"),
-                    rs.getString("created_time")
+                    rs.getString("created_time"),
+                    rs.getString("ip_address")
                 );
             }
 
             return res;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
