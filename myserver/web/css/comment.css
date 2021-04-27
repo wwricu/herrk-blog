@@ -1,4 +1,62 @@
+a {
+    color: black;
+    text-decoration: none;
+}
+body {
+    background: bottom no-repeat fixed url("../res/image/about.jpg");
+    background-size: 100% 100%;
+}
 #main-frame {
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
     min-height: 100%;
-    width: 70rem;
+    padding: 4rem 0 0 0;
+    width: 60rem;
+    border-radius: 0px;
+    background: rgba(245, 245, 245, 0.9);
+}
+#editor-card textarea {
+    margin-left: 5rem;
+    width: 50rem;
+    height: 10rem;
+    background: whitesmoke;
+    resize: vertical;
+    border-radius: 5px;
+}
+.guest-info {
+    /* |<-- 60 -->| */
+    /* |5|14|4|14|4|14|5| */
+    width: 14rem;
+    height: 1.5rem;
+    padding: 0;
+    border-radius: 2px;
+}
+#nickname {
+    /* 20rem width */
+    margin: 1rem 0 1rem 5rem;
+}
+#email {
+    margin: 1rem 0 1rem 4rem;
+}
+#website {
+    margin: 1rem 0 1rem 4rem;
+}
+.comment-submit {
+    /* top, right, bottom, left*/
+    margin: 0 0 1rem 50rem;
+    height: 2rem;
+    width: 5rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1.2rem;
+    background: #00cccc;
+    border-radius: 1rem;
+}
+hr {
+    border:none;
+    border-bottom:1px solid #aaaaaa;
+    margin: 1rem 2rem;
+    height: 2px;
 }
