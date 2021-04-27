@@ -74,6 +74,7 @@ a {
 .card-title {
     position: relative;
     top: -0.3rem;
+    font-family: sans-serif;
 }
 .container {
     padding: 2px 16px;
@@ -158,6 +159,7 @@ a {
 }
 .article-title {
     font-size: 1.3rem;
+    font-family: sans-serif;
     margin: 1.5rem 1.5rem;
 }
 .article-info {
@@ -195,7 +197,7 @@ a {
 }
 #top {
     position: fixed;
-    top: 50rem;
+    top: 90%;
     left: 50%;
     transform: translateX(-1600%);
     background: #fafbf1;

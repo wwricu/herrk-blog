@@ -13,49 +13,49 @@
 }
 .top-frame-container {
     width: 10rem;
-    height: 3rem;
+    height: 3.1rem;
 }
 @keyframes btn-personal {
     0% {
-        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/1-5.png");
+        background: 1.2rem 1.75rem no-repeat url("../res/image/choose-btn/1-5.png");
         background-size: 70% 45%;
     }
     25% {
-        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/2-5.png");
+        background: 1.2rem 1.75rem no-repeat url("../res/image/choose-btn/2-5.png");
         background-size: 70% 45%;
     }
     50% {
-        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/3-5.png");
+        background: 1.2rem 1.75rem no-repeat url("../res/image/choose-btn/3-5.png");
         background-size: 70% 45%;
     }
     75% {
-        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/4-5.png");
+        background: 1.2rem 1.75rem no-repeat url("../res/image/choose-btn/4-5.png");
         background-size: 70% 45%;
     }
     100% {
-        background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/5-5.png");
+        background: 1.2rem 1.75rem no-repeat url("../res/image/choose-btn/5-5.png");
         background-size: 70% 45%;
     }
 }
 @keyframes btn-comment {
     0% {
-        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/1-5.png");
+        background: 0.3rem 1.75rem no-repeat url("../res/image/choose-btn/1-5.png");
         background-size: 85% 45%;
     }
     25% {
-        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/2-5.png");
+        background: 0.3rem 1.75rem no-repeat url("../res/image/choose-btn/2-5.png");
         background-size: 85% 45%;
     }
     50% {
-        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/3-5.png");
+        background: 0.3rem 1.75rem no-repeat url("../res/image/choose-btn/3-5.png");
         background-size: 85% 45%;
     }
     75% {
-        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/4-5.png");
+        background: 0.3rem 1.75rem no-repeat url("../res/image/choose-btn/4-5.png");
         background-size: 85% 45%;
     }
     100% {
-        background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/5-5.png");
+        background: 0.3rem 1.75rem no-repeat url("../res/image/choose-btn/5-5.png");
         background-size: 85% 45%;
     }
 }
@@ -116,7 +116,7 @@
 #comment-board:hover {
     animation-name: btn-comment;
     animation-duration: 150ms;
-    background: 0.3rem 1.75rem no-repeat fixed url("../res/image/choose-btn/5-5.png");
+    background: 0.3rem 1.75rem no-repeat url("../res/image/choose-btn/5-5.png");
     background-size: 85% 45%;
 }
 #comment-board img {

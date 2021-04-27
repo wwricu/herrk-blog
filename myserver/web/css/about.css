@@ -31,26 +31,23 @@ a {
     text-align: left;
     font-size: 1.2rem;
     overflow: hidden;
-    /*color: #484848;*/
+    font-family: sans-serif;
 }
 #about-site {
     height: 25rem;
 }
 #about-site div {
     float: left;
-    margin-left: 5rem;
+    margin-left: 3rem;
     text-align: left;
+    font-size: 1rem;
+    font-family: sans-serif;
 }
 #about-site pre {
     float: left;
     padding-top: 7rem;
+    margin-left: -2rem;
+    font-size: 1rem;
     text-align: left;
-}
-#cyan {
-    position: relative;
-    top: 1.3rem;
-    left: 5.2rem;
-    height: 1rem;
-    width: 1rem;
-    background-color: #00cccc;
+    font-family: monospace sans-serif;
 }
