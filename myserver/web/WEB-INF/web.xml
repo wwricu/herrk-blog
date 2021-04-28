@@ -28,6 +28,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>CommentManagerServlet</servlet-name>
+        <servlet-class>servlet.CommentManagerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CommentManagerServlet</servlet-name>
+        <url-pattern>/commentmanager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ClassManagerServlet</servlet-name>
         <servlet-class>servlet.ClassManagerServlet</servlet-class>
     </servlet>

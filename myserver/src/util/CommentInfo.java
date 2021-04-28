@@ -12,6 +12,7 @@ public class CommentInfo {
     public String mBodyMD;
     public String mCreatedTime;
     public String mIpAddress;
+    public CommentInfo[] mSubComments;
 
     public void setValue(int commentId, int autherId, int articleId, int replyCommentId,
                     String nickname, String avatarLink, String email, String website,
@@ -30,7 +31,7 @@ public class CommentInfo {
     }
 
     public String toJson() {
-        return new StringBuilder("{")
+        StringBuilder json =  new StringBuilder("{")
             .append("\"commentId\":").append(mCommentId)
             .append(",\"autherId\":").append(mAutherId)
             .append(",\"articleId\":").append(mArticleId)
@@ -39,9 +40,17 @@ public class CommentInfo {
             .append("\",\"avatarLink\":\"").append(mAvatarLink)
             .append(",\"email\":\"").append(mEmail)
             .append(",\"website\":\"").append(mWebsite)
-            .append("\",\"bodyMD\":\"").append(mBodyMD)
+            .append("\",\"body\":\"").append(mBodyMD)
             .append("\",\"createdTime\":\"").append(mCreatedTime)
-            .append("\",\"ipAddress\":\"").append(mIpAddress)
-            .append("\"}").toString();
+            .append("\",\"subCommments\":[");
+
+            for (int i = 0; i < mSubComments.length; i++) {
+                json.append(mSubComments[i].toJson());
+                if (i != mSubComments.length - 1) {                    
+                    json.append(",");
+                }
+            }
+
+            return json.append("]}").toString();
     }
 }

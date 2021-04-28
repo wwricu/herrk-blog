@@ -73,6 +73,7 @@ public class ClassManagerServlet extends HttpServlet {
                 // return deleted id
                 if (!isUserAuthorized(session)) {
                     Log.Error("Unauthorized access!");
+                    break;
                 }
                 Log.Info("delete class No. " + classId);
                 response.getWriter().write(String.valueOf(ClassManagerDAO.deleteClass(classId)));
@@ -81,6 +82,7 @@ public class ClassManagerServlet extends HttpServlet {
                 /* ?action=update&articleId=1&title=ww&summary=ww&tags=www&bodyMD=www?permission=1 */
                 if (!isUserAuthorized(session)) {
                     Log.Error("Unauthorized access!");
+                    break;
                 }
                 Log.Info("update article No. " + classId);
                 info.setValue(classId, className, fatherId, group);

@@ -55,6 +55,7 @@ public class CommentManagerDAO {
                 .append("article_id INT UNSIGNED,")
                 .append("reply_comment_id INT UNSIGNED,")
                 .append("nickname VARCHAR(1024),")
+                .append("avatar_link VARCHAR(1024)")
                 .append("email VARCHAR(1024),")
                 .append("website VARCHAR(65535),")
                 .append("body_md TEXT,")
@@ -75,7 +76,7 @@ public class CommentManagerDAO {
             return -1;
         }
 
-        final String sql = "INSERT INTO comment_table VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        final String sql = "INSERT INTO comment_table VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         String sqlId = "SELECT LAST_INSERT_ID();";
 
         try (Connection conn = getConnection();
@@ -109,44 +110,36 @@ public class CommentManagerDAO {
         return -3;
     }
 
-    public static CommentInfo[] searchComment(CommentInfo info, int mode) {
-        if (!validComment(info)) {
+    public static CommentInfo[] searchComment(int id, int articleId, int mode) {
+        if (id < 0 || articleId < 0) {
             return new CommentInfo[0];
         }
 
-        StringBuilder base = new StringBuilder("SELECT * FROM comment_table WHERE ");
+        StringBuilder base = new StringBuilder("SELECT * FROM comment_table WHERE article_id=? ");
+
         String mode0 = "comment_id=?;";
         String mode1 = "auther_id=?;";
-        String mode2 = "article_id=?;";
-        String mode3 = "reply_comment_id=?;";
-        int selector = -1;
+        String mode2 = "reply_comment_id=?;";
 
         switch (mode) {
         case 0:
             base.append(mode0);
-            selector = info.mCommentId;
             break;
         case 1:
             base.append(mode1);
-            selector = info.mAutherId;
             break;
         case 2:
             base.append(mode2);
-            selector = info.mArticleId;
-            break;
-        case 3:
-            base.append(mode3);
-            selector = info.mReplyCommentId;
             break;
         default:
             base.append(mode0);
-            selector = info.mCommentId;
         }
 
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(base.toString());) {
 
-            stat.setInt(1, selector);
+            stat.setInt(1, articleId);
+            stat.setInt(2, id);
 
             ResultSet rs = stat.executeQuery();
             rs.last();

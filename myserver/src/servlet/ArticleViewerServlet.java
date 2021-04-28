@@ -50,7 +50,7 @@ public class ArticleViewerServlet extends HttpServlet {
         response.setContentType("text/plain");
 
         switch (action) {
-            /* ?action=preview&index=1&order=last_modify_time
+            /* ?action=preview&index=1&num=5&order=last_modify_time
                {
                     "article_id": 0,
                     "auther_id": 0,

@@ -4,12 +4,15 @@ import dao.NumberCountDAO;
 import dao.ArticleManagerDAO;
 import dao.UserManagerDAO;
 import dao.ClassManagerDAO;
+import dao.CommentManagerDAO;
 
 import util.ArticleInfo;
 import util.ClassInfo;
+import util.CommentInfo;
 import util.Log;
 
 import java.io.File;
+import java.util.Date;
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,23 +30,29 @@ public class CommentManagerServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
+        int commentId = 0;
         int autherId = 0;
-        if (request.getParameter("autherId") != null) {
-            autherId = request.getParameter("autherId");
-        }
         int articleId = -1;
-        if (request.getParameter("articleId") != null) {
-            autherId = request.getParameter("articleId");
-        }
         int replyCommentId = -1;
+
+        if (request.getParameter("commentId") != null) {
+            autherId = Integer.parseInt(request.getParameter("commentId"));
+        }
+        if (request.getParameter("autherId") != null) {
+            autherId = Integer.parseInt(request.getParameter("autherId"));
+        }
+        if (request.getParameter("articleId") != null) {
+            autherId = Integer.parseInt(request.getParameter("articleId"));
+        }
         if (request.getParameter("replyCommentId") != null) {
-            replyCommentId = request.getParameter("replyCommentId");
+            replyCommentId = Integer.parseInt(request.getParameter("replyCommentId"));
         }
 
-        String className = request.getParameter("nickName");
+        String nickName = request.getParameter("nickName");
         String avatarLink = request.getParameter("avatarLink");
+        String email = request.getParameter("email");
         String website = request.getParameter("website");
-        String bodyMD = request.getParameter("bodyMD");
+        String body = request.getParameter("body");
 
         CommentInfo info = new CommentInfo();
         StringBuilder json = new StringBuilder("{");
@@ -52,23 +61,34 @@ public class CommentManagerServlet extends HttpServlet {
 
         switch (action) {
             case "post":
-                /* ?action=post&autherId=0&articleId=0&replyCommentId=0&nickName=ww&email=ww&website=ww&bodyMD=ww&avatarLink=ww
+                /* ?action=post&autherId=0&articleId=0&replyCommentId=0&nickName=ww&avatarLink=ww&email=ww&website=ww&body=ww
                 {
                     "commentId": 1,
-                    "result": "success"
                 }*/
                 Log.Info("create a comment");
+                info.setValue(0, autherId, articleId, replyCommentId,
+                        nickName, avatarLink, website, email, body,
+                        new Date().toString(), "");
+                ;
+                response.getWriter().write(
+                    json.append("\"commentId\":")
+                        .append(CommentManagerDAO.createComment(info))
+                        .toString());
                 break;
             case "delete":
                 /* ?action=delete&commentId=1
                 {
                     "commentId": 1,
-                    "result": "success"
                 }*/
                 if (!isUserAuthorized(session)) {
                     Log.Error("Unauthorized access!");
                 }
-                Log.Info("delete comment No. ");
+                Log.Info("delete comment No. " + commentId);
+                info.mCommentId = commentId;
+                response.getWriter().write(
+                        json.append("\"commentId\":")
+                            .append(CommentManagerDAO.deleteComment(info, 0))
+                            .toString());
                 break;
             case "allcomments":
             /* ?action=allcomments
@@ -76,23 +96,44 @@ public class CommentManagerServlet extends HttpServlet {
                 subComments: [{
                     "commentId": 1,
                     "autherName": "xxx",
+                    "avatarLink": "xxx",
                     "email": "xxx",
                     "website": "xxx",
-                    "bodyMD": "xxx",
+                    "body": "xxx",
                     "articleId": 0,
                     "replyCommentId": 1,
                     subCommments: [
                         {...}, {...}
                     ]
                 }, {
-                    
                 }]
             }*/
-            Log.Info("get all comments");
+            Log.Info("get all comments on board");
+            CommentInfo[] comments = getComment(0, 0);
+            json.append("\"subComments\":[");
+            for (int i = 0; i < comments.length; i++) {
+                json.append(info.toJson());
+                if (i != comments.length - 1) {                    
+                    json.append(",");
+                }
+            }
+            json.append("]}");
+            response.getWriter().write(
+                json.toString()
+                    .replace("\r", "\\r")
+                    .replace("\n", "\\n"));
             break;
             default:
                 Log.Info("unrecognized action " + action);
         }
+    }
+
+    private static CommentInfo[] getComment(int replyCommentId, int articleId) {
+        CommentInfo[] comments = CommentManagerDAO.searchComment(replyCommentId, articleId, 2);
+        for (var info: comments) {
+            info.mSubComments = CommentManagerDAO.searchComment(info.mCommentId, articleId, 2);
+        }
+        return comments;
     }
 
     private boolean isUserAuthorized(HttpSession session) {
