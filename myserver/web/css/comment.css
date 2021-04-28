@@ -56,7 +56,7 @@ body {
 hr {
     border: none;
     border-bottom:1px solid #aaaaaa;
-    margin: 1rem 0;
+    margin: 2rem 0 1rem 0;
     height: 2px;
     width: 100%;
 }
@@ -115,7 +115,10 @@ hr {
     margin-top: 0.5rem;
     font-size: 1rem;
 }
-.reply {
+.reply-text {
     width: 100%;
     resize: vertical;
+}
+.reply-area {
+    display: none;
 }
