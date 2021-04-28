@@ -12,7 +12,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     min-height: 100%;
-    padding: 4rem 0 0 0;
+    padding: 4rem 5.5rem 0 0;
     width: 60rem;
     border-radius: 0px;
     background: rgba(245, 245, 245, 0.9);
@@ -43,6 +43,12 @@ body {
 #website {
     margin: 1rem 0 1rem 4rem;
 }
+hr {
+    border: none;
+    border-bottom:1px solid #aaaaaa;
+    margin: 1rem -2rem;
+    height: 2px;
+}
 .comment-submit {
     /* top, right, bottom, left*/
     margin: 0 0 1rem 50rem;
@@ -54,9 +60,42 @@ body {
     background: #00cccc;
     border-radius: 1rem;
 }
-hr {
-    border:none;
-    border-bottom:1px solid #aaaaaa;
-    margin: 1rem 2rem;
-    height: 2px;
+.comment-card {
+    position: relative;
+    margin: 0 0 0 auto;
+    padding: 1rem 0;
+    font-family: sans-serif;
+    /*
+    when set the width or height to a specific percentage,
+    the width of a relative elements is the percentage of the content of his parent element
+    however, that of an absolute is the percentage of the (content + padding) of his parent element
+    (60 - r) * 0.9 = 60 - 2 * r -> r is padding-right: 
+    */
+    width: 90%;
+    min-width: 40rem;
+}
+.auther {
+    font-size: 1.5rem;
+}
+.created-time {
+    margin-left: 2rem;
+    font-size: 0.8rem;
+    color: #666666;
+}
+.reply-btn {
+    position: absolute;
+    top: 2rem;
+    right: 5%;
+}
+.website {
+    font-size: 1rem;
+    color: #666666;
+}
+.comment-body {
+    word-break: break-all;
+    margin-top: 1.5rem;
+}
+.reply {
+    width: 100%;
+    resize: vertical;
 }

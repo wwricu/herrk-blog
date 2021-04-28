@@ -32,7 +32,5 @@ public class TestApiServlet extends HttpServlet {
             default:
                 break;
         }
-
-        return;
     }
 };
