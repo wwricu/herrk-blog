@@ -8,19 +8,29 @@ body {
 }
 #main-frame {
     position: absolute;
-    top: -2rem;
+    top: -3.2rem;
     left: 50%;
     transform: translateX(-50%);
-    min-height: 100%;
-    padding: 4rem 5.5rem 0 0;
+    height: max-content;
+    min-height: 120%;
     width: 60rem;
     border-radius: 0px;
     background: rgba(245, 245, 245, 0.9);
 }
+#thin-frame {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50rem;
+    height: max-content;
+    min-height: 100%;
+    padding: 4rem 2.4rem 0 0;
+    /*background: wheat;*/
+}
 #editor-card textarea {
     margin-left: 5rem;
     width: 50rem;
-    height: 10rem;
+    height: 15rem;
     background: whitesmoke;
     resize: vertical;
     border-radius: 5px;
@@ -46,8 +56,9 @@ body {
 hr {
     border: none;
     border-bottom:1px solid #aaaaaa;
-    margin: 1rem -2rem;
+    margin: 1rem 0;
     height: 2px;
+    width: 100%;
 }
 .comment-submit {
     /* top, right, bottom, left*/
@@ -62,30 +73,38 @@ hr {
 }
 .comment-card {
     position: relative;
-    margin: 0 0 0 auto;
+    margin: 2rem 0 0 auto;
     padding: 1rem 0;
     font-family: sans-serif;
     /*
     when set the width or height to a specific percentage,
-    the width of a relative elements is the percentage of the content of his parent element
-    however, that of an absolute is the percentage of the (content + padding) of his parent element
-    (60 - r) * 0.9 = 60 - 2 * r -> r is padding-right: 
+    the width of a relative elements is the percentage of the content of its parent element
+    however, that of an absolute is the percentage of the (content + padding) of its parent element
+    (w - r) * p = w - 2 * r  -->  r = (1 - p) * w / (2 - p)
     */
-    width: 90%;
-    min-width: 40rem;
+    width: 95%;
+    min-width: 30rem;
+}
+.comment-card textarea {
+    width: 100%;
+    height: 10rem;
 }
 .auther {
     font-size: 1.5rem;
 }
 .created-time {
     margin-left: 2rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: #666666;
 }
 .reply-btn {
-    position: absolute;
-    top: 2rem;
-    right: 5%;
+    float: right;
+    height: 1.5rem;
+    margin: 0.5rem 0.5rem;
+    font-size: 1rem;
+    color: whitesmoke;
+    background: #00cccc;
+    border-radius: 0.5rem;
 }
 .website {
     font-size: 1rem;
@@ -93,7 +112,8 @@ hr {
 }
 .comment-body {
     word-break: break-all;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
 }
 .reply {
     width: 100%;
