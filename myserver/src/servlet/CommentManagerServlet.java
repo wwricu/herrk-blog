@@ -22,18 +22,28 @@ import javax.servlet.http.HttpSession;
 
 public class CommentManagerServlet extends HttpServlet {
 
+    private int mCommentNumber;
+
+    public void init() throws ServletException {
+        super.init();
+        Log.Info("start Article Servlet");
+        mCommentNumber = CommentManagerDAO.getCommentNum(0);
+        Log.Info("CommentManagerServlet.init() Comment number = " + mCommentNumber);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
         HttpSession session = request.getSession(true);
-
         String action = request.getParameter("action");
 
         int commentId = 0;
         int autherId = 0;
         int articleId = -1;
         int replyCommentId = -1;
+        int index = 0;
+        int num = 0;
+        int replyId = 0;
 
         if (request.getParameter("commentId") != null) {
             autherId = Integer.parseInt(request.getParameter("commentId"));
@@ -47,6 +57,15 @@ public class CommentManagerServlet extends HttpServlet {
         if (request.getParameter("replyCommentId") != null) {
             replyCommentId = Integer.parseInt(request.getParameter("replyCommentId"));
         }
+        if (request.getParameter("index") != null) {
+            autherId = Integer.parseInt(request.getParameter("index"));
+        }
+        if (request.getParameter("num") != null) {
+            autherId = Integer.parseInt(request.getParameter("num"));
+        }
+        if (request.getParameter("replyid") != null) {
+            autherId = Integer.parseInt(request.getParameter("replyid"));
+        }
 
         String nickName = request.getParameter("nickName");
         String avatarLink = request.getParameter("avatarLink");
@@ -55,6 +74,7 @@ public class CommentManagerServlet extends HttpServlet {
         String body = request.getParameter("body");
 
         CommentInfo info = new CommentInfo();
+        CommentInfo[] infoArray = null;
         StringBuilder json = new StringBuilder("{");
         
         response.setContentType("text/plain");
@@ -69,7 +89,9 @@ public class CommentManagerServlet extends HttpServlet {
                 info.setValue(0, autherId, articleId, replyCommentId,
                         nickName, avatarLink, website, email, body,
                         new Date().toString(), "");
-                ;
+                if (articleId == 0) {
+                    mCommentNumber++;
+                }
                 response.getWriter().write(
                     json.append("\"commentId\":")
                         .append(CommentManagerDAO.createComment(info))
@@ -84,24 +106,76 @@ public class CommentManagerServlet extends HttpServlet {
                     Log.Error("Unauthorized access!");
                 }
                 Log.Info("delete comment No. " + commentId);
+                if (articleId == 0) {
+                    mCommentNumber--;
+                }
                 info.mCommentId = commentId;
                 response.getWriter().write(
                         json.append("\"commentId\":")
                             .append(CommentManagerDAO.deleteComment(info, 0))
                             .toString());
                 break;
+            case "maincommentnum":
+            // ?action=maincommentnum&articleId=0
+            int count = CommentManagerDAO.getCommentNum(articleId);
+            Log.Info("article" + articleId + " have " + count + " comments");
+            response.getWriter().write(String.valueOf(count));
+            break;
+            case "getlatest":
+            /* ?action=latestcomments&articleId=0&replyid&index=0&num=5
+            {
+                subComments: [{
+                    "commentId": 1,
+                    "autherId": 11,
+                    "articleId": 111,
+                    "replyCommentId": 1111,
+                    "nickname": "xxx"
+                    "avatarLink": "xxx",
+                    "email": "xxx",
+                    "website": "xxx",
+                    "body": "xxx",
+                    "createdTime": "xxx",
+                    subCommments: [
+                        {...}, {...}
+                    ]
+                }, {
+                }]
+            }*/
+            infoArray = CommentManagerDAO.getLatestComments(0, 5, articleId, replyId, "created_time");
+            if (infoArray == null) {
+                response.getWriter().write("failure");
+            }
+            for (var comInfo: infoArray) {
+                comInfo.mSubComments = getSubComment(comInfo.mCommentId, comInfo.mArticleId);
+            }
+            json.append("\"subCommments\":[");
+            for (int i = 0; i < infoArray.length; i++) {
+                json.append(infoArray[i].toJson());
+                if (i != infoArray.length - 1) {
+                    json.append(",");
+                }
+            }
+
+            response.getWriter().write(
+                    json.append("]}")
+                    .toString()
+                    .replace("\r", "\\r")
+                    .replace("\n", "\\n"));
+            break;
             case "allcomments":
             /* ?action=allcomments
             {
                 subComments: [{
                     "commentId": 1,
-                    "autherName": "xxx",
+                    "autherId": 11,
+                    "articleId": 111,
+                    "replyCommentId": 1111,
+                    "nickname": "xxx"
                     "avatarLink": "xxx",
                     "email": "xxx",
                     "website": "xxx",
                     "body": "xxx",
-                    "articleId": 0,
-                    "replyCommentId": 1,
+                    "createdTime": "xxx",
                     subCommments: [
                         {...}, {...}
                     ]
@@ -109,7 +183,7 @@ public class CommentManagerServlet extends HttpServlet {
                 }]
             }*/
             Log.Info("get all comments on board");
-            CommentInfo[] comments = getComment(0, 0);
+            CommentInfo[] comments = getSubComment(0, 0);
             json.append("\"subComments\":[");
             for (int i = 0; i < comments.length; i++) {
                 json.append(info.toJson());
@@ -128,10 +202,10 @@ public class CommentManagerServlet extends HttpServlet {
         }
     }
 
-    private static CommentInfo[] getComment(int replyCommentId, int articleId) {
+    private static CommentInfo[] getSubComment(int replyCommentId, int articleId) {
         CommentInfo[] comments = CommentManagerDAO.searchComment(replyCommentId, articleId, 2);
         for (var info: comments) {
-            info.mSubComments = CommentManagerDAO.searchComment(info.mCommentId, articleId, 2);
+            info.mSubComments = getSubComment(info.mCommentId, articleId);
         }
         return comments;
     }

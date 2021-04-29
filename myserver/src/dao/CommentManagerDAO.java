@@ -55,7 +55,7 @@ public class CommentManagerDAO {
                 .append("article_id INT UNSIGNED,")
                 .append("reply_comment_id INT UNSIGNED,")
                 .append("nickname VARCHAR(1024),")
-                .append("avatar_link VARCHAR(1024)")
+                .append("avatar_link VARCHAR(1024),")
                 .append("email VARCHAR(1024),")
                 .append("website VARCHAR(65535),")
                 .append("body_md TEXT,")
@@ -108,6 +108,96 @@ public class CommentManagerDAO {
         }
 
         return -3;
+    }
+
+    public static int getCommentNum(int articleId) {
+        if (articleId < 0) {
+            articleId = 0;
+        }
+
+        String sql = "SELECT count(*) FROM comment_table WHERE articleId=?, reply_comment_id=0;";
+        try (Connection conn = getConnection();
+                PreparedStatement stat = conn.prepareStatement(sql);) {
+            stat.setInt(1, articleId);
+            ResultSet rs = stat.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static CommentInfo[] getLatestComments(int start, int num, int articleId,
+                                                  int replyCommentId, String order) {
+        if (start < 0) {
+            start = 0;
+        }
+        if (num <= 0) {
+            num = 1;
+        }
+        if (articleId < 0) {
+            articleId = 0;
+        }
+        if (order == null ||
+                !order.equals("comment_id") &&
+                !order.equals("create_time")) {
+            order = "created_time";
+        }
+
+        StringBuilder sql_builder = new StringBuilder("SELECT comment_id,")
+                                    .append("auther_id,").append("article_id,")
+                                    .append("reply_comment_id,").append("nickname,")
+                                    .append("avatar_link,").append("email,")
+                                    .append("website,").append("body_md,")
+                                    .append("created_time,").append("ip_address ")
+                                    .append("FROM comment_table WHERE article_id=?, reply_comment_id=? ")
+                                    .append("ORDER BY ? DESC LIMIT ?, ?;");
+        String sql = sql_builder.toString();
+
+        try (Connection conn = getConnection();
+             PreparedStatement stat = conn.prepareStatement(sql);) {
+
+            int s = 0;
+            stat.setInt(s++, articleId);
+            stat.setInt(s++, replyCommentId);
+            stat.setString(s++, order);
+            stat.setInt(s++, start);
+            stat.setInt(s++, num);
+
+            int count = 0;
+            ResultSet rs = stat.executeQuery();
+            rs.last();
+            int line = rs.getRow();
+            if (line == 0) {
+                Log.Error("get no result");
+                return new CommentInfo[0];
+            }
+            rs.beforeFirst();
+            CommentInfo[] result = new CommentInfo[line];
+
+            while (rs.next() && count < num) {
+                CommentInfo info = new CommentInfo();
+                info.mCommentId = rs.getInt("comment_id");
+                info.mAutherId = rs.getInt("auther_id");
+                info.mArticleId = rs.getInt("article_id");
+                info.mReplyCommentId = rs.getInt("reply_comment_id");
+                info.mNickname = rs.getString("nickname");
+                info.mAvatarLink = rs.getString("avatar_link");
+                info.mEmail = rs.getString("email");
+                info.mWebsite = rs.getString("website");
+                info.mBodyMD = rs.getString("body_md");
+                info.mCreatedTime = rs.getString("created_time");
+                info.mIpAddress = rs.getString("ip_address");
+                result[count++] = info;
+            }
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new CommentInfo[0];
     }
 
     public static CommentInfo[] searchComment(int id, int articleId, int mode) {

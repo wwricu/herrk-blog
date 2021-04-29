@@ -23,8 +23,6 @@ public class ArticleManagerServlet extends HttpServlet {
         Log.Info("start Article Servlet");
 
         mArticleNumber = NumberCountDAO.getArticleCount();
-
-        ArticleManagerDAO articleManagerDAO = new ArticleManagerDAO();
         Log.Info("ArticleManagerServlet.init() article number = " + mArticleNumber);
     }
 
@@ -87,6 +85,7 @@ public class ArticleManagerServlet extends HttpServlet {
                 int createId = ArticleManagerDAO.createArticle(info);
                 if (createId > 0) {
                     Log.Info("article id is " + createId);
+                    mArticleNumber++;
                     response.getWriter().write(String.valueOf(createId));
                 } else {
                     Log.Info("article id is " + createId);
@@ -100,6 +99,7 @@ public class ArticleManagerServlet extends HttpServlet {
                     break;
                 }
                 ArticleManagerDAO.deleteArticle(articleId);
+                mArticleNumber--;
                 response.getWriter().write("success");
             break;
             case "update":

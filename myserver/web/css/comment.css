@@ -129,18 +129,19 @@ hr {
     page-btn-frame width: 22rem;
     (50-22)/2=14 to make it center
     */
-    height: 2rem;
-    width: 40rem;
+    height: max-content;
+    width: max-content;
     margin: 2rem auto;
     text-align: center;
 }
 .prev-next {
-    float: left;
     height: 1.5rem;
     width: 6rem;
+    margin: 0 1rem;
 }
 .page-btn, .dot-btn {
-    float: left;
+    display: none;
     height: 1.5rem;
     width: 2rem;
+    margin: 0 0.5rem;
 }
