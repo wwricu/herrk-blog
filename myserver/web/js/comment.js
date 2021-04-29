@@ -4,25 +4,74 @@ let currentPage = 0;
 let commentPerPage = 5;
 let uniqueId = 0;
 
-var addComments = function addCommentsRec(jSelector, subComments) {
-    alert("recursive");
-    alert(subComments);
+function addCommentsRec(jSelector, subComments) {
     for (let i = 0; i < subComments.length; i++) {
-        let dom = "<div id=card-" + uniqueId + " class=comment-card> \
+        let dom = "<div id=card-" + subComments[i].commentId + " class=comment-card> \
                        <span class=auther>" + unescape(subComments[i].nickname) + "</span><span class=created-time>" +
                            subComments[i].createdTime + "</span><span class=reply-btn>reply</span> \
                        <div class=website>" + unescape(subComments[i].website) + "</div> \
                        <div class=comment-body>" + unescape(subComments[i].body) + "</div> \
                        <hr> \
-                       <div class='reply-area'> \
+                       <div id=area-" + subComments[i].commentId + " class='reply-area'> \
+                           <input class=reply-input placeholder='nickname'><input class=reply-input placeholder='your link'> \
                            <textarea class=reply-text placeholder='say something~'></textarea> \
                            <span class='reply-btn'>submit</span><span class='reply-btn'>cancel</span> \
                        </div> \
                    </div>";
         jSelector.append(dom);
-        alert(subComments[i].subComments.length);
-        alert(subComments[i].subComments);
-        addCommentsRec($("#card-" + uniqueId++), subComments[i].subComments);
+        let thisSelector = $("#card-" + subComments[i].commentId);
+        let comment = subComments[i];
+        let area = $("#area-" + subComments[i].commentId);
+        thisSelector.children(".reply-btn").eq(0).click(function() {
+            area.show();
+        }); // reply
+        thisSelector.children(".reply-area").children(".reply-btn").eq(0).click(function() {
+            let recData = {
+                subComments: [{
+                    "commentId": 0,
+                    "autherId": 0,
+                    "articleId": 0,
+                    "replyCommentId": comment.commentId,
+                    "nickname": area.children().eq(0).val(),
+                    "avatarLink": "",
+                    "email": "",
+                    "website": area.children().eq(1).val(),
+                    "body": area.children().eq(2).val(),
+                    "createdTime": "",
+                    "subComments": [
+                    ]
+                }]
+            };
+            $.ajax({
+                type: 'POST',
+                url: 'commentmanager',
+                data: {
+                    action: 'post',
+                    autherId: 0,
+                    articleId: 0,
+                    replyCommentId: comment.commentId,
+                    nickName: escape(area.children().eq(0).val()),
+                    avatarLink: "",
+                    email: "",
+                    website: escape(area.children().eq(1).val()),
+                    body: escape(area.children().eq(2).val())
+                },
+                dataType: 'json',
+                async: 'true',
+                success: function(result) {
+                    if (result == "failure") {
+                        return;
+                    }
+                    data.subComments[0].commentId = result;
+                    addCommentsRec(thisSelector, recData);
+                }
+            });
+        }); // submit
+        thisSelector.children(".reply-area").children(".reply-btn").eq(1).click(function() {
+            area.hide();
+        }); // cancel
+
+        addCommentsRec(thisSelector, subComments[i].subComments);
     }
 }
 /*?action=allcomments
@@ -78,7 +127,7 @@ function loadComment() {
                         "createdTime": "xxx",
                         "subComments": [
                             {
-                                "commentId": 1,
+                                "commentId": 2,
                                 "autherId": 11,
                                 "articleId": 111,
                                 "replyCommentId": 1111,
@@ -91,7 +140,7 @@ function loadComment() {
                                 "subComments": []
                             },
                             {
-                                "commentId": 1,
+                                "commentId": 3,
                                 "autherId": 11,
                                 "articleId": 111,
                                 "replyCommentId": 1111,
@@ -107,7 +156,7 @@ function loadComment() {
                     }
                 ]
             };
-            addComments($("#thin-frame"), result.subComments);
+            addCommentsRec($("#thin-frame"), result.subComments);
         }
     });
 }
@@ -140,6 +189,7 @@ function configBtns() {
         currentPage--;
         loadComment();
     });
+
     let btn1 = $("#page-btn-frame").children(".page-btn").eq(0);
     let btn2 = $("#page-btn-frame").children(".page-btn").eq(1);
     let btn3 = $("#page-btn-frame").children(".page-btn").eq(2);
@@ -257,8 +307,6 @@ function configPages() {
             if (result == "failure") {
                 return;
             }
-            // TEST:
-            alert("start");
             result = 6;
             mainCommentNum = result;
             pageNum = result / 5 + 1;
