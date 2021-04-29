@@ -122,3 +122,25 @@ hr {
 .reply-area {
     display: none;
 }
+
+#page-btn-frame {
+    /* why 14rem?
+    thin-frame width: 50rem;
+    page-btn-frame width: 22rem;
+    (50-22)/2=14 to make it center
+    */
+    height: 2rem;
+    width: 40rem;
+    margin: 2rem auto;
+    text-align: center;
+}
+.prev-next {
+    float: left;
+    height: 1.5rem;
+    width: 6rem;
+}
+.page-btn, .dot-btn {
+    float: left;
+    height: 1.5rem;
+    width: 2rem;
+}
