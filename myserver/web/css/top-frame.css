@@ -89,7 +89,7 @@
 #personal-link:hover {
     animation-name: btn-personal;
     animation-duration: 150ms;
-    background: 1.2rem 1.75rem no-repeat fixed url("../res/image/choose-btn/5-5.png");
+    background: 1.2rem 1.75rem no-repeat url("../res/image/choose-btn/5-5.png");
     background-size: 70% 45%;
 }
 #personal-link img {
