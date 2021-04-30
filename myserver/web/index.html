@@ -60,13 +60,6 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div id="class-container" class="container">
-                    <img class="card-img" src="res/image/folder-open.png">
-                    <span class="card-title"><b>Categories</b></span>
-                    <div id="padding"></div>
-                </div>
-            </div>
             <div id=weather-card class="card">
                 <div class="container">
                     <img class="card-img" src="res/image/sun.png">
@@ -87,35 +80,43 @@
                     <div style="height: 0.5rem;"></div>
                 </div>
             </div>
-            <div class="card">
-                <div class="container">
-                    <img class="card-img" src="res/image/stats-dots.png">
-                    <span class="card-title"><b>Website Info</b></span><br>
-                    <div id="padding"></div>
-                    <div class = "card-item">
-                        <span class = "item-title">Click Count:</span>
-                        <span id = click_count class = item-stat></span>
+            <div id="scroll-adaptive">
+                <div class="card">
+                    <div id="class-container" class="container">
+                        <img class="card-img" src="res/image/folder-open.png">
+                        <span class="card-title"><b>Categories</b></span>
+                        <div id="padding"></div>
                     </div>
-                    <div class = "card-item">
-                        <span class = "item-title">Has run for:</span>
-                        <span id="uptime" class = item-stat></span>
-                    </div>
-                    <div class = "card-item">
-                        <span class = "item-title">Latency:</span>
-                        <span id="latency" class = item-stat></span>
-                    </div>
-                    <div class = "card-item">
-                        <span class = "item-title">Download rate:</span>
-                        <span id="inbound" class = item-stat></span>
-                    </div>
-                    <div class = "card-item">
-                        <span class = "item-title">Upload rate:</span>
-                        <span id="outbound" class = item-stat></span>
-                    </div>
-                    <div style="height: 0.5rem;"></div>
                 </div>
-            </div>
-            <div class="card log-card" style="display: none">
+                <div class="card">
+                    <div class="container">
+                        <img class="card-img" src="res/image/stats-dots.png">
+                        <span class="card-title"><b>Website Info</b></span><br>
+                        <div id="padding"></div>
+                        <div class = "card-item">
+                            <span class = "item-title">Click Count:</span>
+                            <span id = click_count class = item-stat></span>
+                        </div>
+                        <div class = "card-item">
+                            <span class = "item-title">Has run for:</span>
+                            <span id="uptime" class = item-stat></span>
+                        </div>
+                        <div class = "card-item">
+                            <span class = "item-title">Latency:</span>
+                            <span id="latency" class = item-stat></span>
+                        </div>
+                        <div class = "card-item">
+                            <span class = "item-title">Download rate:</span>
+                            <span id="inbound" class = item-stat></span>
+                        </div>
+                        <div class = "card-item">
+                            <span class = "item-title">Upload rate:</span>
+                            <span id="outbound" class = item-stat></span>
+                        </div>
+                        <div style="height: 0.5rem;"></div>
+                    </div>
+                </div>
+                <div class="card log-card" style="display: none">
                     <div class = "card-item log" style="display: none">
                         <img class="manage-img" style="display: inline;" src="res/image/user-check.png">
                         <a class="manage-item" href="login.html">Sign In</a>
@@ -136,15 +137,8 @@
                         <img class="manage-img" style="display: inline;" src="res/image/exit.png">
                         <button id=logOut class="manage-item item-title">Log Out</button>
                     </div>
+                </div>
             </div>
         </div>
-    <div class="dropdown" style="display: none">
-        <button class="dropbtn">Categories</button>
-        <div class="dropdown-content">
-            <a href="//www.runoob.com">1</a>
-            <a href="//www.runoob.com">2</a>
-            <a href="//www.runoob.com">3</a>
-        </div>
-    </div>
 </body>
 </html>
