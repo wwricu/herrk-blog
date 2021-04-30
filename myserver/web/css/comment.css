@@ -86,7 +86,7 @@ hr {
     (w - r) * p = w - 2 * r  -->  r = (1 - p) * w / (2 - p)
     */
     width: 95%;
-    min-width: 30rem;
+    min-width: 35rem;
 }
 .comment-card textarea {
     width: 100%;

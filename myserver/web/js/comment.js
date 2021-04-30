@@ -2,6 +2,8 @@ let mainCommentNum = 0;
 let pageNum = 0;
 let currentPage = 0;
 let commentPerPage = 5;
+let localGuestName = "";
+let localGuestLink = "";
 
 function addCommentsRec(jSelector, subComments) {
     for (let i = 0; i < subComments.length; i++) {
@@ -12,8 +14,9 @@ function addCommentsRec(jSelector, subComments) {
                        <div class=comment-body>" + unescape(subComments[i].body) + "</div> \
                        <hr> \
                        <div id=area-" + subComments[i].commentId + " class='reply-area'> \
-                           <input class=reply-input placeholder='nickname'><input class=reply-input placeholder='your link'> \
-                           <textarea class=reply-text placeholder='say something~'></textarea> \
+                           <input class=reply-input placeholder='nickname' value=" + localGuestName + "> \
+                           <input class=reply-input placeholder='your link' value=" + localGuestLink + "> \
+                           <textarea class=reply-text>Reply @" + subComments[i].nickname + ":</textarea> \
                            <span class='reply-btn'>submit</span><span class='reply-btn'>cancel</span> \
                        </div> \
                    </div>";
@@ -25,16 +28,22 @@ function addCommentsRec(jSelector, subComments) {
             area.show();
         }); // reply
         thisSelector.children(".reply-area").children(".reply-btn").eq(0).click(function() {
+            let guest = {
+                guestName: area.children().eq(0).val(),
+                guestLink: area.children().eq(1).val()
+            };
+            localStorage.setItem("guestInfo", JSON.stringify(guest));
+
             let replyData = {
                 subComments: [{
                     "commentId": 0,
                     "autherId": 0,
                     "articleId": 0,
                     "replyCommentId": comment.commentId,
-                    "nickname": escape(area.children().eq(0).val()),
+                    "nickname": escape(guest.guestName),
                     "avatarLink": "",
                     "email": "",
-                    "website": escape(area.children().eq(1).val()),
+                    "website": escape(guest.guestLink),
                     "body": escape(area.children().eq(2).val()),
                     "createdTime": "",
                     "subComments": []
@@ -48,10 +57,10 @@ function addCommentsRec(jSelector, subComments) {
                     autherId: 0,
                     articleId: 0,
                     replyCommentId: comment.commentId,
-                    nickName: escape(area.children().eq(0).val()),
+                    nickName: escape(guest.guestName),
                     avatarLink: "",
                     email: "",
-                    website: escape(area.children().eq(1).val()),
+                    website: escape(guest.guestLink),
                     body: escape(area.children().eq(2).val())
                 },
                 dataType: 'json',
@@ -95,14 +104,13 @@ function addCommentsRec(jSelector, subComments) {
     }]
 }*/
 function loadComment() {
-    $(".comment-card").remove();
     $.ajax({
         type: 'POST',
         url: 'commentmanager',
         data: {
             action: 'getlatest',
             articleId: 0,
-            index: currentPage * commentPerPage,
+            index: (currentPage - 1) * commentPerPage,
             num: commentPerPage
         },
         dataType: 'json',
@@ -114,6 +122,7 @@ function loadComment() {
             if (result == "failure") {
                 return;
             }
+            $(".comment-card").remove();
             addCommentsRec($("#thin-frame"), result.subComments);
         }
     });
@@ -280,7 +289,7 @@ function configPost() {
                     return;
                 }
                 mainCommentNum++;
-                pageNum = mainCommentNum / 5 + 1;
+                pageNum = Math.floor(mainCommentNum / 5) + 1;
                 configBtns();
                 loadComment();
             }
@@ -303,7 +312,7 @@ function configPages() {
                 return;
             }
             mainCommentNum = result;
-            pageNum = result / 5 + 1;
+            pageNum = Math.floor(mainCommentNum / 5) + 1;
             configPost();
             configBtns();
             loadComment();
@@ -312,5 +321,12 @@ function configPages() {
 }
 
 $(function() {
+    let guestInfo =localStorage.getItem("guestInfo");
+    if (guestInfo != null) {
+        localGuestName =  JSON.parse(guestInfo).guestName;
+        localGuestLink =  JSON.parse(guestInfo).guestLink;
+    }
+    $("#nickname").val(localGuestName);
+    $("#website").val(localGuestLink);
     configPages();
 });

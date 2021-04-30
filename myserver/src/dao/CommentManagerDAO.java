@@ -135,6 +135,7 @@ public class CommentManagerDAO {
 
     public static CommentInfo[] getLatestComments(int start, int num, int articleId,
                                                   int replyCommentId, String order) {
+        Log.Info(start + " " + num);
         if (start < 0) {
             start = 0;
         }
@@ -147,7 +148,7 @@ public class CommentManagerDAO {
         if (order == null ||
                 !order.equals("comment_id") &&
                 !order.equals("create_time")) {
-            order = "created_time";
+            order = "comment_id";
         }
 
         StringBuilder sql_builder = new StringBuilder("SELECT comment_id,")

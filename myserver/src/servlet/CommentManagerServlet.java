@@ -143,7 +143,7 @@ public class CommentManagerServlet extends HttpServlet {
                 }, {
                 }]
             }*/
-            infoArray = CommentManagerDAO.getLatestComments(0, 5, articleId, replyId, "created_time");
+            infoArray = CommentManagerDAO.getLatestComments(index, num, articleId, replyId, "comment_id");
             if (infoArray == null) {
                 response.getWriter().write("failure");
             }
