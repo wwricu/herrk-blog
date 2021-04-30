@@ -25,20 +25,19 @@ function addCommentsRec(jSelector, subComments) {
             area.show();
         }); // reply
         thisSelector.children(".reply-area").children(".reply-btn").eq(0).click(function() {
-            let recData = {
+            let replyData = {
                 subComments: [{
                     "commentId": 0,
                     "autherId": 0,
                     "articleId": 0,
                     "replyCommentId": comment.commentId,
-                    "nickname": area.children().eq(0).val(),
+                    "nickname": escape(area.children().eq(0).val()),
                     "avatarLink": "",
                     "email": "",
-                    "website": area.children().eq(1).val(),
-                    "body": area.children().eq(2).val(),
+                    "website": escape(area.children().eq(1).val()),
+                    "body": escape(area.children().eq(2).val()),
                     "createdTime": "",
-                    "subComments": [
-                    ]
+                    "subComments": []
                 }]
             };
             $.ajax({
@@ -61,8 +60,11 @@ function addCommentsRec(jSelector, subComments) {
                     if (result == "failure") {
                         return;
                     }
-                    data.subComments[0].commentId = result;
-                    addCommentsRec(thisSelector, recData);
+                    replyData.subComments[0].commentId = result.commentId;
+                    area.hide();
+                    // alert(JSON.stringify(replyData));
+                    addCommentsRec(thisSelector, replyData.subComments);
+                    // loadComment();
                 }
             });
         }); // submit
@@ -93,6 +95,7 @@ function addCommentsRec(jSelector, subComments) {
     }]
 }*/
 function loadComment() {
+    $(".comment-card").remove();
     $.ajax({
         type: 'POST',
         url: 'commentmanager',
@@ -273,7 +276,6 @@ function configPost() {
             dataType: 'text',
             async: 'true',
             success: function(result) {
-                alert(result);
                 if (result == "failure") {
                     return;
                 }
