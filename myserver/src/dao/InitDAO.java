@@ -10,5 +10,6 @@ public class InitDAO {
         UserManagerDAO.init();
         ArticleManagerDAO.init();
         ClassManagerDAO.init();
+        CommentManagerDAO.init();
     }
 }

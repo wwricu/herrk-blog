@@ -55,9 +55,9 @@ public class CommentManagerDAO {
                 .append("article_id INT UNSIGNED,")
                 .append("reply_comment_id INT UNSIGNED,")
                 .append("nickname VARCHAR(1024),")
-                .append("avatar_link VARCHAR(1024),")
+                .append("avatar_link TEXT,")
                 .append("email VARCHAR(1024),")
-                .append("website VARCHAR(65535),")
+                .append("website TEXT,")
                 .append("body_md TEXT,")
                 .append("created_time DATE,")
                 .append("ip_address VARCHAR(1024),")
@@ -73,6 +73,7 @@ public class CommentManagerDAO {
 
     public static int createComment(CommentInfo info) {
         if (!validComment(info)) {
+            Log.Error("invalid info");
             return -1;
         }
 
@@ -96,11 +97,14 @@ public class CommentManagerDAO {
 
             int line = stat.executeUpdate();
             if (line == 0) {
+                Log.Error("nothing updated");
                 return -2;
             }
-            ResultSet rs = statement.executeQuery(sql);
+            ResultSet rs = statement.executeQuery(sqlId);
             if (rs.next()) {
                 return rs.getInt(1);
+            } else {
+                Log.Error("did not get comment id");
             }
 
         } catch (SQLException e) {
@@ -115,7 +119,7 @@ public class CommentManagerDAO {
             articleId = 0;
         }
 
-        String sql = "SELECT count(*) FROM comment_table WHERE articleId=?, reply_comment_id=0;";
+        String sql = "SELECT count(*) FROM comment_table WHERE article_id=? and reply_comment_id=0;";
         try (Connection conn = getConnection();
                 PreparedStatement stat = conn.prepareStatement(sql);) {
             stat.setInt(1, articleId);
@@ -152,14 +156,14 @@ public class CommentManagerDAO {
                                     .append("avatar_link,").append("email,")
                                     .append("website,").append("body_md,")
                                     .append("created_time,").append("ip_address ")
-                                    .append("FROM comment_table WHERE article_id=?, reply_comment_id=? ")
+                                    .append("FROM comment_table WHERE article_id=? and reply_comment_id=? ")
                                     .append("ORDER BY ? DESC LIMIT ?, ?;");
         String sql = sql_builder.toString();
 
         try (Connection conn = getConnection();
              PreparedStatement stat = conn.prepareStatement(sql);) {
 
-            int s = 0;
+            int s = 1;
             stat.setInt(s++, articleId);
             stat.setInt(s++, replyCommentId);
             stat.setString(s++, order);
@@ -205,7 +209,7 @@ public class CommentManagerDAO {
             return new CommentInfo[0];
         }
 
-        StringBuilder base = new StringBuilder("SELECT * FROM comment_table WHERE article_id=? ");
+        StringBuilder base = new StringBuilder("SELECT * FROM comment_table WHERE article_id=? and ");
 
         String mode0 = "comment_id=?;";
         String mode1 = "auther_id=?;";

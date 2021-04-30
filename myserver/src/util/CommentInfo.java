@@ -38,16 +38,18 @@ public class CommentInfo {
             .append(",\"replyCommentId\":").append(mReplyCommentId)
             .append(",\"nickname\":\"").append(mNickname)
             .append("\",\"avatarLink\":\"").append(mAvatarLink)
-            .append(",\"email\":\"").append(mEmail)
-            .append(",\"website\":\"").append(mWebsite)
+            .append("\",\"email\":\"").append(mEmail)
+            .append("\",\"website\":\"").append(mWebsite)
             .append("\",\"body\":\"").append(mBodyMD)
             .append("\",\"createdTime\":\"").append(mCreatedTime)
-            .append("\",\"subCommments\":[");
+            .append("\",\"subComments\":[");
 
-            for (int i = 0; i < mSubComments.length; i++) {
-                json.append(mSubComments[i].toJson());
-                if (i != mSubComments.length - 1) {                    
-                    json.append(",");
+            if (mSubComments != null) {
+                for (int i = 0; i < mSubComments.length; i++) {
+                    json.append(mSubComments[i].toJson());
+                    if (i != mSubComments.length - 1) {                    
+                        json.append(",");
+                    }
                 }
             }
 

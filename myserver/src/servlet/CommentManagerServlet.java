@@ -12,7 +12,7 @@ import util.CommentInfo;
 import util.Log;
 
 import java.io.File;
-import java.util.Date;
+import java.sql.Date;
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,25 +46,25 @@ public class CommentManagerServlet extends HttpServlet {
         int replyId = 0;
 
         if (request.getParameter("commentId") != null) {
-            autherId = Integer.parseInt(request.getParameter("commentId"));
+            commentId = Integer.parseInt(request.getParameter("commentId"));
         }
         if (request.getParameter("autherId") != null) {
             autherId = Integer.parseInt(request.getParameter("autherId"));
         }
         if (request.getParameter("articleId") != null) {
-            autherId = Integer.parseInt(request.getParameter("articleId"));
+            articleId = Integer.parseInt(request.getParameter("articleId"));
         }
         if (request.getParameter("replyCommentId") != null) {
             replyCommentId = Integer.parseInt(request.getParameter("replyCommentId"));
         }
         if (request.getParameter("index") != null) {
-            autherId = Integer.parseInt(request.getParameter("index"));
+            index = Integer.parseInt(request.getParameter("index"));
         }
         if (request.getParameter("num") != null) {
-            autherId = Integer.parseInt(request.getParameter("num"));
+            num = Integer.parseInt(request.getParameter("num"));
         }
         if (request.getParameter("replyid") != null) {
-            autherId = Integer.parseInt(request.getParameter("replyid"));
+            replyId = Integer.parseInt(request.getParameter("replyid"));
         }
 
         String nickName = request.getParameter("nickName");
@@ -88,13 +88,15 @@ public class CommentManagerServlet extends HttpServlet {
                 Log.Info("create a comment");
                 info.setValue(0, autherId, articleId, replyCommentId,
                         nickName, avatarLink, website, email, body,
-                        new Date().toString(), "");
+                        new java.sql.Date(System.currentTimeMillis()).toString(), "");
+                Log.Info(info.toJson().toString());
                 if (articleId == 0) {
                     mCommentNumber++;
                 }
                 response.getWriter().write(
                     json.append("\"commentId\":")
                         .append(CommentManagerDAO.createComment(info))
+                        .append("}")
                         .toString());
                 break;
             case "delete":
@@ -135,7 +137,7 @@ public class CommentManagerServlet extends HttpServlet {
                     "website": "xxx",
                     "body": "xxx",
                     "createdTime": "xxx",
-                    subCommments: [
+                    subComments: [
                         {...}, {...}
                     ]
                 }, {
@@ -148,7 +150,7 @@ public class CommentManagerServlet extends HttpServlet {
             for (var comInfo: infoArray) {
                 comInfo.mSubComments = getSubComment(comInfo.mCommentId, comInfo.mArticleId);
             }
-            json.append("\"subCommments\":[");
+            json.append("\"subComments\":[");
             for (int i = 0; i < infoArray.length; i++) {
                 json.append(infoArray[i].toJson());
                 if (i != infoArray.length - 1) {
@@ -176,7 +178,7 @@ public class CommentManagerServlet extends HttpServlet {
                     "website": "xxx",
                     "body": "xxx",
                     "createdTime": "xxx",
-                    subCommments: [
+                    subComments: [
                         {...}, {...}
                     ]
                 }, {

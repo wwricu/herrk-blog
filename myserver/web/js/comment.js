@@ -2,7 +2,6 @@ let mainCommentNum = 0;
 let pageNum = 0;
 let currentPage = 0;
 let commentPerPage = 5;
-let uniqueId = 0;
 
 function addCommentsRec(jSelector, subComments) {
     for (let i = 0; i < subComments.length; i++) {
@@ -75,23 +74,23 @@ function addCommentsRec(jSelector, subComments) {
     }
 }
 /*?action=allcomments
-    {
-        subComments: [{
-            "commentId": 1,
-            "autherId": 11,
-            "articleId": 111,
-            "replyCommentId": 1111,
-            "nickname": "xxx"
-            "avatarLink": "xxx",
-            "email": "xxx",
-            "website": "xxx",
-            "body": "xxx",
-            "createdTime": "xxx",
-            subCommments: [
-                {...}, {...}
-            ]
-        }, {
-        }]
+{
+    subComments: [{
+        "commentId": 1,
+        "autherId": 11,
+        "articleId": 111,
+        "replyCommentId": 1111,
+        "nickname": "xxx",
+        "avatarLink": "xxx",
+        "email": "xxx",
+        "website": "xxx",
+        "body": "xxx",
+        "createdTime": "xxx",
+        "subComments": [
+            {...}, {...}
+        ]
+    }, {
+    }]
 }*/
 function loadComment() {
     $.ajax({
@@ -112,50 +111,6 @@ function loadComment() {
             if (result == "failure") {
                 return;
             }
-            result = {
-                "subComments": [
-                    {
-                        "commentId": 1,
-                        "autherId": 11,
-                        "articleId": 111,
-                        "replyCommentId": 1111,
-                        "nickname": "xxx",
-                        "avatarLink": "xxx",
-                        "email": "xxx",
-                        "website": "xxx",
-                        "body": "xxx",
-                        "createdTime": "xxx",
-                        "subComments": [
-                            {
-                                "commentId": 2,
-                                "autherId": 11,
-                                "articleId": 111,
-                                "replyCommentId": 1111,
-                                "nickname": "xxx",
-                                "avatarLink": "xxx",
-                                "email": "xxx",
-                                "website": "xxx",
-                                "body": "xxx",
-                                "createdTime": "xxx",
-                                "subComments": []
-                            },
-                            {
-                                "commentId": 3,
-                                "autherId": 11,
-                                "articleId": 111,
-                                "replyCommentId": 1111,
-                                "nickname": "xxx",
-                                "avatarLink": "xxx",
-                                "email": "xxx",
-                                "website": "xxx",
-                                "body": "xxx",
-                                "createdTime": "xxx",
-                                "subComments": []
-                            }
-                        ]
-                    }
-                ]
-            };
             addCommentsRec($("#thin-frame"), result.subComments);
         }
     });
@@ -293,6 +248,44 @@ function configBtns() {
     }
 }
 
+function configPost() {
+    // ?action=post&autherId=0&articleId=0&replyCommentId=0&nickName=ww&avatarLink=ww&email=ww&website=ww&body=ww
+    $("#post-comment").click(function() {
+        let nickname = $("#nickname").val();
+        let website = $("#editor-panel").children("textarea").val();
+        if (nickname == null || nickname.length == 0) {
+            nickname = anonymous_user;
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'commentmanager',
+            data: {
+                action: 'post',
+                autherId: 0,
+                articleId: 0,
+                replyCommentId: 0,
+                nickName: escape(nickname),
+                avatarLink: "",
+                email: "",
+                website: "",
+                body: escape(website)
+            },
+            dataType: 'text',
+            async: 'true',
+            success: function(result) {
+                alert(result);
+                if (result == "failure") {
+                    return;
+                }
+                mainCommentNum++;
+                pageNum = mainCommentNum / 5 + 1;
+                configBtns();
+                loadComment();
+            }
+        });
+    });
+}
+
 function configPages() {
     $.ajax({
         type: 'POST',
@@ -307,9 +300,9 @@ function configPages() {
             if (result == "failure") {
                 return;
             }
-            result = 6;
             mainCommentNum = result;
             pageNum = result / 5 + 1;
+            configPost();
             configBtns();
             loadComment();
         }
