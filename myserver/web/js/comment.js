@@ -17,7 +17,9 @@ function addCommentsRec(jSelector, subComments) {
                            <input class=reply-input placeholder='nickname' value=" + localGuestName + "> \
                            <input class=reply-input placeholder='your link' value=" + localGuestLink + "> \
                            <textarea class=reply-text>Reply @" + subComments[i].nickname + ":</textarea> \
-                           <span class='reply-btn'>submit</span><span class='reply-btn'>cancel</span> \
+                           <div style='height: 2rem'> \
+                           <span id=reply-submit class='sub-btn'>submit</span><span id=reply-cancel class='sub-btn'>cancel</span> \
+                           <div> \
                        </div> \
                    </div>";
         jSelector.append(dom);
@@ -27,11 +29,14 @@ function addCommentsRec(jSelector, subComments) {
         thisSelector.children(".reply-btn").eq(0).click(function() {
             area.show();
         }); // reply
-        thisSelector.children(".reply-area").children(".reply-btn").eq(0).click(function() {
+        thisSelector.find(".sub-btn").eq(0).click(function() {
             let guest = {
                 guestName: area.children().eq(0).val(),
                 guestLink: area.children().eq(1).val()
             };
+            if (guest.guestName == null || guest.guestName.length == 0) {
+                guest.guestName = "default user";
+            }
             localStorage.setItem("guestInfo", JSON.stringify(guest));
 
             let replyData = {
@@ -77,7 +82,7 @@ function addCommentsRec(jSelector, subComments) {
                 }
             });
         }); // submit
-        thisSelector.children(".reply-area").children(".reply-btn").eq(1).click(function() {
+        thisSelector.find(".sub-btn").eq(1).click(function() {
             area.hide();
         }); // cancel
 

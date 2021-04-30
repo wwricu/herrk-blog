@@ -76,8 +76,7 @@ hr {
 }
 .comment-card {
     position: relative;
-    margin: 2rem 0 0 auto;
-    padding: 1rem 0;
+    margin: 1.5rem 0 0 auto;
     font-family: sans-serif;
     /*
     when set the width or height to a specific percentage,
@@ -100,14 +99,39 @@ hr {
     font-size: 1rem;
     color: #666666;
 }
+.comment-card:hover .reply-btn {
+    color: whitesmoke;
+    background: #00cccc;
+}
 .reply-btn {
     float: right;
+    height: 2rem;
+    width: 5rem;
+    text-align: center;
+    line-height: 2rem;
+    margin: 0.5rem 0.5rem;
+    font-size: 1.5rem;
+    color: transparent;
+    background: transparent;
+    border-radius: 0.3rem;
+    cursor: pointer;
+}
+.reply-btn:hover {
+    color: whitesmoke;
+    background: #00cccc;
+}
+.sub-btn {
+    float: right;
     height: 1.5rem;
+    width: 4rem;
+    text-align: center;
+    line-height: 1.5rem;
     margin: 0.5rem 0.5rem;
     font-size: 1rem;
     color: whitesmoke;
     background: #00cccc;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
 }
 .website {
     font-size: 1rem;
@@ -141,8 +165,10 @@ hr {
     height: 1.5rem;
     width: 6rem;
     margin: 0 1rem;
+    cursor: pointer;
 }
 .page-btn, .dot-btn {
+    cursor: pointer;
     display: none;
     height: 1.5rem;
     width: 2rem;
