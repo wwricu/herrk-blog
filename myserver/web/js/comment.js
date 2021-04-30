@@ -178,21 +178,24 @@ function configBtns() {
 
     switch (decider) {
         case 6:
+            /* use .css("display", "inline-block") instead of .show()
+                to set specified width and height of this.
+             */
             if (currentPage > 4) {
-                dot1.show();
+                dot1.css("display", "inline-block");
             }
             if (currentPage < pageNum - 3) {
-                dot2.show();
+                dot2.css("display", "inline-block");
             }
         case 5:
-            btn5.show();
+            btn5.css("display", "inline-block");
             btn5.html(pageNum);
             btn5.click(function() {
                 currentPage = pageNum;
                 loadComment();
             });
         case 4:
-            btn4.show();
+            btn4.css("display", "inline-block");
             if (currentPage <= 4) {
                 btn4.html("4");
                 dot1.hide();
@@ -215,7 +218,7 @@ function configBtns() {
                 });
             }
         case 3:
-            btn3.show();
+            btn3.css("display", "inline-block");
             if (currentPage <= 4) {
                 btn3.html("3");
                 btn3.click(function() {
@@ -233,7 +236,7 @@ function configBtns() {
                 // current page itself, nothing will happen
             }
         case 2:
-            btn2.show();
+            btn2.css("display", "inline-block");
             if (currentPage <= 4) {
                 btn2.html("2");
                 btn2.click(function() {
@@ -254,7 +257,7 @@ function configBtns() {
                 });
             }
         case 1:
-            btn1.show();
+            btn1.css("display", "inline-block");
             btn1.html("1");
             btn1.click(function() {
                 currentPage = 0;

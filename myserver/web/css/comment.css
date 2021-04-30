@@ -15,7 +15,8 @@ body {
     min-height: 120%;
     width: 60rem;
     border-radius: 0px;
-    background: rgba(245, 245, 245, 0.9);
+    background: rgba(250, 251, 241, 0.9);
+    /*background: rgba(245, 245, 245, 0.9);*/
 }
 #thin-frame {
     position: relative;
@@ -59,21 +60,31 @@ body {
 hr {
     border: none;
     border-bottom:1px solid #aaaaaa;
-    margin: 2rem 0 1rem 0;
+    margin: 1rem 0 1rem 0;
     height: 2px;
     width: 100%;
 }
 .comment-submit {
     /* top, right, bottom, left*/
-    margin: 0 0 1rem 50rem;
-    height: 2rem;
-    width: 5rem;
-    text-align: center;
+    margin: 1rem 0 0rem 49rem;
     line-height: 2rem;
+    height: 2rem;
+    width: 6rem;
+    text-align: center;
     font-size: 1.2rem;
-    background: #00cccc;
+    color: whitesmoke;
+    background: #03a9f4;
     border-radius: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    cursor: pointer;
 }
+.comment-submit:hover {
+    background: #00cccc;
+    color: black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 .comment-card {
     position: relative;
     margin: 1.5rem 0 0 auto;
@@ -100,23 +111,24 @@ hr {
     color: #666666;
 }
 .comment-card:hover .reply-btn {
-    color: whitesmoke;
+    color: black;
     background: #00cccc;
 }
 .reply-btn {
     float: right;
     height: 2rem;
-    width: 5rem;
+    width: 4rem;
     text-align: center;
     line-height: 2rem;
     margin: 0.5rem 0.5rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: transparent;
     background: transparent;
     border-radius: 0.3rem;
     cursor: pointer;
 }
 .reply-btn:hover {
+    display: inline-block;
     color: whitesmoke;
     background: #00cccc;
 }
@@ -129,9 +141,15 @@ hr {
     margin: 0.5rem 0.5rem;
     font-size: 1rem;
     color: whitesmoke;
-    background: #00cccc;
-    border-radius: 0.3rem;
+    background: #03a9f4;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
     cursor: pointer;
+}
+.sub-btn:hover {
+    color: black;
+    background: #00cccc;
 }
 .website {
     font-size: 1rem;
@@ -162,17 +180,39 @@ hr {
     text-align: center;
 }
 .prev-next {
+    display: inline-block;
     height: 1.5rem;
-    width: 6rem;
+    width: 4rem;
     margin: 0 1rem;
+    color: whitesmoke;
+    background: #03a9f4;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
     cursor: pointer;
 }
 .page-btn, .dot-btn {
-    cursor: pointer;
     display: none;
     height: 1.5rem;
-    width: 2rem;
+    width: 1.5rem;
+    min-width: max-content;
     margin: 0 0.5rem;
+    color: whitesmoke;
+    background: #03a9f4;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    cursor: pointer;
+}
+.page-btn:hover {
+    color: black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background: #00cccc;
+}
+.prev-next:hover {
+    color: black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background: #00cccc;
 }
 .reply-input {
     margin: 0.5rem 0.5rem;
