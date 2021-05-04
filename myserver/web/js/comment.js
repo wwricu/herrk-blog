@@ -109,7 +109,7 @@ function addCommentsRec(jSelector, subComments) {
     }]
 }*/
 function loadComment() {
-    // alert("page " + currentPage);
+    alert("page " + currentPage);
     $(".page-btn").css("color", "whitesmoke")
                   .css("background", "#03a9f4");
     $.ajax({
@@ -132,11 +132,22 @@ function loadComment() {
             }
             $(".comment-card").remove();
             addCommentsRec($("#thin-frame"), result.subComments);
-            $("#page-btn-frame").children(".page-btn").eq(currentPage - 1)
+
+            let currentBtn = 1;
+            if (currentPage <= 4) {
+                currentBtn = currentPage - 1;
+            } else if (pageNum - currentPage <= 4) {
+                currentBtn = 4 - (pageNum - currentPage);
+            } else {
+                currentBtn = 3;
+            }
+
+            $("#page-btn-frame").children(".page-btn").eq(currentBtn)
                 .css("color", "black")
                 .css("background", "#00CCCC");
         }
     });
+    configBtns();
 }
 
 /*
@@ -153,6 +164,9 @@ function loadComment() {
  *       1    ...  c-1  c   c+1   ...  f
  */
 function configBtns() {
+    $("#prev-page").unbind("click");
+    $("#next-page").unbind("click");
+
     $("#prev-page").click(function() {
         if (currentPage == 1) {
             return;
@@ -190,11 +204,13 @@ function configBtns() {
             if (currentPage > 4) {
                 dot1.css("display", "inline-block");
             }
-            if (currentPage < pageNum - 3) {
+            if (currentPage < pageNum - 3 ||
+                    (currentPage < 5 && pageNum > 5)) {
                 dot2.css("display", "inline-block");
             }
         case 5:
             btn5.css("display", "inline-block");
+            btn5.unbind("click");
             btn5.html(pageNum);
             btn5.click(function() {
                 currentPage = pageNum;
@@ -202,6 +218,7 @@ function configBtns() {
             });
         case 4:
             btn4.css("display", "inline-block");
+            btn4.unbind("click");
             if (currentPage <= 4) {
                 btn4.html("4");
                 dot1.hide();
@@ -225,6 +242,7 @@ function configBtns() {
             }
         case 3:
             btn3.css("display", "inline-block");
+            btn3.unbind("click");
             if (currentPage <= 4) {
                 btn3.html("3");
                 btn3.click(function() {
@@ -243,6 +261,7 @@ function configBtns() {
             }
         case 2:
             btn2.css("display", "inline-block");
+            btn2.unbind("click");
             if (currentPage <= 4) {
                 btn2.html("2");
                 btn2.click(function() {
@@ -264,6 +283,7 @@ function configBtns() {
             }
         case 1:
             btn1.css("display", "inline-block");
+            btn1.unbind("click");
             btn1.html("1");
             btn1.click(function() {
                 currentPage = 1;
@@ -305,7 +325,7 @@ function configPost() {
                 }
                 mainCommentNum++;
                 pageNum = Math.floor(mainCommentNum / 5) + 1;
-                configBtns();
+                // configBtns();
                 loadComment();
                 $("#editor-panel").children("textarea").val("");
                 alert("commented successfully");
@@ -334,7 +354,7 @@ function configPages() {
                 pageNum--;
             }
             configPost();
-            configBtns();
+            // configBtns();
             loadComment();
         }
     });
