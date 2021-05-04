@@ -148,17 +148,17 @@ function loadComment() {
  */
 function configBtns() {
     $("#prev-page").click(function() {
-        if (currentPage == 0) {
-            return;
-        }
-        currentPage++;
-        loadComment();
-    });
-    $("#next-page").click(function() {
-        if (currentPage == pageNum - 1) {
+        if (currentPage == 1) {
             return;
         }
         currentPage--;
+        loadComment();
+    });
+    $("#next-page").click(function() {
+        if (currentPage == pageNum) {
+            return;
+        }
+        currentPage++;
         loadComment();
     });
 
