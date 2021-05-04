@@ -109,7 +109,6 @@ function addCommentsRec(jSelector, subComments) {
     }]
 }*/
 function loadComment() {
-    alert("page " + currentPage);
     $(".page-btn").css("color", "whitesmoke")
                   .css("background", "#03a9f4");
     $.ajax({
