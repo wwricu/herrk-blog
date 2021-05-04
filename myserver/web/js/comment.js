@@ -1,6 +1,6 @@
 let mainCommentNum = 0;
 let pageNum = 0;
-let currentPage = 0;
+let currentPage = 1;
 let commentPerPage = 5;
 let localGuestName = "";
 let localGuestLink = "";
@@ -34,6 +34,7 @@ function addCommentsRec(jSelector, subComments) {
                 guestName: area.children().eq(0).val(),
                 guestLink: area.children().eq(1).val()
             };
+            alert(guest.guestLink);
             if (guest.guestName == null || guest.guestName.length == 0) {
                 guest.guestName = "default user";
             }
@@ -109,6 +110,8 @@ function addCommentsRec(jSelector, subComments) {
     }]
 }*/
 function loadComment() {
+    $(".page-btn").css("color", "whitesmoke")
+                  .css("background", "#03a9f4");
     $.ajax({
         type: 'POST',
         url: 'commentmanager',
@@ -129,6 +132,9 @@ function loadComment() {
             }
             $(".comment-card").remove();
             addCommentsRec($("#thin-frame"), result.subComments);
+            $("#page-btn-frame").children(".page-btn").eq(currentPage - 1)
+                .css("color", "black")
+                .css("background", "#00CCCC");
         }
     });
 }
@@ -272,7 +278,8 @@ function configPost() {
     // ?action=post&autherId=0&articleId=0&replyCommentId=0&nickName=ww&avatarLink=ww&email=ww&website=ww&body=ww
     $("#post-comment").click(function() {
         let nickname = $("#nickname").val();
-        let website = $("#editor-panel").children("textarea").val();
+        let website = $("#website").val();
+        let body = $("#editor-panel").children("textarea").val();
         if (nickname == null || nickname.length == 0) {
             nickname = anonymous_user;
         }
@@ -287,8 +294,8 @@ function configPost() {
                 nickName: escape(nickname),
                 avatarLink: "",
                 email: "",
-                website: "",
-                body: escape(website)
+                website: escape(website),
+                body: escape(body)
             },
             dataType: 'text',
             async: 'true',
