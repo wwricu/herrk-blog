@@ -300,6 +300,8 @@ function configPost() {
                 pageNum = Math.floor(mainCommentNum / 5) + 1;
                 configBtns();
                 loadComment();
+                $("#editor-panel").children("textarea").val("");
+                alert("commented successfully");
             }
         });
     });
