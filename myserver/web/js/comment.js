@@ -34,7 +34,6 @@ function addCommentsRec(jSelector, subComments) {
                 guestName: area.children().eq(0).val(),
                 guestLink: area.children().eq(1).val()
             };
-            alert(guest.guestLink);
             if (guest.guestName == null || guest.guestName.length == 0) {
                 guest.guestName = "default user";
             }
@@ -110,6 +109,7 @@ function addCommentsRec(jSelector, subComments) {
     }]
 }*/
 function loadComment() {
+    // alert("page " + currentPage);
     $(".page-btn").css("color", "whitesmoke")
                   .css("background", "#03a9f4");
     $.ajax({
@@ -266,7 +266,7 @@ function configBtns() {
             btn1.css("display", "inline-block");
             btn1.html("1");
             btn1.click(function() {
-                currentPage = 0;
+                currentPage = 1;
                 loadComment();
             });
         default:
@@ -281,7 +281,7 @@ function configPost() {
         let website = $("#website").val();
         let body = $("#editor-panel").children("textarea").val();
         if (nickname == null || nickname.length == 0) {
-            nickname = anonymous_user;
+            nickname = "default user";
         }
         $.ajax({
             type: 'POST',
@@ -330,6 +330,9 @@ function configPages() {
             }
             mainCommentNum = result;
             pageNum = Math.floor(mainCommentNum / 5) + 1;
+            if (mainCommentNum % 5 == 0) {
+                pageNum--;
+            }
             configPost();
             configBtns();
             loadComment();

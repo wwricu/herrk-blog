@@ -87,7 +87,7 @@ public class CommentManagerServlet extends HttpServlet {
                 }*/
                 Log.Info("create a comment");
                 info.setValue(0, autherId, articleId, replyCommentId,
-                        nickName, avatarLink, website, email, body,
+                        nickName, avatarLink, email, website, body,
                         new java.sql.Date(System.currentTimeMillis()).toString(), "");
                 Log.Info(info.toJson().toString());
                 if (articleId == 0) {
