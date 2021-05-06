@@ -135,7 +135,7 @@ public class CommentManagerDAO {
 
     public static CommentInfo[] getLatestComments(int start, int num, int articleId,
                                                   int replyCommentId, String order) {
-        Log.Info(start + " " + num);
+        Log.Verbose(start + " " + num);
         if (start < 0) {
             start = 0;
         }

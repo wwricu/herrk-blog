@@ -286,15 +286,15 @@ public class ArticleManagerDAO {
 
         if (null == info.mTitle ||
                 info.mTitle.length() == 0 ||
-                info.mTitle.length() > 512) {
+                info.mTitle.length() > 1024) {
             Log.Error("title is " + info.mTitle);
-            return false;
+            info.mTitle = info.mTitle.substring(1024);
         }
 
         if (null != info.mSummary) {
-            if (info.mSummary.length() > 512) {
+            if (info.mSummary.length() > 2048) {
                 Log.Error("summary length is " + info.mSummary.length());
-                return false;
+                info.mSummary = info.mSummary.substring(2048);
             }
         }
 

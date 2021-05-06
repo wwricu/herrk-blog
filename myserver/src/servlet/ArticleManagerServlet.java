@@ -20,7 +20,7 @@ public class ArticleManagerServlet extends HttpServlet {
 
     public void init() throws ServletException {
         super.init();
-        Log.Info("start Article Servlet");
+        Log.Verbose("start Article Servlet");
 
         mArticleNumber = NumberCountDAO.getArticleCount();
         Log.Info("ArticleManagerServlet.init() article number = " + mArticleNumber);

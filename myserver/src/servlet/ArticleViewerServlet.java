@@ -44,7 +44,7 @@ public class ArticleViewerServlet extends HttpServlet {
         String order = request.getParameter("order");
         String articleId = request.getParameter("articleId");
         String classId = request.getParameter("classId");
-        Log.Info("action is " + action);
+        Log.Verbose("action is " + action);
 
         StringBuilder json = new StringBuilder("{");
         response.setContentType("text/plain");

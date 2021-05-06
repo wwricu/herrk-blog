@@ -27,7 +27,6 @@ public class TestApiServlet extends HttpServlet {
                 // response.sendRedirect("/");
                 break;
             case "logtest":
-                Log.Info("1111");
                 break;
             default:
                 break;
