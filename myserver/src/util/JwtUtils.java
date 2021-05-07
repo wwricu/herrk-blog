@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtUtils {
 
 
-    public static final long EXPIRE = 1000 * 60 * 60 * 24 * 1;  //Expire time, millisecond, 1day
+    public static final long EXPIRE = 1000 * 60 * 60 * 24 * 7;  //Expire time, millisecond, 7days
     public static final String SECRET = "SHENGTONG";
     public static final String ISSUER = "WANG.WEI.RAN@OUTLOOK.COM";
     public static final String SUBJECT = "Token for wangweiran.space";
