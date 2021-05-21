@@ -71,6 +71,7 @@ function updateArticle() {
                 $("#submit").unbind("click");
                 bindUpdate(articleId);
             }
+            $("#class-select").val(receive.class_id);
             if (receive.title != null) {
                 $("#title").val(unescape(receive.title));
             }
@@ -165,14 +166,33 @@ function bindPost() {
 $(function() {
     editor = editormd("editor", {
         // placeholder: "",
-        width  : "100%",
-        height : "94%",
-        syncScrolling : "single",
-        path   : "res/editormd/lib/",
-        onload : function() {
+        width: "100%",
+        autoHeight: true,
+        syncScrolling: "single",
+        path: "res/editormd/lib/",
+        onload: function() {
             bindPost();
             updateArticle();
-        }
+        },
+
+        tabSize              : 8,
+        indentUnit           : 8,
+        lineNumbers          : true,
+        lineWrapping         : true,
+        autoCloseBrackets    : true,
+        showTrailingSpace    : true,
+        matchBrackets        : true,
+        indentWithTabs       : false,
+        styleSelectedText    : true,
+
+        toolbarAutoFixed: true,
+        codeFold: true,
+        emoji: true,
+        taskList: true,
+        tocm: true,
+        tex: true,
+        flowChart: true,
+        sequenceDiagram: true,
     });
     getClasses();
 });

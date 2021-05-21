@@ -43,7 +43,7 @@ function renderArticle(articleId) {
             $("#time").text("Created at " + receive.create_time
                 + " Last modified at " + receive.last_modify_time);
 
-            let testEditor = editormd.markdownToHTML("content", {
+            editormd.markdownToHTML("content", {
                 markdown: unescape(receive.bodyMD)
             });
         }

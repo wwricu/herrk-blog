@@ -1,0 +1,45 @@
+.markdown-body pre code {
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+    font: 1rem/1.4 Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre {
+    font: 17px/1.4 Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.markdown-body h1 {
+    font-size: 48px;
+}
+.markdown-body h2 {
+    font-size: 32px;
+}
+.markdown-body h3 {
+    font-size: 24px;
+}
+.markdown-body h4 {
+    font-size: 20px;
+}
+.markdown-body h5 {
+    font-size: 14px;
+}
+.markdown-body h6 {
+    font-size: 12px;
+}
+
+.CodeMirror * {
+    font-size: 17px;
+}
