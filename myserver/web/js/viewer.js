@@ -41,7 +41,7 @@ function renderArticle(articleId) {
             $("#title").text(unescape(receive.title));
             $("#className").text(receive.class_name);
             $("#time").text("Created at " + receive.create_time
-                + " Last modified at " + receive.last_modify_time);
+                + " | Last modified at " + receive.last_modify_time);
 
             editormd.markdownToHTML("content", {
                 markdown: unescape(receive.bodyMD)

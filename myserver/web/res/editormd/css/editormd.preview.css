@@ -3135,7 +3135,7 @@
   background: #ffffdd;
 }
 .editormd-preview-container hr, .editormd-html-preview hr {
-  height: 1px;
+  height: 3px;
   border: none;
   border-top: 1px solid #ddd;
   background: none;

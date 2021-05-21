@@ -1,3 +1,10 @@
+.editormd-preview-container hr, .editormd-html-preview hr {
+    height: 3px;
+    border: none;
+    border-top: 1px solid #888888;
+    background: none;
+}
+
 .markdown-body pre code {
     display: inline;
     max-width: initial;

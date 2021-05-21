@@ -143,19 +143,19 @@ public class ArticleManagerDAO {
             // specify 0 as classId to search default classes and minus to search all.
             sql_builder.append("WHERE class_id=? ");
         }
-        sql_builder.append("ORDER BY ? DESC LIMIT ?, ?;");
-        String sql = sql_builder.toString();
+        sql_builder.append("ORDER BY ").append(order).append(" DESC LIMIT ?, ?;");
 
         try (Connection conn = getConnection();
-                PreparedStatement stat = conn.prepareStatement(sql);) {
+                PreparedStatement stat = conn.prepareStatement(sql_builder.toString());) {
 
             int s = 1;
             if (classId >= 0) {
                 stat.setInt(s++, classId);
             }
-            stat.setString(s++, order);
             stat.setInt(s++, start);
             stat.setInt(s++, num);
+
+            // Log.Info(stat.toString());
 
             int count = 0;
             ResultSet rs = stat.executeQuery();

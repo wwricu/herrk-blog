@@ -104,7 +104,7 @@ public class UserManagerServlet extends HttpServlet {
                 session.setAttribute("userName", info.mUserName);
                 session.setAttribute("userGroup", info.mGroup);
                 session.setAttribute("status", "login");
-                Log.Info(session.getId());
+
                 json.append("\"userId\":\"").append(info.mUserId) // int
                     .append("\",\"userName\":\"").append(info.mUserName) // string
                     .append("\",\"userGroup\":").append(info.mGroup) // int
