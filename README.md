@@ -1,3 +1,7 @@
+This repo is archived on 2024/06/21
+
+I was finally a real developer after five years, thank you very much.
+
 # A Simple Blog for Myself!
 
 ## Specialization
